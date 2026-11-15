@@ -195,7 +195,7 @@
                             </Grid>
                         </StackPanel>
                     </Border></StackPanel></ScrollViewer></TabItem>
-<TabItem Header="레이아웃"><ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="8,4"><StackPanel MaxWidth="1040" HorizontalAlignment="Left"><Border x:Name="WorkspaceSection" Style="{StaticResource SurfaceCard}" Padding="20" Margin="0,0,0,16">
+<TabItem Header="레이아웃"><ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="8,4"><StackPanel MaxWidth="1040" HorizontalAlignment="Stretch"><Border x:Name="WorkspaceSection" Style="{StaticResource SurfaceCard}" Padding="20" Margin="0,0,0,16">
                         <StackPanel>
                             <TextBlock Text="작업 공간 구성" Style="{StaticResource SectionTitle}" />
                             <TextBlock Text="탐색, 화면 제목, 본문, 상태 표시줄을 조합한 데스크톱 작업 화면" Style="{StaticResource SupportingText}" Margin="0,4,0,14" />
