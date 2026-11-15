@@ -207,6 +207,51 @@
         </Setter>
     </Style>
 
+    <Style TargetType="RadioButton">
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="Padding" Value="4" />
+        <Setter Property="MinHeight" Value="{DynamicResource TouchTargetHeight}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Grid Background="Transparent" SnapsToDevicePixels="True">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="20"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                        <Ellipse x:Name="RadioSurface" Width="16" Height="16" Fill="{DynamicResource SurfaceRaisedBrush}"
+                                 Stroke="{DynamicResource StrokeBrush}" StrokeThickness="1" VerticalAlignment="Center" />
+                        <Ellipse x:Name="RadioDot" Width="8" Height="8" Fill="{DynamicResource AccentBrush}"
+                                 Visibility="Collapsed" VerticalAlignment="Center" />
+                        <ContentPresenter Grid.Column="1" Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}" RecognizesAccessKey="True"
+                                          VerticalAlignment="Center" Margin="5,0,0,0" />
+                        <Border x:Name="FocusRing" Grid.ColumnSpan="2" BorderBrush="{DynamicResource FocusBrush}"
+                                BorderThickness="1" CornerRadius="3" Visibility="Collapsed" IsHitTestVisible="False" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RadioSurface" Property="Fill" Value="{DynamicResource SurfaceHoverBrush}" />
+                            <Setter TargetName="RadioSurface" Property="Stroke" Value="{DynamicResource AccentHoverBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="RadioSurface" Property="Fill" Value="{DynamicResource StrokeBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="RadioSurface" Property="Stroke" Value="{DynamicResource AccentBrush}" />
+                            <Setter TargetName="RadioDot" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="FocusRing" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource TextDisabledBrush}" />
+                            <Setter TargetName="RadioSurface" Property="Opacity" Value="0.55" />
+                            <Setter TargetName="RadioDot" Property="Opacity" Value="0.55" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="ScrollBar">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Width" Value="12" />
