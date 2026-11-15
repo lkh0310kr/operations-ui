@@ -195,6 +195,16 @@
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>
+                            <TextBlock Text="데이터 영역 상태" Style="{StaticResource CardTitle}" Margin="0,16,0,8" />
+                            <UniformGrid Columns="3">
+                                <ui:DataStatePanel State="Loading" Title="목록을 불러오는 중" Message="새 데이터를 확인하고 있습니다." Height="200" Margin="0,0,8,0" />
+                                <ui:DataStatePanel State="Empty" Title="조건에 맞는 항목이 없습니다" Message="검색 조건을 바꾸거나 필터를 초기화하세요." Height="200" Margin="4,0" />
+                                <ui:DataStatePanel x:Name="RetryStatePanel" State="Error" Title="목록을 불러오지 못했습니다" Message="연결 상태를 확인한 뒤 다시 시도하세요." Height="200" Margin="8,0,0,0">
+                                    <ui:DataStatePanel.ActionContent>
+                                        <Button Content="다시 시도" Click="RetryData_Click" MinHeight="36" Padding="12,5" />
+                                    </ui:DataStatePanel.ActionContent>
+                                </ui:DataStatePanel>
+                            </UniformGrid>
                         </StackPanel>
                     </Border></StackPanel></ScrollViewer></TabItem>
 <TabItem Header="레이아웃"><ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="8,4"><StackPanel MaxWidth="1040" HorizontalAlignment="Stretch"><Border x:Name="WorkspaceSection" Style="{StaticResource SurfaceCard}" Padding="20" Margin="0,0,0,16">

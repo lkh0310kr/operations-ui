@@ -108,7 +108,9 @@ TextBox, ComboBox, CheckBox, RadioButton은 각각의 포커스, 비활성, 선�
 
 ### 지표, 목록, 표
 
-`MetricTile`은 `Label`, `Value`, `Unit`, `Context`, `State`, `StateMessage`를 받는다. `State`는 `Value`, `Loading`, `Empty`, `Error` 중 하나다. 값의 반올림과 단위 변환은 데이터 계층에서 끝내고 타일에는 표시 문자열을 전달한다. 지표는 값, 단위, 기준 또는 변화 방향을 함께 보여준다. 목록·표의 선택은 `SelectionBrush`를 사용하며 목록 항목, 표 헤더, 행, 셀의 키보드 포커스를 표시한다. 빈 결과·로딩·오류 패턴과 정렬 동작은 아직 제품 공통 API로 추출되지 않았으므로 소비 화면에서 확인한다.
+`MetricTile`은 `Label`, `Value`, `Unit`, `Context`, `State`, `StateMessage`를 받는다. `State`는 `Value`, `Loading`, `Empty`, `Error` 중 하나다. 값의 반올림과 단위 변환은 데이터 계층에서 끝내고 타일에는 표시 문자열을 전달한다. 지표는 값, 단위, 기준 또는 변화 방향을 함께 보여준다. 목록·표의 선택은 `SelectionBrush`를 사용하며 목록 항목, 표 헤더, 행, 셀의 키보드 포커스를 표시한다. 데이터 영역의 로딩·빈 결과·오류는 `DataStatePanel`로 통일한다. 정렬 동작은 소비 화면의 데이터 모델과 연결해 검증한다.
+
+`DataStatePanel`은 데이터 영역 전체의 `Loading`, `Empty`, `Error` 상태를 제목과 설명으로 알린다. `ActionContent`에 다시 시도 버튼 등 실제 조작 컨트롤을 전달할 수 있다. 빈 결과에는 조건 변경 방법을, 오류에는 복구 동작을 함께 제공한다.
 
 ### 레이아웃과 대화상자
 
@@ -125,5 +127,5 @@ TextBox, ComboBox, CheckBox, RadioButton은 각각의 포커스, 비활성, 선�
 1. 입력의 개별 상태와 필드 오류 연결 동작을 더 넓은 사례로 검증한다.
 2. 링크, 검색, 숫자 및 날짜 입력 패턴을 추가한다.
 3. Toast와 대화상자의 포커스 복귀, Escape, 키보드 동작을 실제 실행 환경에서 확인한다.
-4. 표의 선택·정렬·빈 결과 및 로딩·오류 상태를 구체적인 샘플로 확장한다.
+4. `DataStatePanel`의 실제 데이터 연결과 표 정렬 동작을 소비 화면에서 확인한다.
 5. 고대비 설정, 실제 DPI 배율, 제품별 사용자 검토를 확인한다.

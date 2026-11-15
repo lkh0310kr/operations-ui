@@ -380,6 +380,41 @@
         <Setter Property="BorderThickness" Value="0,0,0,1" />
     </Style>
 
+    <Style TargetType="controls:DataStatePanel">
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:DataStatePanel">
+                    <Border Background="{DynamicResource SurfaceRaisedBrush}" BorderBrush="{DynamicResource StrokeBrush}"
+                            BorderThickness="1" CornerRadius="{DynamicResource RadiusSurface}" Padding="20">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="440">
+                            <ProgressBar x:Name="LoadingIndicator" IsIndeterminate="True" Height="4" Width="64"
+                                         HorizontalAlignment="Center" Background="{DynamicResource SurfaceBrush}"
+                                         Foreground="{DynamicResource AccentBrush}" BorderThickness="0" Visibility="Collapsed" />
+                            <TextBlock x:Name="StateGlyph" Text="○" FontSize="24" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource TextSecondaryBrush}" HorizontalAlignment="Center" />
+                            <TextBlock Text="{TemplateBinding Title}" FontSize="{DynamicResource FontCardTitle}" FontWeight="SemiBold"
+                                       TextAlignment="Center" TextWrapping="Wrap" Margin="0,8,0,0" />
+                            <TextBlock Text="{TemplateBinding Message}" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextAlignment="Center" TextWrapping="Wrap" Margin="0,4,0,0" />
+                            <ContentPresenter Content="{TemplateBinding ActionContent}" HorizontalAlignment="Center" Margin="0,12,0,0" />
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="State" Value="{x:Static controls:DataStateKind.Loading}">
+                            <Setter TargetName="LoadingIndicator" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="StateGlyph" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="State" Value="{x:Static controls:DataStateKind.Error}">
+                            <Setter TargetName="StateGlyph" Property="Text" Value="!" />
+                            <Setter TargetName="StateGlyph" Property="Foreground" Value="{DynamicResource DangerBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="controls:WorkspaceShell">
         <Setter Property="Background" Value="{DynamicResource CanvasBrush}" />
         <Setter Property="Template">
