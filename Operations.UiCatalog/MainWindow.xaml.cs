@@ -99,6 +99,15 @@ public partial class MainWindow : Window
                     Keyboard.Focus(FocusPreviewRadio);
                     await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
                     await SaveSnapshotAsync(Path.Combine(outputDirectory, "04-inputs-radio-focus.png"));
+
+                    FocusPreviewSwitch.Focus();
+                    Keyboard.Focus(FocusPreviewSwitch);
+                    await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
+                    await SaveSnapshotAsync(Path.Combine(outputDirectory, "04-inputs-switch-focus.png"));
+
+                    InputScrollViewer.ScrollToEnd();
+                    await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
+                    await SaveSnapshotAsync(Path.Combine(outputDirectory, "04-inputs-toggle-states.png"));
                 }
             }
 

@@ -238,6 +238,52 @@
         </Setter>
     </Style>
 
+    <Style TargetType="controls:OperationSwitch">
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="MinHeight" Value="{DynamicResource TouchTargetHeight}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:OperationSwitch">
+                    <Grid Background="Transparent" SnapsToDevicePixels="True">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="44"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                        <Border x:Name="SwitchTrack" Width="40" Height="22" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                Background="{DynamicResource SurfaceRaisedBrush}" BorderBrush="{DynamicResource StrokeBrush}"
+                                BorderThickness="1" CornerRadius="{DynamicResource RadiusPill}" />
+                        <Ellipse x:Name="SwitchThumb" Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Margin="4,0,0,0" Fill="{DynamicResource TextPrimaryBrush}" />
+                        <ContentPresenter Grid.Column="1" ContentSource="Content" VerticalAlignment="Center" Margin="8,0,0,0"
+                                          RecognizesAccessKey="True" />
+                        <Border x:Name="FocusRing" Grid.ColumnSpan="2" BorderBrush="{DynamicResource FocusBrush}"
+                                BorderThickness="{DynamicResource FocusBorderThickness}" CornerRadius="{DynamicResource RadiusControl}"
+                                Visibility="Collapsed" IsHitTestVisible="False" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="SwitchTrack" Property="BorderBrush" Value="{DynamicResource AccentHoverBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="SwitchTrack" Property="Background" Value="{DynamicResource StrokeBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="SwitchTrack" Property="Background" Value="{DynamicResource AccentBrush}" />
+                            <Setter TargetName="SwitchTrack" Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+                            <Setter TargetName="SwitchThumb" Property="HorizontalAlignment" Value="Right" />
+                            <Setter TargetName="SwitchThumb" Property="Margin" Value="0,0,4,0" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="FocusRing" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource TextDisabledBrush}" />
+                            <Setter TargetName="SwitchTrack" Property="Opacity" Value="0.55" />
+                            <Setter TargetName="SwitchThumb" Property="Opacity" Value="0.55" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="controls:StatusBadge">
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
         <Setter Property="FontSize" Value="{DynamicResource FontCaption}" />

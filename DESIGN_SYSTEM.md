@@ -83,6 +83,8 @@
 
 TextBox, ComboBox, CheckBox, RadioButton은 각각의 포커스, 비활성, 선택 상태를 확인한다. 날짜·시간, 검색, 숫자 범위 등 도메인 입력은 실제 사용 사례를 확인한 뒤 별도 구성 요소로 추가한다.
 
+`OperationSwitch`는 `ToggleButton`의 `IsChecked`와 `Content`를 유지하는 on/off 입력이다. `Space`로 전환하고, 설정이 바뀌는 즉시 반영되는 옵션에 사용한다. 저장·실행처럼 별도 확인이 필요한 동작을 스위치 모양으로 표현하지 않는다.
+
 ### 알림과 상태
 
 정보, 성공, 주의, 오류 알림은 제목과 짧은 설명을 사용한다. 오류에는 원인과 가능한 복구 방법을 제공한다. `NotificationBanner`는 polite live region으로 동작하고 오류는 assertive로 알리며, 로드 후 제목·메시지 변경 이벤트를 보낸다. `Title`, `Message`, `Severity`, `IsDismissible` 속성을 사용하고 `DismissRequested` 이벤트를 구독한다. Toast는 짧고 비차단인 결과에만 사용하고, 사용자의 결정이 필요한 경우 대화상자를 사용한다. `StatusBadge`는 `EquipmentState`(`Offline`, `Ready`, `Running`, `Warning`, `Fault`)와 라벨로 상태를 전달한다. 실제 보조기술의 음성 안내는 제품 환경에서 별도로 검증한다.
