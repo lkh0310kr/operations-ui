@@ -53,7 +53,8 @@
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground" Value="{DynamicResource TextDisabledBrush}" />
-                            <Setter TargetName="Surface" Property="Opacity" Value="0.58" />
+                            <Setter TargetName="Surface" Property="Background" Value="{DynamicResource SurfaceBrush}" />
+                            <Setter TargetName="Surface" Property="BorderBrush" Value="{DynamicResource StrokeBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -189,7 +190,11 @@
                         </Popup>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="False"><Setter Property="Opacity" Value="0.58"/></Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="DropDownButton" Property="Foreground" Value="{DynamicResource TextDisabledBrush}"/>
+                            <Setter TargetName="DropDownButton" Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+                            <Setter TargetName="DropDownButton" Property="BorderBrush" Value="{DynamicResource StrokeBrush}"/>
+                        </Trigger>
                         <Trigger Property="IsKeyboardFocusWithin" Value="True">
                             <Setter TargetName="DropDownButton" Property="BorderBrush" Value="{DynamicResource FocusBrush}"/>
                             <Setter TargetName="DropDownButton" Property="BorderThickness" Value="{DynamicResource FocusBorderThickness}"/>
@@ -337,7 +342,7 @@
                         <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="ItemSurface" Property="Background" Value="{DynamicResource SurfaceHoverBrush}" /></Trigger>
                         <Trigger Property="IsPressed" Value="True"><Setter TargetName="ItemSurface" Property="Background" Value="{DynamicResource StrokeBrush}" /></Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="ItemSurface" Property="BorderBrush" Value="{DynamicResource FocusBrush}" /></Trigger>
-                        <Trigger Property="IsEnabled" Value="False"><Setter TargetName="ItemSurface" Property="Opacity" Value="0.5" /></Trigger>
+                        <Trigger Property="IsEnabled" Value="False"><Setter Property="Foreground" Value="{DynamicResource TextDisabledBrush}" /></Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

@@ -156,7 +156,9 @@
                             <Setter Property="Cursor" Value="Wait" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="Chrome" Property="Opacity" Value="0.58" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextDisabledBrush}" />
+                            <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource SurfaceBrush}" />
+                            <Setter TargetName="Chrome" Property="BorderBrush" Value="{DynamicResource StrokeBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
