@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Operations.UI.Controls;
@@ -119,7 +120,12 @@ public sealed class DialogHost : ContentControl
         if (e.NewValue is true)
         {
             host._previousFocus = Keyboard.FocusedElement;
-            host.Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() => Keyboard.Focus(host.GetTemplateChild("PART_DialogContent") as IInputElement ?? host)));
+            host.Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() =>
+            {
+                var dialogContent = host.GetTemplateChild("PART_DialogContent");
+                var focusTarget = dialogContent is null ? null : FindFirstFocusable(dialogContent);
+                Keyboard.Focus(focusTarget ?? host);
+            }));
             return;
         }
 
@@ -127,5 +133,20 @@ public sealed class DialogHost : ContentControl
         host._previousFocus = null;
         if (previousFocus is not null)
             host.Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() => Keyboard.Focus(previousFocus)));
+    }
+
+    private static IInputElement? FindFirstFocusable(DependencyObject root)
+    {
+        if (root is UIElement element && element.Focusable && element.IsEnabled && element.IsVisible)
+            return element;
+
+        for (var index = 0; index < VisualTreeHelper.GetChildrenCount(root); index++)
+        {
+            var focusTarget = FindFirstFocusable(VisualTreeHelper.GetChild(root, index));
+            if (focusTarget is not null)
+                return focusTarget;
+        }
+
+        return null;
     }
 }
