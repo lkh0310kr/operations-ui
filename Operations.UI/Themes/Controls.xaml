@@ -49,7 +49,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsKeyboardFocused" Value="True">
                             <Setter TargetName="Surface" Property="BorderBrush" Value="{DynamicResource FocusBrush}" />
-                            <Setter TargetName="Surface" Property="BorderThickness" Value="2" />
+                            <Setter TargetName="Surface" Property="BorderThickness" Value="{DynamicResource FocusBorderThickness}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground" Value="{DynamicResource TextDisabledBrush}" />
@@ -116,18 +116,18 @@
             </Trigger>
             <Trigger Property="IsKeyboardFocused" Value="True">
                 <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
-                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="BorderThickness" Value="{DynamicResource FocusBorderThickness}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Foreground" Value="{DynamicResource TextDisabledBrush}" />
             </Trigger>
             <Trigger Property="Validation.HasError" Value="True">
                 <Setter Property="BorderBrush" Value="{DynamicResource DangerBrush}" />
-                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="BorderThickness" Value="{DynamicResource ValidationBorderThickness}" />
             </Trigger>
             <DataTrigger Binding="{Binding IsInvalid, RelativeSource={RelativeSource AncestorType={x:Type controls:FormField}}}" Value="True">
                 <Setter Property="BorderBrush" Value="{DynamicResource DangerBrush}" />
-                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="BorderThickness" Value="{DynamicResource ValidationBorderThickness}" />
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -183,11 +183,11 @@
                         <Trigger Property="IsEnabled" Value="False"><Setter Property="Opacity" Value="0.58"/></Trigger>
                         <Trigger Property="IsKeyboardFocusWithin" Value="True">
                             <Setter TargetName="DropDownButton" Property="BorderBrush" Value="{DynamicResource FocusBrush}"/>
-                            <Setter TargetName="DropDownButton" Property="BorderThickness" Value="2"/>
+                            <Setter TargetName="DropDownButton" Property="BorderThickness" Value="{DynamicResource FocusBorderThickness}"/>
                         </Trigger>
                         <DataTrigger Binding="{Binding IsInvalid, RelativeSource={RelativeSource AncestorType={x:Type controls:FormField}}}" Value="True">
                             <Setter TargetName="DropDownButton" Property="BorderBrush" Value="{DynamicResource DangerBrush}"/>
-                            <Setter TargetName="DropDownButton" Property="BorderThickness" Value="2"/>
+                            <Setter TargetName="DropDownButton" Property="BorderThickness" Value="{DynamicResource ValidationBorderThickness}"/>
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -220,7 +220,7 @@
                         </Border>
                         <ContentPresenter Grid.Column="1" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"
                                           RecognizesAccessKey="True" VerticalAlignment="Center" Margin="5,0,0,0" />
-                        <Border x:Name="FocusRing" Grid.ColumnSpan="2" BorderBrush="{DynamicResource FocusBrush}" BorderThickness="1"
+                        <Border x:Name="FocusRing" Grid.ColumnSpan="2" BorderBrush="{DynamicResource FocusBrush}" BorderThickness="{DynamicResource FocusBorderThickness}"
                                 CornerRadius="3" Visibility="Collapsed" IsHitTestVisible="False" />
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -251,7 +251,7 @@
                                           ContentTemplate="{TemplateBinding ContentTemplate}" RecognizesAccessKey="True"
                                           VerticalAlignment="Center" Margin="5,0,0,0" />
                         <Border x:Name="FocusRing" Grid.ColumnSpan="2" BorderBrush="{DynamicResource FocusBrush}"
-                                BorderThickness="1" CornerRadius="3" Visibility="Collapsed" IsHitTestVisible="False" />
+                                BorderThickness="{DynamicResource FocusBorderThickness}" CornerRadius="3" Visibility="Collapsed" IsHitTestVisible="False" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">

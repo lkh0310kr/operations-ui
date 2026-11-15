@@ -148,7 +148,7 @@
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True">
                             <Setter TargetName="Chrome" Property="BorderBrush" Value="{DynamicResource FocusBrush}" />
-                            <Setter TargetName="Chrome" Property="BorderThickness" Value="2" />
+                            <Setter TargetName="Chrome" Property="BorderThickness" Value="{DynamicResource FocusBorderThickness}" />
                         </Trigger>
                         <Trigger Property="IsBusy" Value="True">
                             <Setter TargetName="ButtonLabel" Property="Visibility" Value="Collapsed" />

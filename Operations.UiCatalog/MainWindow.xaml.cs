@@ -82,6 +82,18 @@ public partial class MainWindow : Window
                 }
                 await Task.Delay(80);
                 await SaveSnapshotAsync(Path.Combine(outputDirectory, fileName));
+                if (tabIndex == 3)
+                {
+                    FocusPreviewCheckBox.Focus();
+                    Keyboard.Focus(FocusPreviewCheckBox);
+                    await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
+                    await SaveSnapshotAsync(Path.Combine(outputDirectory, "04-inputs-checkbox-focus.png"));
+
+                    FocusPreviewRadio.Focus();
+                    Keyboard.Focus(FocusPreviewRadio);
+                    await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
+                    await SaveSnapshotAsync(Path.Combine(outputDirectory, "04-inputs-radio-focus.png"));
+                }
             }
 
             Application.Current.Shutdown();

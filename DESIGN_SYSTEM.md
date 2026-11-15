@@ -45,7 +45,8 @@
 | 상태 배지 모서리 | `RadiusPill` | 12px |
 | 표준 조작 높이 | `ControlHeight`, `TouchTargetHeight` | 44px |
 | 버튼 높이 | `ButtonHeightCompact/Standard/Large` | 36/44/52px |
-| 포커스 외곽선 | `FocusBorderThickness` | 2px |
+| 키보드 포커스 외곽선 | `FocusBorderThickness` | 2px `Thickness` |
+| 오류 입력 외곽선 | `ValidationBorderThickness` | 2px `Thickness` |
 
 작은 글씨는 보조 정보로 제한한다. 숫자와 단위는 가까이 배치하고, 데이터 표에서는 본문보다 큰 대비를 사용한다. 예외적인 크기나 색을 추가하기 전에 토큰을 확장한다.
 

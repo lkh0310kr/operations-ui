@@ -77,7 +77,8 @@
     <sys:Double x:Key="FontActionGlyph">17</sys:Double>
     <sys:Double x:Key="FontSectionTitle">18</sys:Double>
     <sys:Double x:Key="FontPageTitle">26</sys:Double>
-    <sys:Double x:Key="FocusBorderThickness">2</sys:Double>
+    <Thickness x:Key="FocusBorderThickness">2</Thickness>
+    <Thickness x:Key="ValidationBorderThickness">2</Thickness>
     <CornerRadius x:Key="RadiusControl">4</CornerRadius>
     <CornerRadius x:Key="RadiusSurface">6</CornerRadius>
 
