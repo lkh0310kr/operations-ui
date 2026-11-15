@@ -1,5 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Operations.UI.Controls">
     <Style x:Key="SurfaceCard" TargetType="Border">
         <Setter Property="Background" Value="{DynamicResource SurfaceBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource StrokeBrush}" />
@@ -46,5 +47,113 @@
         <Setter Property="Background" Value="{DynamicResource SurfaceBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource StrokeBrush}" />
         <Setter Property="BorderThickness" Value="0,0,0,1" />
+    </Style>
+
+    <Style TargetType="controls:WorkspaceShell">
+        <Setter Property="Background" Value="{DynamicResource CanvasBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:WorkspaceShell">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition x:Name="NavigationColumn" Width="{TemplateBinding NavigationWidth}" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="56" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition x:Name="StatusRow" Height="28" />
+                        </Grid.RowDefinitions>
+                        <Border x:Name="NavigationHost" Grid.RowSpan="3" Style="{StaticResource WorkspaceSidebar}">
+                            <ContentPresenter Content="{TemplateBinding NavigationContent}" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{StaticResource ToolbarSurface}" Padding="18,0">
+                            <ContentPresenter Content="{TemplateBinding HeaderContent}" VerticalAlignment="Center" />
+                        </Border>
+                        <ContentPresenter Grid.Column="1" Grid.Row="1" ContentSource="Content" />
+                        <Border x:Name="StatusHost" Grid.Column="1" Grid.Row="2" Background="{DynamicResource SurfaceBrush}"
+                                BorderBrush="{DynamicResource StrokeBrush}" BorderThickness="0,1,0,0" Padding="12,0">
+                            <ContentPresenter Content="{TemplateBinding StatusContent}" VerticalAlignment="Center" />
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ShowNavigation" Value="False">
+                            <Setter TargetName="NavigationColumn" Property="Width" Value="0" />
+                            <Setter TargetName="NavigationHost" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="ShowStatusBar" Value="False">
+                            <Setter TargetName="StatusRow" Property="Height" Value="0" />
+                            <Setter TargetName="StatusHost" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="controls:DialogHost">
+        <Setter Property="Background" Value="{DynamicResource CanvasBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:DialogHost">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter ContentSource="Content" />
+                        <Grid x:Name="DialogOverlay" Visibility="Collapsed" Panel.ZIndex="1000" Background="#A6000000">
+                            <Button x:Name="PART_Backdrop" Background="Transparent" BorderThickness="0" Padding="0"
+                                    Focusable="False" FocusVisualStyle="{x:Null}">
+                                <Button.Template><ControlTemplate TargetType="Button"><Border Background="Transparent" /></ControlTemplate></Button.Template>
+                            </Button>
+                            <Border Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource StrokeBrush}"
+                                    BorderThickness="1" CornerRadius="6" Padding="{TemplateBinding DialogPadding}"
+                                    MaxWidth="{TemplateBinding DialogMaxWidth}" MaxHeight="{TemplateBinding DialogMaxHeight}"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center" KeyboardNavigation.TabNavigation="Cycle">
+                                <ContentPresenter x:Name="PART_DialogContent" Content="{Binding DialogContent, RelativeSource={RelativeSource TemplatedParent}}" />
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDialogOpen" Value="True"><Setter TargetName="DialogOverlay" Property="Visibility" Value="Visible" /></Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="controls:NotificationBanner">
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:NotificationBanner">
+                    <Border x:Name="NotificationSurface" Background="{DynamicResource SurfaceRaisedBrush}"
+                            BorderBrush="{DynamicResource StrokeBrush}" BorderThickness="1" CornerRadius="4" Padding="12">
+                        <Grid>
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="3"/><ColumnDefinition Width="*"/><ColumnDefinition Width="32"/></Grid.ColumnDefinitions>
+                            <Border x:Name="SeverityAccent" Background="{DynamicResource InfoBrush}" CornerRadius="2" Margin="0,1,0,1" />
+                            <StackPanel Grid.Column="1" Margin="12,0,8,0">
+                                <TextBlock Text="{Binding Title, RelativeSource={RelativeSource TemplatedParent}}" FontWeight="SemiBold" />
+                                <TextBlock Text="{Binding Message, RelativeSource={RelativeSource TemplatedParent}}" Foreground="{DynamicResource TextSecondaryBrush}" TextWrapping="Wrap" Margin="0,4,0,0" />
+                            </StackPanel>
+                            <Button x:Name="PART_DismissButton" Grid.Column="2" Content="×" MinHeight="28" Padding="2" FontSize="17"
+                                    Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Center" VerticalAlignment="Top"
+                                    ToolTip="알림 닫기" Visibility="Collapsed" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Severity" Value="{x:Static controls:NotificationSeverity.Success}">
+                            <Setter TargetName="NotificationSurface" Property="Background" Value="#20392F" /><Setter TargetName="NotificationSurface" Property="BorderBrush" Value="#35634D" /><Setter TargetName="SeverityAccent" Property="Background" Value="{DynamicResource SuccessBrush}" />
+                        </Trigger>
+                        <Trigger Property="Severity" Value="{x:Static controls:NotificationSeverity.Warning}">
+                            <Setter TargetName="NotificationSurface" Property="Background" Value="#3B3326" /><Setter TargetName="NotificationSurface" Property="BorderBrush" Value="#715B32" /><Setter TargetName="SeverityAccent" Property="Background" Value="{DynamicResource WarningBrush}" />
+                        </Trigger>
+                        <Trigger Property="Severity" Value="{x:Static controls:NotificationSeverity.Error}">
+                            <Setter TargetName="NotificationSurface" Property="Background" Value="#3C292C" /><Setter TargetName="NotificationSurface" Property="BorderBrush" Value="#784247" /><Setter TargetName="SeverityAccent" Property="Background" Value="{DynamicResource DangerBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsDismissible" Value="True">
+                            <Setter TargetName="PART_DismissButton" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>
