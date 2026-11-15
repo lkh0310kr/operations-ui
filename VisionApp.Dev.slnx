@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="../vision-app/VisionApp.csproj" />
+  <Project Path="VisionApp.UI/VisionApp.UI.csproj" />
+  <Project Path="VisionApp.UiCatalog/VisionApp.UiCatalog.csproj" />
+</Solution>
