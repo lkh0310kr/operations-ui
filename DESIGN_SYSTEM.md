@@ -40,6 +40,14 @@
 
 밝은 테마가 필요한 앱은 `DesignSystem.xaml` 대신 `DesignSystem.Light.xaml`을 병합한다. 실행 중 전환할 때는 현재 디자인 시스템 사전의 `Source`를 위 두 URI 중 하나로 설정한다.
 
+```csharp
+var designSystem = Application.Current.Resources.MergedDictionaries
+    .First(dictionary => dictionary.Source?.OriginalString.Contains("/Themes/DesignSystem", StringComparison.OrdinalIgnoreCase) == true);
+designSystem.Source = new Uri(
+    $"pack://application:,,,/Operations.UI;component/Themes/{(useLightTheme ? "DesignSystem.Light.xaml" : "DesignSystem.xaml")}",
+    UriKind.Absolute);
+```
+
 비활성 텍스트는 `TextDisabledColor`로 구분하되 컨트롤 전체 불투명도를 낮춰 글자까지 흐리게 만들지 않는다.
 
 ### 글꼴, 간격, 크기
