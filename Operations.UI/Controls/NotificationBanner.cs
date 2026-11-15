@@ -1,4 +1,6 @@
 using System.Windows;
+using System.Windows.Automation;
+using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 
 namespace Operations.UI.Controls;
@@ -21,8 +23,13 @@ public sealed class NotificationBanner : ContentControl
         DefaultStyleKeyProperty.OverrideMetadata(typeof(NotificationBanner), new FrameworkPropertyMetadata(typeof(NotificationBanner)));
     }
 
+    public NotificationBanner()
+    {
+        AutomationProperties.SetLiveSetting(this, AutomationLiveSetting.Polite);
+    }
+
     public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
-        nameof(Title), typeof(string), typeof(NotificationBanner), new PropertyMetadata(string.Empty));
+        nameof(Title), typeof(string), typeof(NotificationBanner), new PropertyMetadata(string.Empty, OnAnnouncementChanged));
 
     public string Title
     {
@@ -31,7 +38,7 @@ public sealed class NotificationBanner : ContentControl
     }
 
     public static readonly DependencyProperty MessageProperty = DependencyProperty.Register(
-        nameof(Message), typeof(string), typeof(NotificationBanner), new PropertyMetadata(string.Empty));
+        nameof(Message), typeof(string), typeof(NotificationBanner), new PropertyMetadata(string.Empty, OnAnnouncementChanged));
 
     public string Message
     {
@@ -40,7 +47,7 @@ public sealed class NotificationBanner : ContentControl
     }
 
     public static readonly DependencyProperty SeverityProperty = DependencyProperty.Register(
-        nameof(Severity), typeof(NotificationSeverity), typeof(NotificationBanner), new PropertyMetadata(NotificationSeverity.Information));
+        nameof(Severity), typeof(NotificationSeverity), typeof(NotificationBanner), new PropertyMetadata(NotificationSeverity.Information, OnSeverityChanged));
 
     public NotificationSeverity Severity
     {
@@ -75,4 +82,26 @@ public sealed class NotificationBanner : ContentControl
     }
 
     private void OnDismissClick(object sender, RoutedEventArgs e) => RaiseEvent(new RoutedEventArgs(DismissRequestedEvent, this));
+
+    private static void OnSeverityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is not NotificationBanner banner) return;
+        var setting = (NotificationSeverity)e.NewValue == NotificationSeverity.Error
+            ? AutomationLiveSetting.Assertive
+            : AutomationLiveSetting.Polite;
+        AutomationProperties.SetLiveSetting(banner, setting);
+        RaiseLiveRegionChanged(banner);
+    }
+
+    private static void OnAnnouncementChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is NotificationBanner banner)
+            RaiseLiveRegionChanged(banner);
+    }
+
+    private static void RaiseLiveRegionChanged(NotificationBanner banner)
+    {
+        if (!banner.IsLoaded) return;
+        UIElementAutomationPeer.FromElement(banner)?.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
+    }
 }
