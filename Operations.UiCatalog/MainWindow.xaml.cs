@@ -74,6 +74,12 @@ public partial class MainWindow : Window
                     Keyboard.Focus(FocusPreviewButton);
                     await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
                 }
+                else if (tabIndex == 3)
+                {
+                    FocusPreviewCombo.Focus();
+                    Keyboard.Focus(FocusPreviewCombo);
+                    await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
+                }
                 await Task.Delay(80);
                 await SaveSnapshotAsync(Path.Combine(outputDirectory, fileName));
             }

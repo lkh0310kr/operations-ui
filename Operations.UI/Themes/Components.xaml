@@ -6,7 +6,7 @@
         <Setter Property="Background" Value="{DynamicResource SurfaceBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource StrokeBrush}" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="CornerRadius" Value="{DynamicResource RadiusSurface}" />
     </Style>
     <Style x:Key="Card" TargetType="Border" BasedOn="{StaticResource SurfaceCard}" />
 
@@ -14,7 +14,7 @@
         <Setter Property="Background" Value="{DynamicResource SurfaceRaisedBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource StrokeBrush}" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="CornerRadius" Value="{DynamicResource RadiusControl}" />
     </Style>
 
     <Style x:Key="PageTitle" TargetType="TextBlock">
@@ -25,23 +25,38 @@
         <Setter Property="FontSize" Value="{DynamicResource FontSectionTitle}" />
         <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
+    <Style x:Key="CardTitle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{DynamicResource FontCardTitle}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style x:Key="BodyText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{DynamicResource FontBody}" />
+    </Style>
     <Style x:Key="SupportingText" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
         <Setter Property="FontSize" Value="{DynamicResource FontSupporting}" />
+    </Style>
+    <Style x:Key="CaptionText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
+        <Setter Property="FontSize" Value="{DynamicResource FontCaption}" />
+    </Style>
+    <Style x:Key="FieldLabel" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{DynamicResource FontCaption}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
 
     <Style x:Key="StatusBadge" TargetType="Border">
         <Setter Property="Background" Value="#1D2E28" />
         <Setter Property="BorderBrush" Value="#315342" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="CornerRadius" Value="{DynamicResource RadiusPill}" />
         <Setter Property="Padding" Value="10,5" />
     </Style>
 
     <Style TargetType="controls:OperationButton">
         <Setter Property="MinHeight" Value="{DynamicResource ButtonHeightStandard}" />
         <Setter Property="Padding" Value="16,9" />
-        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="CornerRadius" Value="{DynamicResource RadiusSurface}" />
         <Setter Property="FontSize" Value="{DynamicResource FontBody}" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -151,7 +166,7 @@
             <Trigger Property="Size" Value="Compact">
                 <Setter Property="MinHeight" Value="{DynamicResource ButtonHeightCompact}" />
                 <Setter Property="Padding" Value="12,5" />
-                <Setter Property="FontSize" Value="13" />
+                <Setter Property="FontSize" Value="{DynamicResource FontSupporting}" />
             </Trigger>
             <Trigger Property="Size" Value="Standard">
                 <Setter Property="MinHeight" Value="{DynamicResource ButtonHeightStandard}" />
@@ -161,7 +176,7 @@
             <Trigger Property="Size" Value="Large">
                 <Setter Property="MinHeight" Value="{DynamicResource ButtonHeightLarge}" />
                 <Setter Property="Padding" Value="18,11" />
-                <Setter Property="FontSize" Value="15" />
+                <Setter Property="FontSize" Value="{DynamicResource FontCardTitle}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -182,7 +197,7 @@
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <TextBlock x:Name="PART_Label" Text="{TemplateBinding Label}" FontWeight="SemiBold" />
                             <TextBlock x:Name="RequiredIndicator" Text="필수" Foreground="{DynamicResource TextSecondaryBrush}"
-                                       FontSize="12" Margin="8,0,0,0" Visibility="Collapsed" />
+                                       FontSize="{DynamicResource FontCaption}" Margin="8,0,0,0" Visibility="Collapsed" />
                         </StackPanel>
                         <ContentPresenter Grid.Row="1" ContentSource="Content" Margin="0,6,0,0" />
                         <TextBlock x:Name="HelpMessage" Grid.Row="2" Text="{TemplateBinding HelpText}"
@@ -225,14 +240,14 @@
 
     <Style TargetType="controls:StatusBadge">
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
-        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontSize" Value="{DynamicResource FontCaption}" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Padding" Value="10,6" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:StatusBadge">
                     <Border x:Name="BadgeSurface" Background="{DynamicResource SurfaceRaisedBrush}"
-                            CornerRadius="12" Padding="{TemplateBinding Padding}">
+                            CornerRadius="{DynamicResource RadiusPill}" Padding="{TemplateBinding Padding}">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Ellipse x:Name="StateDot" Width="7" Height="7" Fill="{DynamicResource TextSecondaryBrush}" />
                             <ContentPresenter Margin="8,0,0,0" VerticalAlignment="Center"
@@ -263,16 +278,16 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:MetricTile">
-                    <Border Background="{DynamicResource SurfaceRaisedBrush}" CornerRadius="6" Padding="16">
+                    <Border Background="{DynamicResource SurfaceRaisedBrush}" CornerRadius="{DynamicResource RadiusSurface}" Padding="16">
                         <Grid>
                             <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-                            <TextBlock Text="{TemplateBinding Label}" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
+                            <TextBlock Text="{TemplateBinding Label}" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="{DynamicResource FontCaption}" />
                             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,7,0,0" VerticalAlignment="Bottom">
-                                <TextBlock Text="{TemplateBinding Value}" Foreground="{TemplateBinding Foreground}" FontSize="28" FontWeight="SemiBold" />
-                                <TextBlock Text="{TemplateBinding Unit}" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="13" Margin="7,0,0,3" VerticalAlignment="Bottom" />
+                                <TextBlock Text="{TemplateBinding Value}" Foreground="{TemplateBinding Foreground}" FontSize="{DynamicResource FontMetricValue}" FontWeight="SemiBold" />
+                                <TextBlock Text="{TemplateBinding Unit}" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="{DynamicResource FontSupporting}" Margin="7,0,0,3" VerticalAlignment="Bottom" />
                             </StackPanel>
                             <TextBlock Grid.Row="2" Text="{TemplateBinding Context}" Foreground="{DynamicResource TextSecondaryBrush}"
-                                       FontSize="12" Margin="0,5,0,0" TextTrimming="CharacterEllipsis" />
+                                       FontSize="{DynamicResource FontCaption}" Margin="0,5,0,0" TextTrimming="CharacterEllipsis" />
                         </Grid>
                     </Border>
                 </ControlTemplate>
@@ -347,7 +362,7 @@
                                 <Button.Template><ControlTemplate TargetType="Button"><Border Background="Transparent" /></ControlTemplate></Button.Template>
                             </Button>
                             <Border Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource StrokeBrush}"
-                                    BorderThickness="1" CornerRadius="6" Padding="{TemplateBinding DialogPadding}"
+                                    BorderThickness="1" CornerRadius="{DynamicResource RadiusSurface}" Padding="{TemplateBinding DialogPadding}"
                                     MaxWidth="{TemplateBinding DialogMaxWidth}" MaxHeight="{TemplateBinding DialogMaxHeight}"
                                     HorizontalAlignment="Center" VerticalAlignment="Center" KeyboardNavigation.TabNavigation="Cycle">
                                 <ContentPresenter x:Name="PART_DialogContent" Content="{Binding DialogContent, RelativeSource={RelativeSource TemplatedParent}}" />
@@ -368,7 +383,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:NotificationBanner">
                     <Border x:Name="NotificationSurface" Background="{DynamicResource SurfaceRaisedBrush}"
-                            BorderBrush="{DynamicResource StrokeBrush}" BorderThickness="1" CornerRadius="4" Padding="12">
+                            BorderBrush="{DynamicResource StrokeBrush}" BorderThickness="1" CornerRadius="{DynamicResource RadiusControl}" Padding="12">
                         <Grid>
                             <Grid.ColumnDefinitions><ColumnDefinition Width="3"/><ColumnDefinition Width="*"/><ColumnDefinition Width="32"/></Grid.ColumnDefinitions>
                             <Border x:Name="SeverityAccent" Background="{DynamicResource InfoBrush}" CornerRadius="2" Margin="0,1,0,1" />
@@ -376,7 +391,7 @@
                                 <TextBlock Text="{Binding Title, RelativeSource={RelativeSource TemplatedParent}}" FontWeight="SemiBold" />
                                 <TextBlock Text="{Binding Message, RelativeSource={RelativeSource TemplatedParent}}" Foreground="{DynamicResource TextSecondaryBrush}" TextWrapping="Wrap" Margin="0,4,0,0" />
                             </StackPanel>
-                            <Button x:Name="PART_DismissButton" Grid.Column="2" Content="×" MinHeight="28" Padding="2" FontSize="17"
+                            <Button x:Name="PART_DismissButton" Grid.Column="2" Content="×" MinHeight="28" Padding="2" FontSize="{DynamicResource FontActionGlyph}"
                                     Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Center" VerticalAlignment="Top"
                                     ToolTip="알림 닫기" AutomationProperties.Name="알림 닫기" Visibility="Collapsed" />
                         </Grid>

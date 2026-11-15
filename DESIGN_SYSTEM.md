@@ -33,12 +33,16 @@
 | --- | --- | ---: |
 | 페이지 제목 | `FontPageTitle` | 26 |
 | 섹션 제목 | `FontSectionTitle` | 18 |
+| 카드 제목 | `FontCardTitle` | 15 |
 | 본문 | `FontBody` | 14 |
 | 보조 설명 | `FontSupporting` | 13 |
 | 캡션 및 라벨 | `FontCaption` | 12 |
+| 지표 값 | `FontMetricValue` | 28 |
+| 아이콘 동작 글리프 | `FontActionGlyph` | 17 |
 | 간격 | `Space1`–`Space16` | 4px 기반 배수 |
 | 컨트롤 모서리 | `RadiusControl` | 4px |
 | 표면 모서리 | `RadiusSurface` | 6px |
+| 상태 배지 모서리 | `RadiusPill` | 12px |
 | 표준 조작 높이 | `ControlHeight`, `TouchTargetHeight` | 44px |
 | 버튼 높이 | `ButtonHeightCompact/Standard/Large` | 36/44/52px |
 | 포커스 외곽선 | `FocusBorderThickness` | 2px |
@@ -55,7 +59,7 @@
 
 ### 텍스트
 
-페이지 제목, 섹션 제목, 카드 제목, 본문, 보조 설명, 라벨, 캡션을 구분한다. 크기와 굵기를 임의로 만들지 말고 글꼴 토큰과 의미 계층을 사용한다. 링크, 숫자, 코드, 선택 가능한 텍스트 사례를 카탈로그에 추가하는 것을 다음 확장 항목으로 둔다.
+페이지 제목, 섹션 제목, 카드 제목, 본문, 보조 설명, 라벨, 캡션을 구분한다. 공용 스타일 `PageTitle`, `SectionTitle`, `CardTitle`, `BodyText`, `SupportingText`, `FieldLabel`, `CaptionText`는 각 글꼴 토큰을 연결한다. 크기와 굵기를 임의로 만들지 말고 의미 계층을 사용한다. 링크, 코드, 선택 가능한 텍스트 사례는 다음 확장 항목이다.
 
 ### 입력과 선택
 
@@ -68,6 +72,8 @@
 ```
 
 주요 속성은 `Label`, `HelpText`, `ErrorMessage`, `IsRequired`, `IsInvalid`다. 오류 상태에서는 도움말 대신 오류 문구를 표시하며, 오류 문구를 접근성 도움말로 전달한다. 입력 요소의 자동화 라벨은 필드 라벨을 참조한다. 필수 여부는 텍스트로도 나타내고, 오류는 입력 경계와 문구로 함께 표현한다.
+
+`IsInvalid`는 내부의 `TextBox`와 `ComboBox` 경계에도 오류 스타일을 적용한다. 전용 `ErrorTextBox` 같은 별도 스타일 없이 필드 상태 하나로 오류 표시를 맞춘다.
 
 TextBox, ComboBox, CheckBox, RadioButton은 각각의 포커스, 비활성, 선택 상태를 확인한다. 날짜·시간, 검색, 숫자 범위 등 도메인 입력은 실제 사용 사례를 확인한 뒤 별도 구성 요소로 추가한다.
 

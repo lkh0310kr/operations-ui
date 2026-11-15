@@ -59,9 +59,10 @@
     <sys:Double x:Key="Space8">32</sys:Double>
     <sys:Double x:Key="Space12">48</sys:Double>
     <sys:Double x:Key="Space16">64</sys:Double>
-    <sys:Double x:Key="RadiusSmall">4</sys:Double>
-    <sys:Double x:Key="RadiusMedium">8</sys:Double>
-    <sys:Double x:Key="RadiusLarge">12</sys:Double>
+    <CornerRadius x:Key="RadiusSmall">4</CornerRadius>
+    <CornerRadius x:Key="RadiusMedium">8</CornerRadius>
+    <CornerRadius x:Key="RadiusLarge">12</CornerRadius>
+    <CornerRadius x:Key="RadiusPill">12</CornerRadius>
     <sys:Double x:Key="ControlHeight">44</sys:Double>
     <sys:Double x:Key="ActionHeight">44</sys:Double>
     <sys:Double x:Key="TouchTargetHeight">44</sys:Double>
@@ -71,11 +72,14 @@
     <sys:Double x:Key="FontCaption">12</sys:Double>
     <sys:Double x:Key="FontSupporting">13</sys:Double>
     <sys:Double x:Key="FontBody">14</sys:Double>
+    <sys:Double x:Key="FontCardTitle">15</sys:Double>
+    <sys:Double x:Key="FontMetricValue">28</sys:Double>
+    <sys:Double x:Key="FontActionGlyph">17</sys:Double>
     <sys:Double x:Key="FontSectionTitle">18</sys:Double>
     <sys:Double x:Key="FontPageTitle">26</sys:Double>
     <sys:Double x:Key="FocusBorderThickness">2</sys:Double>
-    <sys:Double x:Key="RadiusControl">4</sys:Double>
-    <sys:Double x:Key="RadiusSurface">6</sys:Double>
+    <CornerRadius x:Key="RadiusControl">4</CornerRadius>
+    <CornerRadius x:Key="RadiusSurface">6</CornerRadius>
 
     <!-- Compatibility aliases for the product app while it adopts semantic token names. -->
     <SolidColorBrush x:Key="Bg" Color="{DynamicResource CanvasColor}" />
