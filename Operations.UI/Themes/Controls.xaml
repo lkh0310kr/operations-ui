@@ -3,7 +3,7 @@
                     xmlns:controls="clr-namespace:Operations.UI.Controls">
     <Style TargetType="TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
-        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontFamilyBody}" />
         <Setter Property="FontSize" Value="{DynamicResource FontBody}" />
         <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
     </Style>
@@ -19,7 +19,7 @@
     </Style>
 
     <Style x:Key="InlineCode" TargetType="Run">
-        <Setter Property="FontFamily" Value="Consolas" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontFamilyCode}" />
         <Setter Property="FontSize" Value="{DynamicResource FontSupporting}" />
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
         <Setter Property="Background" Value="{DynamicResource SurfaceRaisedBrush}" />
@@ -75,7 +75,7 @@
     <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="Background" Value="{DynamicResource AccentBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
-        <Setter Property="Foreground" Value="#101416" />
+        <Setter Property="Foreground" Value="{DynamicResource AccentForegroundBrush}" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{DynamicResource AccentHoverBrush}" />
@@ -98,12 +98,12 @@
     </Style>
 
     <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-        <Setter Property="Background" Value="#4A282B" />
-        <Setter Property="BorderBrush" Value="#784247" />
+        <Setter Property="Background" Value="{DynamicResource ErrorSurfaceBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DangerBorderBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource DangerBrush}" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#603237" />
+                <Setter Property="Background" Value="{DynamicResource DangerBorderBrush}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource DangerBrush}" />
             </Trigger>
         </Style.Triggers>
@@ -214,7 +214,7 @@
         <Setter Property="Padding" Value="10,8" />
         <Style.Triggers>
             <Trigger Property="IsHighlighted" Value="True"><Setter Property="Background" Value="{DynamicResource SurfaceHoverBrush}" /></Trigger>
-            <Trigger Property="IsSelected" Value="True"><Setter Property="Background" Value="#3B4D6A" /></Trigger>
+            <Trigger Property="IsSelected" Value="True"><Setter Property="Background" Value="{DynamicResource SelectionBrush}" /></Trigger>
         </Style.Triggers>
     </Style>
 
@@ -229,7 +229,7 @@
                         <Grid.ColumnDefinitions><ColumnDefinition Width="20"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                         <Border x:Name="CheckSurface" Width="16" Height="16" Background="{DynamicResource SurfaceRaisedBrush}"
                                 BorderBrush="{DynamicResource StrokeBrush}" BorderThickness="1" CornerRadius="3" VerticalAlignment="Center">
-                            <Path x:Name="CheckMark" Data="M 1 5 L 4 8 L 10 1" Stroke="#FFFFFF" StrokeThickness="1.8"
+                            <Path x:Name="CheckMark" Data="M 1 5 L 4 8 L 10 1" Stroke="{DynamicResource AccentForegroundBrush}" StrokeThickness="1.8"
                                   StrokeStartLineCap="Round" StrokeEndLineCap="Round" Visibility="Collapsed" />
                         </Border>
                         <ContentPresenter Grid.Column="1" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -306,7 +306,7 @@
                             <Track.DecreaseRepeatButton><RepeatButton Command="{x:Static ScrollBar.PageUpCommand}" Focusable="False" IsTabStop="False"><RepeatButton.Template><ControlTemplate TargetType="RepeatButton"><Border Background="Transparent"/></ControlTemplate></RepeatButton.Template></RepeatButton></Track.DecreaseRepeatButton>
                             <Track.Thumb>
                                 <Thumb MinHeight="28" MinWidth="28">
-                                    <Thumb.Template><ControlTemplate TargetType="Thumb"><Border x:Name="ThumbSurface" Background="#4C5A68" CornerRadius="4" Margin="3"/><ControlTemplate.Triggers><Trigger Property="IsMouseOver" Value="True"><Setter TargetName="ThumbSurface" Property="Background" Value="{DynamicResource TextSecondaryBrush}"/></Trigger><Trigger Property="IsDragging" Value="True"><Setter TargetName="ThumbSurface" Property="Background" Value="{DynamicResource AccentBrush}"/></Trigger></ControlTemplate.Triggers></ControlTemplate></Thumb.Template>
+                                    <Thumb.Template><ControlTemplate TargetType="Thumb"><Border x:Name="ThumbSurface" Background="{DynamicResource ScrollThumbBrush}" CornerRadius="4" Margin="3"/><ControlTemplate.Triggers><Trigger Property="IsMouseOver" Value="True"><Setter TargetName="ThumbSurface" Property="Background" Value="{DynamicResource TextSecondaryBrush}"/></Trigger><Trigger Property="IsDragging" Value="True"><Setter TargetName="ThumbSurface" Property="Background" Value="{DynamicResource AccentBrush}"/></Trigger></ControlTemplate.Triggers></ControlTemplate></Thumb.Template>
                                 </Thumb>
                             </Track.Thumb>
                             <Track.IncreaseRepeatButton><RepeatButton Command="{x:Static ScrollBar.PageDownCommand}" Focusable="False" IsTabStop="False"><RepeatButton.Template><ControlTemplate TargetType="RepeatButton"><Border Background="Transparent"/></ControlTemplate></RepeatButton.Template></RepeatButton></Track.IncreaseRepeatButton>

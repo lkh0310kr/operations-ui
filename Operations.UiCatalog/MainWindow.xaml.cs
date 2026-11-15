@@ -1,5 +1,6 @@
 using System.IO;
 using System.Windows;
+using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -11,6 +12,7 @@ namespace Operations.UiCatalog;
 public partial class MainWindow : Window
 {
     private int _buttonActivationCount;
+    private bool _isLightTheme;
 
     public MainWindow()
     {
@@ -26,6 +28,7 @@ public partial class MainWindow : Window
     private async void Window_Loaded(object sender, RoutedEventArgs e)
     {
         var arguments = Environment.GetCommandLineArgs();
+        ApplyTheme(arguments.Any(argument => argument.Equals("--theme=light", StringComparison.OrdinalIgnoreCase)));
         var sizeArgument = arguments.FirstOrDefault(argument => argument.StartsWith("--size=", StringComparison.OrdinalIgnoreCase));
         if (sizeArgument is not null)
         {
@@ -114,6 +117,36 @@ public partial class MainWindow : Window
             Application.Current.Shutdown();
         }
     }
+
+    private void ThemeToggle_Click(object sender, RoutedEventArgs e) => ApplyTheme(!_isLightTheme);
+
+    private void ApplyTheme(bool useLightTheme)
+    {
+        var designSystem = Application.Current.Resources.MergedDictionaries
+            .FirstOrDefault(dictionary => dictionary.Source?.OriginalString.Contains("/Themes/DesignSystem", StringComparison.OrdinalIgnoreCase) == true);
+        if (designSystem is null) return;
+
+        var themeFile = useLightTheme ? "DesignSystem.Light.xaml" : "DesignSystem.xaml";
+        designSystem.Source = new Uri($"pack://application:,,,/Operations.UI;component/Themes/{themeFile}", UriKind.Absolute);
+        _isLightTheme = useLightTheme;
+        ThemeToggle.Content = useLightTheme ? "다크 테마" : "라이트 테마";
+        AutomationProperties.SetName(ThemeToggle, useLightTheme ? "다크 테마로 전환" : "라이트 테마로 전환");
+        ThemeBadgeLabel.Text = useLightTheme ? "밝은 테마" : "어두운 테마";
+        ThemeDescription.Text = useLightTheme
+            ? "화면 계층과 정보 상태를 구분하는 라이트 테마 토큰"
+            : "화면 계층과 정보 상태를 구분하는 다크 테마 토큰";
+        CanvasHex.Text = FormatTokenColor("CanvasColor");
+        SurfaceHex.Text = FormatTokenColor("SurfaceColor");
+        RaisedHex.Text = FormatTokenColor("SurfaceRaisedColor");
+        AccentHex.Text = FormatTokenColor("AccentColor");
+        SuccessHex.Text = FormatTokenColor("SuccessColor");
+        DangerHex.Text = FormatTokenColor("DangerColor");
+    }
+
+    private static string FormatTokenColor(string resourceKey) =>
+        Application.Current.FindResource(resourceKey) is System.Windows.Media.Color color
+            ? $"#{color.R:X2}{color.G:X2}{color.B:X2}"
+            : string.Empty;
 
     private async Task SaveSnapshotAsync(string outputPath)
     {

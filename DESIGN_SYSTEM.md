@@ -21,11 +21,24 @@
 | 경계 | `StrokeColor` | 입력 경계와 실제 구분선 |
 | 텍스트 | `TextPrimaryColor`, `TextSecondaryColor`, `TextDisabledColor` | 본문, 보조 정보, 비활성 정보 |
 | 주요 동작 | `AccentColor`, `AccentHoverColor`, `AccentPressedColor` | 주요 동작 및 선택 |
+| 주요 동작 글자 | `AccentForegroundColor` | 주요 동작 배경 위 텍스트 |
 | 상태 | `SuccessColor`, `WarningColor`, `DangerColor`, `InfoColor` | 의미가 있는 상태에만 사용 |
 | 상태 표면 | `SuccessSurfaceColor`, `WarningSurfaceColor`, `ErrorSurfaceColor` | 상태 알림 배경 |
 | 키보드 포커스 | `FocusColor` | 조작 요소의 외곽선 |
 
-색상 토큰은 `Operations.UI/Themes/Tokens.xaml`에서 관리한다. 상태 색은 상태명과 아이콘 또는 형태를 함께 표현한다. 위험 동작을 색만으로 암시하지 말고 동작 이름을 명확히 쓴다.
+색상 토큰은 `Operations.UI/Themes/Tokens.xaml`(다크)과 `Tokens.Light.xaml`(라이트)에 의미 이름으로 관리한다. 컴포넌트는 동일한 `*Brush` 토큰만 참조해 테마 전환 뒤에도 스타일을 유지한다. 상태 색은 상태명과 아이콘 또는 형태를 함께 표현한다. 위험 동작을 색만으로 암시하지 말고 동작 이름을 명확히 쓴다.
+
+### 테마
+
+라이브러리는 `DesignSystem.xaml`(다크)과 `DesignSystem.Light.xaml`(라이트) 리소스 사전을 제공한다. 앱 시작 시 하나를 병합하고 런타임 전환 시 병합된 사전의 `Source`를 교체한다. 카탈로그 상단의 테마 전환 버튼이 이 사용 방식을 보여준다. 새 색을 추가할 때는 두 테마에 같은 의미 키를 정의하고 양쪽 배경에서 텍스트·포커스 대비를 확인한다.
+
+```xml
+<ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="pack://application:,,,/Operations.UI;component/Themes/DesignSystem.xaml" />
+</ResourceDictionary.MergedDictionaries>
+```
+
+밝은 테마가 필요한 앱은 `DesignSystem.xaml` 대신 `DesignSystem.Light.xaml`을 병합한다. 실행 중 전환할 때는 현재 디자인 시스템 사전의 `Source`를 위 두 URI 중 하나로 설정한다.
 
 비활성 텍스트는 `TextDisabledColor`로 구분하되 컨트롤 전체 불투명도를 낮춰 글자까지 흐리게 만들지 않는다.
 
@@ -50,7 +63,7 @@
 | 키보드 포커스 외곽선 | `FocusBorderThickness` | 2px `Thickness` |
 | 오류 입력 외곽선 | `ValidationBorderThickness` | 2px `Thickness` |
 
-작은 글씨는 보조 정보로 제한한다. 숫자와 단위는 가까이 배치하고, 데이터 표에서는 본문보다 큰 대비를 사용한다. 예외적인 크기나 색을 추가하기 전에 토큰을 확장한다.
+기본 글꼴은 `FontFamilyBody`(Segoe UI), 코드 글꼴은 `FontFamilyCode`(Consolas)로 지정한다. 작은 글씨는 보조 정보로 제한한다. 숫자와 단위는 가까이 배치하고, 데이터 표에서는 본문보다 큰 대비를 사용한다. 예외적인 크기나 색을 추가하기 전에 토큰을 확장한다.
 
 ## 구성 요소
 
@@ -103,7 +116,7 @@ TextBox, ComboBox, CheckBox, RadioButton은 각각의 포커스, 비활성, 선�
 
 ## 카탈로그 및 검증
 
-카탈로그는 기초, 텍스트, 버튼, 입력, 알림, 상태와 지표, 목록과 표, 레이아웃, 대화상자 탭으로 구성한다. 각 탭은 사용 목적과 대표 상태를 비교할 수 있게 유지한다.
+카탈로그는 기초, 텍스트, 버튼, 입력, 알림, 상태와 지표, 목록과 표, 레이아웃, 대화상자 탭으로 구성한다. 각 탭은 사용 목적과 대표 상태를 비교할 수 있게 유지한다. 각 해상도 캡처는 기본 다크 테마와 `light/` 라이트 테마 디렉터리에 각각 저장한다.
 
 카탈로그 스냅샷은 1024×700, 1280×800, 1440×900에서 비교한다. 캡처는 정렬, 간격, 잘림, 대비를 확인하는 자료이며 마우스·키보드 조작, 화면 낭독기, 실제 DPI, 장비 및 사용자 검토를 대체하지 않는다. 완료된 검증과 미확인 항목을 구분해 기록한다.
 
@@ -113,4 +126,4 @@ TextBox, ComboBox, CheckBox, RadioButton은 각각의 포커스, 비활성, 선�
 2. 링크, 검색, 숫자 및 날짜 입력 패턴을 추가한다.
 3. Toast와 대화상자의 포커스 복귀, Escape, 키보드 동작을 실제 실행 환경에서 확인한다.
 4. 표의 선택·정렬·빈 결과 및 로딩·오류 상태를 구체적인 샘플로 확장한다.
-5. 고대비, 실제 DPI 배율, 제품별 밝은 테마 필요성을 검토한다.
+5. 고대비 설정, 실제 DPI 배율, 제품별 사용자 검토를 확인한다.

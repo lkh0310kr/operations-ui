@@ -6,19 +6,22 @@
     <Color x:Key="SurfaceColor">#2A3338</Color>
     <Color x:Key="SurfaceRaisedColor">#343E43</Color>
     <Color x:Key="SurfaceHoverColor">#3D494E</Color>
+    <Color x:Key="ScrollThumbColor">#4C5A68</Color>
     <Color x:Key="StrokeColor">#465258</Color>
     <Color x:Key="TextPrimaryColor">#F1F3F4</Color>
     <Color x:Key="TextSecondaryColor">#AEB9BE</Color>
     <Color x:Key="TextDisabledColor">#A0ABB0</Color>
     <Color x:Key="AccentColor">#4C8DFF</Color>
+    <Color x:Key="AccentForegroundColor">#101416</Color>
     <Color x:Key="AccentHoverColor">#78A1FF</Color>
     <Color x:Key="AccentPressedColor">#3674E5</Color>
     <Color x:Key="SuccessColor">#42B883</Color>
     <Color x:Key="WarningColor">#E5A84B</Color>
-    <Color x:Key="DangerColor">#E36B65</Color>
+    <Color x:Key="DangerColor">#EF7771</Color>
     <Color x:Key="InfoColor">#64A9E8</Color>
     <Color x:Key="FocusColor">#8DB4FF</Color>
     <Color x:Key="SelectionColor">#303D50</Color>
+    <Color x:Key="DialogScrimColor">#A6000000</Color>
     <Color x:Key="ErrorSurfaceColor">#3C292C</Color>
     <Color x:Key="WarningSurfaceColor">#3B3326</Color>
     <Color x:Key="SuccessSurfaceColor">#20392F</Color>
@@ -30,11 +33,13 @@
     <SolidColorBrush x:Key="SurfaceBrush" Color="{DynamicResource SurfaceColor}" />
     <SolidColorBrush x:Key="SurfaceRaisedBrush" Color="{DynamicResource SurfaceRaisedColor}" />
     <SolidColorBrush x:Key="SurfaceHoverBrush" Color="{DynamicResource SurfaceHoverColor}" />
+    <SolidColorBrush x:Key="ScrollThumbBrush" Color="{DynamicResource ScrollThumbColor}" />
     <SolidColorBrush x:Key="StrokeBrush" Color="{DynamicResource StrokeColor}" />
     <SolidColorBrush x:Key="TextPrimaryBrush" Color="{DynamicResource TextPrimaryColor}" />
     <SolidColorBrush x:Key="TextSecondaryBrush" Color="{DynamicResource TextSecondaryColor}" />
     <SolidColorBrush x:Key="TextDisabledBrush" Color="{DynamicResource TextDisabledColor}" />
     <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource AccentColor}" />
+    <SolidColorBrush x:Key="AccentForegroundBrush" Color="{DynamicResource AccentForegroundColor}" />
     <SolidColorBrush x:Key="AccentHoverBrush" Color="{DynamicResource AccentHoverColor}" />
     <SolidColorBrush x:Key="AccentPressedBrush" Color="{DynamicResource AccentPressedColor}" />
     <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource SuccessColor}" />
@@ -43,6 +48,7 @@
     <SolidColorBrush x:Key="InfoBrush" Color="{DynamicResource InfoColor}" />
     <SolidColorBrush x:Key="FocusBrush" Color="{DynamicResource FocusColor}" />
     <SolidColorBrush x:Key="SelectionBrush" Color="{DynamicResource SelectionColor}" />
+    <SolidColorBrush x:Key="DialogScrimBrush" Color="{DynamicResource DialogScrimColor}" />
     <SolidColorBrush x:Key="ErrorSurfaceBrush" Color="{DynamicResource ErrorSurfaceColor}" />
     <SolidColorBrush x:Key="WarningSurfaceBrush" Color="{DynamicResource WarningSurfaceColor}" />
     <SolidColorBrush x:Key="SuccessSurfaceBrush" Color="{DynamicResource SuccessSurfaceColor}" />
@@ -77,6 +83,8 @@
     <sys:Double x:Key="FontActionGlyph">17</sys:Double>
     <sys:Double x:Key="FontSectionTitle">18</sys:Double>
     <sys:Double x:Key="FontPageTitle">26</sys:Double>
+    <FontFamily x:Key="FontFamilyBody">Segoe UI</FontFamily>
+    <FontFamily x:Key="FontFamilyCode">Consolas</FontFamily>
     <Thickness x:Key="FocusBorderThickness">2</Thickness>
     <Thickness x:Key="ValidationBorderThickness">2</Thickness>
     <CornerRadius x:Key="RadiusControl">4</CornerRadius>

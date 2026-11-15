@@ -5,7 +5,7 @@
                     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
         Title="Operations UI 카탈로그" Width="1380" Height="780" MinWidth="960" MinHeight="680"
         WindowStartupLocation="CenterScreen" Background="{DynamicResource CanvasBrush}"
-        Foreground="{DynamicResource TextPrimaryBrush}" FontFamily="Segoe UI" Loaded="Window_Loaded">
+        Foreground="{DynamicResource TextPrimaryBrush}" FontFamily="{DynamicResource FontFamilyBody}" Loaded="Window_Loaded">
     <Window.Resources>
         <!-- The catalog demonstrates low-chrome grouping; borders mark real boundaries only. -->
         <Style x:Key="SurfaceCard" TargetType="Border">
@@ -51,27 +51,29 @@
                         <TextBlock Text="/" Foreground="{DynamicResource TextSecondaryBrush}" Margin="12,0" />
                         <TextBlock Text="기본 테마" Foreground="{DynamicResource TextSecondaryBrush}" />
                     </StackPanel>
-                    <TextBlock DockPanel.Dock="Right" Text="다크 테마 · 상호작용 상태" Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center" />
+                    <Button x:Name="ThemeToggle" DockPanel.Dock="Right" Content="라이트 테마" Click="ThemeToggle_Click"
+                            AutomationProperties.Name="라이트 테마로 전환" VerticalAlignment="Center" MinHeight="36" Padding="12,6" />
                 </DockPanel>
             </Border>
 
             <TabControl x:Name="CatalogTabs" Grid.Row="1" Margin="20,12,20,16" Background="Transparent" BorderThickness="0">
 <TabItem Header="기초"><ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="8,4"><StackPanel MaxWidth="1040" HorizontalAlignment="Left"><Border x:Name="FoundationSection" Style="{StaticResource SurfaceCard}" Padding="20" Margin="0,0,0,16">
                         <StackPanel>
-                            <DockPanel LastChildFill="False">
-                                <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
                                     <TextBlock Text="색상과 글자" Style="{StaticResource SectionTitle}" />
-                                    <TextBlock Text="화면 계층과 정보 상태를 구분하는 다크 테마 토큰" Style="{StaticResource SupportingText}" Margin="0,4,0,0" />
+                                    <TextBlock x:Name="ThemeDescription" Text="화면 계층과 정보 상태를 구분하는 다크 테마 토큰" Style="{StaticResource SupportingText}" TextWrapping="Wrap" Margin="0,4,12,0" />
                                 </StackPanel>
-                                <Border DockPanel.Dock="Right" Style="{StaticResource StatusBadge}" VerticalAlignment="Center"><TextBlock Text="어두운 테마" Foreground="{DynamicResource SuccessBrush}" FontSize="{DynamicResource FontCaption}" /></Border>
-                            </DockPanel>
+                                <Border Grid.Column="1" Style="{StaticResource StatusBadge}" VerticalAlignment="Center"><TextBlock x:Name="ThemeBadgeLabel" Text="어두운 테마" Foreground="{DynamicResource SuccessBrush}" FontSize="{DynamicResource FontCaption}" /></Border>
+                            </Grid>
                             <UniformGrid Columns="6" Margin="-4,18,-4,0">
-                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource CanvasBrush}" BorderBrush="{DynamicResource StrokeBrush}" BorderThickness="1" CornerRadius="3"/><TextBlock Text="바탕" FontSize="{DynamicResource FontCaption}" Margin="0,7,0,0"/><TextBlock Text="#20272B" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="{DynamicResource FontCaption}"/></StackPanel>
-                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource StrokeBrush}" BorderThickness="1" CornerRadius="3"/><TextBlock Text="표면" FontSize="{DynamicResource FontCaption}" Margin="0,7,0,0"/><TextBlock Text="#2A3338" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="{DynamicResource FontCaption}"/></StackPanel>
-                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource SurfaceRaisedBrush}" BorderBrush="{DynamicResource StrokeBrush}" BorderThickness="1" CornerRadius="3"/><TextBlock Text="올린 표면" FontSize="{DynamicResource FontCaption}" Margin="0,7,0,0"/><TextBlock Text="#343E43" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="{DynamicResource FontCaption}"/></StackPanel>
-                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource AccentBrush}" CornerRadius="3"/><TextBlock Text="주요 동작" FontSize="{DynamicResource FontCaption}" Margin="0,7,0,0"/><TextBlock Text="#4C8DFF" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="{DynamicResource FontCaption}"/></StackPanel>
-                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource SuccessBrush}" CornerRadius="3"/><TextBlock Text="성공" FontSize="{DynamicResource FontCaption}" Margin="0,7,0,0"/><TextBlock Text="#42B883" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="{DynamicResource FontCaption}"/></StackPanel>
-                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource DangerBrush}" CornerRadius="3"/><TextBlock Text="위험" FontSize="{DynamicResource FontCaption}" Margin="0,7,0,0"/><TextBlock Text="#E36B65" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="{DynamicResource FontCaption}"/></StackPanel>
+                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource CanvasBrush}" BorderBrush="{DynamicResource StrokeBrush}" BorderThickness="1" CornerRadius="3"/><TextBlock Text="바탕" FontSize="{DynamicResource FontCaption}" Margin="0,7,0,0"/><TextBlock x:Name="CanvasHex" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="{DynamicResource FontCaption}"/></StackPanel>
+                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource StrokeBrush}" BorderThickness="1" CornerRadius="3"/><TextBlock Text="표면" FontSize="{DynamicResource FontCaption}" Margin="0,7,0,0"/><TextBlock x:Name="SurfaceHex" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="{DynamicResource FontCaption}"/></StackPanel>
+                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource SurfaceRaisedBrush}" BorderBrush="{DynamicResource StrokeBrush}" BorderThickness="1" CornerRadius="3"/><TextBlock Text="올린 표면" FontSize="{DynamicResource FontCaption}" Margin="0,7,0,0"/><TextBlock x:Name="RaisedHex" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="{DynamicResource FontCaption}"/></StackPanel>
+                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource AccentBrush}" CornerRadius="3"/><TextBlock Text="주요 동작" FontSize="{DynamicResource FontCaption}" Margin="0,7,0,0"/><TextBlock x:Name="AccentHex" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="{DynamicResource FontCaption}"/></StackPanel>
+                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource SuccessBrush}" CornerRadius="3"/><TextBlock Text="성공" FontSize="{DynamicResource FontCaption}" Margin="0,7,0,0"/><TextBlock x:Name="SuccessHex" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="{DynamicResource FontCaption}"/></StackPanel>
+                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource DangerBrush}" CornerRadius="3"/><TextBlock Text="위험" FontSize="{DynamicResource FontCaption}" Margin="0,7,0,0"/><TextBlock x:Name="DangerHex" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="{DynamicResource FontCaption}"/></StackPanel>
                             </UniformGrid>
                             <Border Height="1" Background="{DynamicResource StrokeBrush}" Margin="0,18,0,14" />
                             <Grid>
