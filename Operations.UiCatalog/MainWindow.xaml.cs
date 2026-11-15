@@ -119,6 +119,11 @@ public partial class MainWindow : Window
         ButtonInteractionStatus.Text = $"Button activated: {++_buttonActivationCount}";
     }
 
+    private void TextLink_Click(object sender, RoutedEventArgs e)
+    {
+        TextLinkStatus.Text = "도움말 링크가 활성화되었습니다.";
+    }
+
     private void ClosePreviewDialog_Click(object sender, RoutedEventArgs e) => DialogPreviewHost.IsDialogOpen = false;
 
     private sealed record CatalogRow(string Name, string Area, string Status, string Updated);

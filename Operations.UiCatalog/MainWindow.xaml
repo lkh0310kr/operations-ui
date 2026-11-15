@@ -96,6 +96,8 @@
                     <TextBlock Text="보조 설명 · 13 / Regular" Style="{StaticResource SupportingText}" Margin="0,0,0,4"/>
                     <TextBlock Text="라벨 · 12 / SemiBold" Style="{StaticResource FieldLabel}" Margin="0,0,0,4"/>
                     <TextBlock Text="캡션 · 12 / Regular — 날짜, 단위, 메타데이터" Style="{StaticResource CaptionText}"/>
+                    <TextBlock Margin="0,8,0,0"><Run Text="링크와 코드 · "/><Hyperlink Click="TextLink_Click">도움말 링크</Hyperlink><Run Text=" · "/><Run Style="{StaticResource InlineCode}" Text="Variant=&quot;Primary&quot;"/></TextBlock>
+                    <TextBlock x:Name="TextLinkStatus" Text="링크를 눌러 동작을 확인하세요." Style="{StaticResource CaptionText}" Margin="0,4,0,0"/>
                     <Border Height="1" Background="{DynamicResource StrokeBrush}" Margin="0,20"/>
                     <TextBlock Text="문장 길이와 줄바꿈" Style="{StaticResource SectionTitle}"/>
                     <TextBlock Text="긴 안내문은 제한된 폭에서 자연스럽게 줄바꿈하고, 중요한 수치와 단위를 가까이 배치합니다." MaxWidth="680" TextWrapping="Wrap" Margin="0,8,0,0"/>

@@ -64,7 +64,7 @@
 
 ### 텍스트
 
-페이지 제목, 섹션 제목, 카드 제목, 본문, 보조 설명, 라벨, 캡션을 구분한다. 공용 스타일 `PageTitle`, `SectionTitle`, `CardTitle`, `BodyText`, `SupportingText`, `FieldLabel`, `CaptionText`는 각 글꼴 토큰을 연결한다. 크기와 굵기를 임의로 만들지 말고 의미 계층을 사용한다. 링크, 코드, 선택 가능한 텍스트 사례는 다음 확장 항목이다.
+페이지 제목, 섹션 제목, 카드 제목, 본문, 보조 설명, 라벨, 캡션을 구분한다. 공용 스타일 `PageTitle`, `SectionTitle`, `CardTitle`, `BodyText`, `SupportingText`, `FieldLabel`, `CaptionText`는 각 글꼴 토큰을 연결한다. `Hyperlink`는 링크 색과 밑줄을, `InlineCode`는 고정폭 글꼴과 표면 배경을 제공한다. 크기와 굵기를 임의로 만들지 말고 의미 계층을 사용한다. 선택 가능한 텍스트 사례는 다음 확장 항목이다.
 
 ### 입력과 선택
 
