@@ -1,11 +1,11 @@
-<Application x:Class="VisionApp.UiCatalog.App"
+<Application x:Class="Operations.UiCatalog.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/VisionApp.UI;component/Themes/DesignSystem.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Operations.UI;component/Themes/DesignSystem.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

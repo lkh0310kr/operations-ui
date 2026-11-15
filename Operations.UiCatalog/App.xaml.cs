@@ -1,5 +1,5 @@
 using System.Windows;
 
-namespace VisionApp.UiCatalog;
+namespace Operations.UiCatalog;
 
 public partial class App : Application { }

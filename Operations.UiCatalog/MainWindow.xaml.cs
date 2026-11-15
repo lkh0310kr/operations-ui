@@ -4,7 +4,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
-namespace VisionApp.UiCatalog;
+namespace Operations.UiCatalog;
 
 public partial class MainWindow : Window
 {
