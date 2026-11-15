@@ -118,7 +118,7 @@ TextBox, ComboBox, CheckBox, RadioButton은 각각의 포커스, 비활성, 선�
 
 `MetricTile`은 `Label`, `Value`, `Unit`, `Context`, `State`, `StateMessage`를 받는다. `State`는 `Value`, `Loading`, `Empty`, `Error` 중 하나다. 값의 반올림과 단위 변환은 데이터 계층에서 끝내고 타일에는 표시 문자열을 전달한다. 지표는 값, 단위, 기준 또는 변화 방향을 함께 보여준다. 목록·표의 선택은 `SelectionBrush`를 사용하며 목록 항목, 표 헤더, 행, 셀의 키보드 포커스를 표시한다. 데이터 영역의 로딩·빈 결과·오류는 `DataStatePanel`로 통일한다. 정렬 동작은 소비 화면의 데이터 모델과 연결해 검증한다.
 
-`DataStatePanel`은 데이터 영역 전체의 `Loading`, `Empty`, `Error` 상태를 제목과 설명으로 알린다. `ActionContent`에 다시 시도 버튼 등 실제 조작 컨트롤을 전달할 수 있다. `Loading` 중에는 action을 숨겨 중복 조작을 막는다. 빈 결과에는 조건 변경 방법을, 오류에는 복구 동작을 함께 제공한다.
+`DataStatePanel`은 데이터 영역 전체의 `Loading`, `Empty`, `Error` 상태를 제목과 설명으로 알린다. `ActionContent`에 다시 시도 버튼 등 실제 조작 컨트롤을 전달할 수 있다. `Loading` 중에는 action을 숨겨 중복 조작을 막는다. 상태와 문구가 변경되면 UI Automation 라이브 알림을 발생시키며 오류 상태는 assertive 우선순위로 알린다. 빈 결과에는 조건 변경 방법을, 오류에는 복구 동작을 함께 제공한다. 화면 낭독기의 실제 발화는 제품 환경에서 별도로 검증한다.
 
 ```xml
 <ui:DataStatePanel State="Error"
