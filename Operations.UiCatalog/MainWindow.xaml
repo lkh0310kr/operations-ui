@@ -114,7 +114,7 @@
                             <TextBlock Text="버튼 계층과 상태" Style="{StaticResource SectionTitle}" />
                             <TextBlock Text="호버, 누름, 키보드 포커스, 비활성 상태를 직접 확인하세요." Style="{StaticResource SupportingText}" Margin="0,4,0,14" />
                             <WrapPanel>
-                                <ui:OperationButton Content="기본" Variant="Standard" Click="DemoButton_Click" Margin="0,0,8,8" />
+                                <ui:OperationButton x:Name="KeyboardDemoButton" Content="기본" Variant="Standard" Click="DemoButton_Click" Margin="0,0,8,8" />
                                 <ui:OperationButton Content="주요 동작" Variant="Primary" Margin="0,0,8,8" />
                                 <ui:OperationButton Content="안전 확인" Variant="Success" Margin="0,0,8,8" />
                                 <ui:OperationButton Content="주의 동작" Variant="Warning" Margin="0,0,8,8" />

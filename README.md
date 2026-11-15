@@ -41,3 +41,13 @@ dotnet run --project .\Operations.UiCatalog\Operations.UiCatalog.csproj -- --siz
 - `WorkspaceShell`, `DialogHost`: 재사용 작업공간과 모달 대화상자 패턴.
 
 토큰과 구성 요소 상태 표는 [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md), 화면 구성과 검토 원칙은 [UI_GUIDELINES.md](UI_GUIDELINES.md)를 따른다.
+
+## 실제 입력 동작 검증
+
+Windows 대화형 세션에서 카탈로그를 실행하고 일회성 입력 검증 모드를 사용합니다. 검증기는 SendInput으로 Space, Tab, Enter와 마우스 클릭을 전달하고 각 입력 뒤 컨트롤 상태를 확인합니다. 이 모드는 포인터를 카탈로그 버튼 위로 이동하고 검증을 마친 뒤 앱을 종료합니다.
+
+```powershell
+dotnet run --project .\Operations.UiCatalog\Operations.UiCatalog.csproj -c Release -- --size=1024x700 --verify-interactions=artifacts\interaction-check.txt
+```
+
+결과 파일은 foreground 창, 스위치 토글, 포커스 이동, 버튼 활성화를 기록합니다. 이 검증은 대화형 Windows 세션에서 실행해야 합니다. 실제 DPI, 장비 구성, 작업자 검토를 대신하지 않습니다.

@@ -40,6 +40,13 @@ public partial class MainWindow : Window
                 await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
             }
         }
+        var interactionArgument = arguments.FirstOrDefault(argument => argument.StartsWith("--verify-interactions=", StringComparison.OrdinalIgnoreCase));
+        if (interactionArgument is not null)
+        {
+            await VerifyInteractionsAsync(Path.GetFullPath(interactionArgument["--verify-interactions=".Length..]));
+            Application.Current.Shutdown();
+            return;
+        }
         var snapshotArgument = arguments.FirstOrDefault(argument => argument.StartsWith("--snapshot=", StringComparison.OrdinalIgnoreCase));
         var snapshotDirectoryArgument = arguments.FirstOrDefault(argument => argument.StartsWith("--snapshot-dir=", StringComparison.OrdinalIgnoreCase));
 
