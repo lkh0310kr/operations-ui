@@ -53,7 +53,12 @@
 
 ### 버튼
 
-`OperationButton`의 `Kind`는 `Primary`, `Standard`, `Success`, `Warning`, `Danger`를 제공한다. `Size`는 `Compact`(36), `Standard`(44), `Large`(52)이며 기본 크기는 `Standard`다. 한 화면의 주요 동작은 하나의 Primary 버튼으로 강조한다. 위험 동작은 구체적인 라벨을 사용한다.
+`OperationButton.Variant`는 `Primary`, `Standard`, `Success`, `Warning`, `Danger`를 제공한다. `Size`는 `Compact`(36), `Standard`(44), `Large`(52)이며 기본 크기는 `Standard`다. 한 화면의 주요 동작은 하나의 Primary 버튼으로 강조한다. 위험 동작은 구체적인 라벨을 사용한다.
+
+```xml
+<ui:OperationButton Content="저장" Variant="Primary" Size="Standard" />
+<ui:OperationButton Content="저장 중" Variant="Primary" IsBusy="True" BusyContent="저장 중" />
+```
 
 기본, hover, pressed, keyboard focus, disabled, busy 상태를 확인한다. Busy 상태는 진행 문구와 반복 실행 차단을 제공한다. 아이콘 전용 버튼, 로딩 성공·실패 후속 패턴은 카탈로그와 라이브러리 확장 항목이다.
 
@@ -79,15 +84,15 @@ TextBox, ComboBox, CheckBox, RadioButton은 각각의 포커스, 비활성, 선�
 
 ### 알림과 상태
 
-정보, 성공, 주의, 오류 알림은 제목과 짧은 설명을 사용한다. 오류에는 원인과 가능한 복구 방법을 제공한다. `NotificationBanner`는 polite live region으로 동작하고 오류는 assertive로 알리며, 로드 후 제목·메시지 변경 이벤트를 보낸다. Toast는 짧고 비차단인 결과에만 사용하고, 사용자의 결정이 필요한 경우 대화상자를 사용한다. `StatusBadge`는 텍스트와 형태로 상태를 전달한다. 실제 보조기술의 음성 안내는 제품 환경에서 별도로 검증한다.
+정보, 성공, 주의, 오류 알림은 제목과 짧은 설명을 사용한다. 오류에는 원인과 가능한 복구 방법을 제공한다. `NotificationBanner`는 polite live region으로 동작하고 오류는 assertive로 알리며, 로드 후 제목·메시지 변경 이벤트를 보낸다. `Title`, `Message`, `Severity`, `IsDismissible` 속성을 사용하고 `DismissRequested` 이벤트를 구독한다. Toast는 짧고 비차단인 결과에만 사용하고, 사용자의 결정이 필요한 경우 대화상자를 사용한다. `StatusBadge`는 `EquipmentState`(`Offline`, `Ready`, `Running`, `Warning`, `Fault`)와 라벨로 상태를 전달한다. 실제 보조기술의 음성 안내는 제품 환경에서 별도로 검증한다.
 
 ### 지표, 목록, 표
 
-지표는 값, 단위, 기준 또는 변화 방향을 함께 보여준다. 빈 값, 로딩, 오류 상태도 정의한다. 표와 목록은 선택, 정렬, 빈 결과, 로딩, 오류 상태를 분리하고 숫자 정렬 및 키보드 탐색을 확인한다.
+`MetricTile`은 `Label`, `Value`, `Unit`, `Context`, `State`, `StateMessage`를 받는다. `State`는 `Value`, `Loading`, `Empty`, `Error` 중 하나다. 값의 반올림과 단위 변환은 데이터 계층에서 끝내고 타일에는 표시 문자열을 전달한다. 지표는 값, 단위, 기준 또는 변화 방향을 함께 보여준다. 표와 목록은 선택, 정렬, 빈 결과, 로딩, 오류 상태를 분리하고 숫자 정렬 및 키보드 탐색을 확인한다.
 
 ### 레이아웃과 대화상자
 
-작업 영역은 제목, 본문, 상태, 동작의 순서를 유지한다. 대화상자는 제목, 결과 설명, 취소 및 확인 동작을 구분한다. 열릴 때 초기 포커스를 설정하고 닫을 때 호출 위치로 돌려보낸다. Escape 동작과 포커스 범위는 실제 입력 검증 대상이다.
+`WorkspaceShell`은 `NavigationContent`, `HeaderContent`, `Content`, `StatusContent` 영역과 `ShowNavigation`, `ShowStatusBar`, `NavigationWidth` 설정을 제공한다. 작업 영역은 제목, 본문, 상태, 동작의 순서를 유지한다. `DialogHost`는 `DialogContent`, `IsDialogOpen`, `CanDismissWithEscape`, `CanDismissOnBackdrop` 속성을 제공하고 `DismissRequested` 이벤트를 발생시킨다. 대화상자는 제목, 결과 설명, 취소 및 확인 동작을 구분한다. 열릴 때 초기 포커스를 설정하고 닫을 때 호출 위치로 돌려보낸다. Escape 동작과 포커스 범위는 실제 입력 검증 대상이다.
 
 ## 카탈로그 및 검증
 

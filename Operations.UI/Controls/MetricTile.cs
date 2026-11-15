@@ -3,6 +3,14 @@ using System.Windows.Controls;
 
 namespace Operations.UI.Controls;
 
+public enum MetricTileState
+{
+    Value,
+    Loading,
+    Empty,
+    Error
+}
+
 /// <summary>Displays one operational measurement and its supporting context.</summary>
 public sealed class MetricTile : Control
 {
@@ -45,5 +53,23 @@ public sealed class MetricTile : Control
     {
         get => (string)GetValue(ContextProperty);
         set => SetValue(ContextProperty, value);
+    }
+
+    public static readonly DependencyProperty StateProperty = DependencyProperty.Register(
+        nameof(State), typeof(MetricTileState), typeof(MetricTile), new PropertyMetadata(MetricTileState.Value));
+
+    public MetricTileState State
+    {
+        get => (MetricTileState)GetValue(StateProperty);
+        set => SetValue(StateProperty, value);
+    }
+
+    public static readonly DependencyProperty StateMessageProperty = DependencyProperty.Register(
+        nameof(StateMessage), typeof(string), typeof(MetricTile), new PropertyMetadata(string.Empty));
+
+    public string StateMessage
+    {
+        get => (string)GetValue(StateMessageProperty);
+        set => SetValue(StateMessageProperty, value);
     }
 }

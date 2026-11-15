@@ -275,6 +275,7 @@
     </Style>
 
     <Style TargetType="controls:MetricTile">
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:MetricTile">
@@ -282,14 +283,38 @@
                         <Grid>
                             <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                             <TextBlock Text="{TemplateBinding Label}" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="{DynamicResource FontCaption}" />
-                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,7,0,0" VerticalAlignment="Bottom">
+                            <StackPanel x:Name="ValueDisplay" Grid.Row="1" Orientation="Horizontal" Margin="0,7,0,0" VerticalAlignment="Bottom">
                                 <TextBlock Text="{TemplateBinding Value}" Foreground="{TemplateBinding Foreground}" FontSize="{DynamicResource FontMetricValue}" FontWeight="SemiBold" />
                                 <TextBlock Text="{TemplateBinding Unit}" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="{DynamicResource FontSupporting}" Margin="7,0,0,3" VerticalAlignment="Bottom" />
                             </StackPanel>
-                            <TextBlock Grid.Row="2" Text="{TemplateBinding Context}" Foreground="{DynamicResource TextSecondaryBrush}"
+                            <ProgressBar x:Name="LoadingIndicator" Grid.Row="1" Value="35" IsIndeterminate="True" Height="4" Width="64"
+                                         HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource SurfaceBrush}"
+                                         Foreground="{DynamicResource AccentBrush}" BorderThickness="0" Visibility="Collapsed" />
+                            <TextBlock x:Name="ContextText" Grid.Row="2" Text="{TemplateBinding Context}" Foreground="{DynamicResource TextSecondaryBrush}"
                                        FontSize="{DynamicResource FontCaption}" Margin="0,5,0,0" TextTrimming="CharacterEllipsis" />
+                            <TextBlock x:Name="StateMessageText" Grid.Row="2" Text="{TemplateBinding StateMessage}" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       FontSize="{DynamicResource FontSupporting}" Margin="0,5,0,0" TextWrapping="Wrap" Visibility="Collapsed" />
                         </Grid>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="State" Value="{x:Static controls:MetricTileState.Loading}">
+                            <Setter TargetName="ValueDisplay" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="LoadingIndicator" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ContextText" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="StateMessageText" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="State" Value="{x:Static controls:MetricTileState.Empty}">
+                            <Setter TargetName="ValueDisplay" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="ContextText" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="StateMessageText" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="State" Value="{x:Static controls:MetricTileState.Error}">
+                            <Setter TargetName="ValueDisplay" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="ContextText" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="StateMessageText" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="StateMessageText" Property="Foreground" Value="{DynamicResource DangerBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
