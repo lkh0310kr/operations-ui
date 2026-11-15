@@ -112,6 +112,16 @@ TextBox, ComboBox, CheckBox, RadioButton은 각각의 포커스, 비활성, 선�
 
 `DataStatePanel`은 데이터 영역 전체의 `Loading`, `Empty`, `Error` 상태를 제목과 설명으로 알린다. `ActionContent`에 다시 시도 버튼 등 실제 조작 컨트롤을 전달할 수 있다. `Loading` 중에는 action을 숨겨 중복 조작을 막는다. 빈 결과에는 조건 변경 방법을, 오류에는 복구 동작을 함께 제공한다.
 
+```xml
+<ui:DataStatePanel State="Error"
+                   Title="목록을 불러오지 못했습니다"
+                   Message="연결 상태를 확인한 뒤 다시 시도하세요.">
+    <ui:DataStatePanel.ActionContent>
+        <ui:OperationButton Content="다시 시도" Variant="Standard" />
+    </ui:DataStatePanel.ActionContent>
+</ui:DataStatePanel>
+```
+
 ### 레이아웃과 대화상자
 
 `WorkspaceShell`은 `NavigationContent`, `HeaderContent`, `Content`, `StatusContent` 영역과 `ShowNavigation`, `ShowStatusBar`, `NavigationWidth` 설정을 제공한다. 작업 영역은 제목, 본문, 상태, 동작의 순서를 유지한다. `DialogHost`는 `DialogContent`, `IsDialogOpen`, `CanDismissWithEscape`, `CanDismissOnBackdrop` 속성을 제공하고 `DismissRequested` 이벤트를 발생시킨다. 대화상자는 제목, 결과 설명, 취소 및 확인 동작을 구분한다. 열릴 때 초기 포커스를 설정하고 닫을 때 호출 위치로 돌려보낸다. Escape 동작과 포커스 범위는 실제 입력 검증 대상이다.
