@@ -119,6 +119,8 @@
                                 <ui:OperationButton Content="정지" Variant="Danger" Margin="0,0,8,8" />
                                 <ui:OperationButton Content="사용할 수 없음" IsEnabled="False" Margin="0,0,8,8" />
                                 <ui:OperationButton Content="저장" IsBusy="True" Click="DemoButton_Click" BusyContent="저장 중" Margin="0,0,8,8" />
+                                <Button Content="⋮" Style="{StaticResource IconActionButton}" ToolTip="추가 동작"
+                                        AutomationProperties.Name="추가 동작" Margin="0,0,8,8" />
                             </WrapPanel>
 <StackPanel Margin="0,8,0,0"><TextBlock Text="크기 단계" Style="{StaticResource SupportingText}" Margin="0,0,0,6"/><WrapPanel><ui:OperationButton Content="Compact 36" Size="Compact" Margin="0,0,8,8"/><ui:OperationButton Content="Standard 44" Size="Standard" Margin="0,0,8,8"/><ui:OperationButton Content="Large 52" Size="Large" Margin="0,0,8,8"/><ui:OperationButton Content="Apply" AutomationProperties.Name="Apply changes" Margin="0,0,8,8"/><ui:OperationButton x:Name="FocusPreviewButton" Content="Focus" AutomationProperties.Name="Keyboard focus preview" Margin="0,0,8,8"/></WrapPanel></StackPanel>
 <TextBlock x:Name="ButtonInteractionStatus" Text="일반 버튼을 눌러 작동을 확인하세요." Style="{StaticResource SupportingText}" Margin="0,2,0,8"/>

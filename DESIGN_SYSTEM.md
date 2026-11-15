@@ -61,7 +61,9 @@
 <ui:OperationButton Content="저장 중" Variant="Primary" IsBusy="True" BusyContent="저장 중" />
 ```
 
-기본, hover, pressed, keyboard focus, disabled, busy 상태를 확인한다. Busy 상태는 진행 문구와 반복 실행 차단을 제공한다. 아이콘 전용 버튼, 로딩 성공·실패 후속 패턴은 카탈로그와 라이브러리 확장 항목이다.
+기본, hover, pressed, keyboard focus, disabled, busy 상태를 확인한다. Busy 상태는 진행 문구와 반복 실행 차단을 제공한다. 아이콘 전용 버튼은 기본 스타일을 제공하며, 프로젝트 전반의 아이콘 자산과 로딩 성공·실패 후속 패턴은 확장 항목이다.
+
+`IconActionButton` 스타일은 44px 조작 영역을 제공한다. 아이콘만 보이는 버튼에는 `AutomationProperties.Name`과 `ToolTip`을 함께 지정한다.
 
 ### 텍스트
 
