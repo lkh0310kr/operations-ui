@@ -11,17 +11,16 @@ public enum OperationButtonVariant
     Danger
 }
 
+public enum OperationButtonSize
+{
+    Compact,
+    Standard,
+    Large
+}
+
 /// <summary>A standard WPF button with Operations UI sizing and semantic variants.</summary>
 public sealed class OperationButton : System.Windows.Controls.Button
 {
-    public OperationButton()
-    {
-        MinHeight = 44;
-        Padding = new Thickness(16, 9, 16, 9);
-        CornerRadius = new CornerRadius(6);
-        FontWeight = FontWeights.SemiBold;
-    }
-
     static OperationButton()
     {
         DefaultStyleKeyProperty.OverrideMetadata(
@@ -37,6 +36,17 @@ public sealed class OperationButton : System.Windows.Controls.Button
     {
         get => (OperationButtonVariant)GetValue(VariantProperty);
         set => SetValue(VariantProperty, value);
+    }
+
+    public static readonly DependencyProperty SizeProperty = DependencyProperty.Register(
+        nameof(Size), typeof(OperationButtonSize), typeof(OperationButton),
+        new FrameworkPropertyMetadata(OperationButtonSize.Standard));
+
+    /// <summary>Sets a consistent interaction size: compact (36), standard (44), or large (52) device independent pixels.</summary>
+    public OperationButtonSize Size
+    {
+        get => (OperationButtonSize)GetValue(SizeProperty);
+        set => SetValue(SizeProperty, value);
     }
 
     public static readonly DependencyProperty IsBusyProperty = DependencyProperty.Register(

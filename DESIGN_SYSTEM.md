@@ -69,7 +69,7 @@
 | Busy | 진행 표시와 진행 문구, 반복 활성화를 차단 |
 | Error | 실패 설명과 재시도 또는 복구 동작을 별도 제공 |
 
-현재 `OperationButton`에는 의미 변형과 기본/hover/pressed/focus/disabled/busy 상태가 있습니다. 크기 단계, 아이콘 버튼, 로딩 완료/실패 메시지 패턴은 후속 항목입니다.
+현재 `OperationButton`에는 `Size`의 `Compact`(36), `Standard`(44), `Large`(52) 단계와 의미 변형, 기본/hover/pressed/focus/disabled/busy 상태가 있습니다. 아이콘 버튼과 로딩 완료/실패 메시지 패턴은 후속 항목입니다.
 
 ### 텍스트
 

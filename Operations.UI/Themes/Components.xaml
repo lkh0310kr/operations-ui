@@ -39,9 +39,10 @@
     </Style>
 
     <Style TargetType="controls:OperationButton">
-        <Setter Property="MinHeight" Value="{DynamicResource ActionHeight}" />
+        <Setter Property="MinHeight" Value="{DynamicResource ButtonHeightStandard}" />
         <Setter Property="Padding" Value="16,9" />
         <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="FontSize" Value="{DynamicResource FontBody}" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -146,6 +147,23 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <Trigger Property="Size" Value="Compact">
+                <Setter Property="MinHeight" Value="{DynamicResource ButtonHeightCompact}" />
+                <Setter Property="Padding" Value="12,5" />
+                <Setter Property="FontSize" Value="13" />
+            </Trigger>
+            <Trigger Property="Size" Value="Standard">
+                <Setter Property="MinHeight" Value="{DynamicResource ButtonHeightStandard}" />
+                <Setter Property="Padding" Value="16,9" />
+                <Setter Property="FontSize" Value="{DynamicResource FontBody}" />
+            </Trigger>
+            <Trigger Property="Size" Value="Large">
+                <Setter Property="MinHeight" Value="{DynamicResource ButtonHeightLarge}" />
+                <Setter Property="Padding" Value="18,11" />
+                <Setter Property="FontSize" Value="15" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style TargetType="controls:StatusBadge">

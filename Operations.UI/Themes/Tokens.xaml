@@ -65,6 +65,9 @@
     <sys:Double x:Key="ControlHeight">44</sys:Double>
     <sys:Double x:Key="ActionHeight">44</sys:Double>
     <sys:Double x:Key="TouchTargetHeight">44</sys:Double>
+    <sys:Double x:Key="ButtonHeightCompact">36</sys:Double>
+    <sys:Double x:Key="ButtonHeightStandard">44</sys:Double>
+    <sys:Double x:Key="ButtonHeightLarge">52</sys:Double>
     <sys:Double x:Key="FontCaption">12</sys:Double>
     <sys:Double x:Key="FontSupporting">13</sys:Double>
     <sys:Double x:Key="FontBody">14</sys:Double>
