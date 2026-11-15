@@ -1,38 +1,43 @@
-# Operations UI 개발 도구
+# Operations UI
 
-- `Operations.UI`: 제품 분야와 무관하게 재사용하는 다크 우선 디자인 토큰, 컨트롤 스타일, 작업공간 구성 요소.
-- `Operations.UiCatalog`: 색상, 버튼, 입력, 상태, 목록, 표, 작업공간, 대화상자를 독립 실행으로 확인하는 WPF 쇼케이스.
-- `VisionApp.Dev.slnx`: UI 라이브러리와 카탈로그를 함께 여는 Visual Studio 솔루션.
+`Operations.UI`는 WPF 앱에서 일관된 화면과 상태를 만들기 위한 범용 디자인 시스템 라이브러리다. 의미 토큰, 재사용 컨트롤, 상세 구성 요소 카탈로그를 함께 제공한다.
 
-카탈로그 실행:
+- `Operations.UI`: 테마, 토큰, 공용 입력·상태·레이아웃 컨트롤.
+- `Operations.UiCatalog`: 구성 요소를 목적별 탭과 상태별 사례로 살펴보는 독립 실행 카탈로그.
+- `VisionApp.Dev.slnx`: 라이브러리와 카탈로그를 함께 여는 Visual Studio 솔루션.
+
+## 시작
 
 ```powershell
 dotnet run --project .\Operations.UiCatalog\Operations.UiCatalog.csproj
 ```
 
-현재 화면을 PNG로 저장:
+상단의 테마 버튼으로 다크·라이트 테마를 바꿔 비교한다. 다른 앱에서는 `App.xaml`에서 `Themes/DesignSystem.xaml` 또는 `Themes/DesignSystem.Light.xaml` 중 하나를 병합한다. 런타임 전환과 토큰 규칙은 [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md)를 참고한다.
+
+## 카탈로그 캡처
+
+현재 선택한 화면을 PNG로 저장한다.
 
 ```powershell
-dotnet run --project .\Operations.UiCatalog\Operations.UiCatalog.csproj -- --snapshot=artifacts\ui-catalog\catalog.png
+dotnet run --project .\Operations.UiCatalog\Operations.UiCatalog.csproj -- --size=1280x800 --snapshot=catalog.png
 ```
 
-각 구성 요소 구간을 PNG로 저장:
+다크 테마의 모든 구성 요소 상태를 저장한다.
 
 ```powershell
-dotnet run --project .\Operations.UiCatalog\Operations.UiCatalog.csproj -- --snapshot-dir=artifacts\ui-catalog
+dotnet run --project .\Operations.UiCatalog\Operations.UiCatalog.csproj -- --size=1280x800 --snapshot-dir=artifacts\ui-catalog\dark
 ```
 
-`Themes/DesignSystem.xaml`은 사전을 조립하며 실제 토큰·스타일·작업공간 요소는 각각 `Tokens.xaml`, `Controls.xaml`, `Components.xaml`에 둔다. 공유 리소스 변경 후에는 카탈로그와 제품 앱을 모두 빌드하고 주요 상태 스냅샷을 확인한다.
+라이트 테마는 `--theme=light`를 추가한다. 지원 비교 크기는 1024×700, 1280×800, 1440×900이다. 카탈로그 캡처는 시각 검토 자료이며 실제 입력·보조기술·장비 확인을 대체하지 않는다.
 
-공용 컨트롤은 `Operations.UI.Controls` 네임스페이스에서 제공한다.
+## 공용 컨트롤
 
-- `WorkspaceShell`: 탐색, 헤더, 본문, 상태 표시 영역이 있는 단일 창 작업 레이아웃.
-- `DialogHost`: 새 네이티브 창을 열지 않는 모달 오버레이. `IsDialogOpen`, `DialogContent`, 크기·여백 속성으로 제어한다. Esc 닫기를 지원하며 바깥 클릭은 설정으로 허용할 수 있다. 닫힘 요청은 `DismissRequested` 이벤트로 전달한다.
-- `NotificationBanner`: 정보·성공·주의·오류 알림. 닫기 동작은 `DismissRequested` 이벤트로 소비 앱에 전달한다.
+`Operations.UI.Controls` 네임스페이스에서 제공한다.
 
-제품 앱은 `App.xaml`에서 `pack://application:,,,/Operations.UI;component/Themes/DesignSystem.xaml` 리소스를 병합해 테마와 기본 컨트롤 스타일을 적용한다.
+- `OperationButton`, `OperationSwitch`: 동작 우선순위·크기·처리 중 상태, 선택형 on/off.
+- `FormField`: 입력 라벨·도움말·필수·오류 상태.
+- `NotificationBanner`, `StatusBadge`: 의미가 있는 알림과 상태 표시.
+- `MetricTile`, `DataStatePanel`: 지표 값과 데이터 영역의 로딩·빈 결과·오류 상태.
+- `WorkspaceShell`, `DialogHost`: 재사용 작업공간과 모달 대화상자 패턴.
 
-
-## 디자인 원칙
-
-구성 요소와 상태 계획은 [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md), 화면 구성·카탈로그 검토 규칙은 [UI_GUIDELINES.md](UI_GUIDELINES.md)를 따른다. 기본 확인 해상도는 1024×700, 1280×800, 1440×900이다.
+토큰과 구성 요소 상태 표는 [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md), 화면 구성과 검토 원칙은 [UI_GUIDELINES.md](UI_GUIDELINES.md)를 따른다.
