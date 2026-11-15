@@ -18,16 +18,16 @@
     </Style>
 
     <Style x:Key="PageTitle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="26" />
+        <Setter Property="FontSize" Value="{DynamicResource FontPageTitle}" />
         <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
     <Style x:Key="SectionTitle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="17" />
+        <Setter Property="FontSize" Value="{DynamicResource FontSectionTitle}" />
         <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
     <Style x:Key="SupportingText" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
-        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontSize" Value="{DynamicResource FontSupporting}" />
     </Style>
 
     <Style x:Key="StatusBadge" TargetType="Border">
@@ -74,7 +74,7 @@
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding Variant, RelativeSource={RelativeSource AncestorType={x:Type controls:OperationButton}}}"
                                                          Value="{x:Static controls:OperationButtonVariant.Danger}">
-                                                <Setter Property="Foreground" Value="#101416" />
+                                                <Setter Property="Foreground" Value="{DynamicResource DangerBrush}" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -85,10 +85,19 @@
                     <Border x:Name="Chrome" Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding CornerRadius}" Padding="{TemplateBinding Padding}">
-                        <ContentPresenter x:Name="ButtonLabel" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          TextElement.Foreground="{TemplateBinding Foreground}"
-                                          RecognizesAccessKey="True" />
+                        <Grid>
+                            <ContentPresenter x:Name="ButtonLabel" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              TextElement.Foreground="{TemplateBinding Foreground}"
+                                              RecognizesAccessKey="True" />
+                            <StackPanel x:Name="BusyIndicator" Orientation="Horizontal" HorizontalAlignment="Center"
+                                        VerticalAlignment="Center" Visibility="Collapsed" IsHitTestVisible="False">
+                                <Ellipse Width="12" Height="12" Stroke="{TemplateBinding Foreground}"
+                                         StrokeThickness="2" StrokeDashArray="2 1" />
+                                <ContentPresenter Content="{TemplateBinding BusyContent}" Margin="8,0,0,0"
+                                                  TextElement.Foreground="{TemplateBinding Foreground}" />
+                            </StackPanel>
+                        </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Variant" Value="Primary">
@@ -98,22 +107,22 @@
                             <Setter TargetName="ButtonLabel" Property="TextElement.Foreground" Value="#101416" />
                         </Trigger>
                         <Trigger Property="Variant" Value="Success">
-                            <Setter Property="Background" Value="#20392F" />
-                            <Setter Property="BorderBrush" Value="#35634D" />
+                            <Setter Property="Background" Value="{DynamicResource SuccessSurfaceBrush}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource SuccessBorderBrush}" />
                             <Setter Property="Foreground" Value="{DynamicResource SuccessBrush}" />
                             <Setter TargetName="ButtonLabel" Property="TextElement.Foreground" Value="{DynamicResource SuccessBrush}" />
                         </Trigger>
                         <Trigger Property="Variant" Value="Warning">
-                            <Setter Property="Background" Value="#3B3326" />
-                            <Setter Property="BorderBrush" Value="#715B32" />
+                            <Setter Property="Background" Value="{DynamicResource WarningSurfaceBrush}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource WarningBorderBrush}" />
                             <Setter Property="Foreground" Value="{DynamicResource WarningBrush}" />
                             <Setter TargetName="ButtonLabel" Property="TextElement.Foreground" Value="{DynamicResource WarningBrush}" />
                         </Trigger>
                         <Trigger Property="Variant" Value="Danger">
-                            <Setter Property="Background" Value="{DynamicResource DangerBrush}" />
-                            <Setter Property="BorderBrush" Value="{DynamicResource DangerBrush}" />
-                            <Setter Property="Foreground" Value="#101416" />
-                            <Setter TargetName="ButtonLabel" Property="TextElement.Foreground" Value="#101416" />
+                            <Setter Property="Background" Value="{DynamicResource ErrorSurfaceBrush}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource DangerBorderBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource DangerBrush}" />
+                            <Setter TargetName="ButtonLabel" Property="TextElement.Foreground" Value="{DynamicResource DangerBrush}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Chrome" Property="Opacity" Value="0.88" />
@@ -125,8 +134,13 @@
                             <Setter TargetName="Chrome" Property="BorderBrush" Value="{DynamicResource FocusBrush}" />
                             <Setter TargetName="Chrome" Property="BorderThickness" Value="2" />
                         </Trigger>
+                        <Trigger Property="IsBusy" Value="True">
+                            <Setter TargetName="ButtonLabel" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="BusyIndicator" Property="Visibility" Value="Visible" />
+                            <Setter Property="Cursor" Value="Wait" />
+                        </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="Chrome" Property="Opacity" Value="0.42" />
+                            <Setter TargetName="Chrome" Property="Opacity" Value="0.58" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -294,13 +308,13 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Severity" Value="{x:Static controls:NotificationSeverity.Success}">
-                            <Setter TargetName="NotificationSurface" Property="Background" Value="#20392F" /><Setter TargetName="NotificationSurface" Property="BorderBrush" Value="#35634D" /><Setter TargetName="SeverityAccent" Property="Background" Value="{DynamicResource SuccessBrush}" />
+                            <Setter TargetName="NotificationSurface" Property="Background" Value="{DynamicResource SuccessSurfaceBrush}" /><Setter TargetName="NotificationSurface" Property="BorderBrush" Value="{DynamicResource SuccessBorderBrush}" /><Setter TargetName="SeverityAccent" Property="Background" Value="{DynamicResource SuccessBrush}" />
                         </Trigger>
                         <Trigger Property="Severity" Value="{x:Static controls:NotificationSeverity.Warning}">
-                            <Setter TargetName="NotificationSurface" Property="Background" Value="#3B3326" /><Setter TargetName="NotificationSurface" Property="BorderBrush" Value="#715B32" /><Setter TargetName="SeverityAccent" Property="Background" Value="{DynamicResource WarningBrush}" />
+                            <Setter TargetName="NotificationSurface" Property="Background" Value="{DynamicResource WarningSurfaceBrush}" /><Setter TargetName="NotificationSurface" Property="BorderBrush" Value="{DynamicResource WarningBorderBrush}" /><Setter TargetName="SeverityAccent" Property="Background" Value="{DynamicResource WarningBrush}" />
                         </Trigger>
                         <Trigger Property="Severity" Value="{x:Static controls:NotificationSeverity.Error}">
-                            <Setter TargetName="NotificationSurface" Property="Background" Value="#3C292C" /><Setter TargetName="NotificationSurface" Property="BorderBrush" Value="#784247" /><Setter TargetName="SeverityAccent" Property="Background" Value="{DynamicResource DangerBrush}" />
+                            <Setter TargetName="NotificationSurface" Property="Background" Value="{DynamicResource ErrorSurfaceBrush}" /><Setter TargetName="NotificationSurface" Property="BorderBrush" Value="{DynamicResource DangerBorderBrush}" /><Setter TargetName="SeverityAccent" Property="Background" Value="{DynamicResource DangerBrush}" />
                         </Trigger>
                         <Trigger Property="IsDismissible" Value="True">
                             <Setter TargetName="PART_DismissButton" Property="Visibility" Value="Visible" />

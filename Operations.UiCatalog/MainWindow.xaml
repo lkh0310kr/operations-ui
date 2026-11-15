@@ -14,6 +14,11 @@
             <Setter Property="BorderThickness" Value="0,0,0,1" />
             <Setter Property="CornerRadius" Value="0" />
         </Style>
+        <Style x:Key="ErrorTextBox" TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="BorderBrush" Value="{DynamicResource DangerBrush}" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="ToolTip" Value="올바른 값을 입력하세요." />
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions><ColumnDefinition Width="236"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
@@ -24,14 +29,14 @@
                     <TextBlock Text="Operations UI" FontSize="20" FontWeight="SemiBold" />
                     <TextBlock Text="공통 작업 인터페이스" Style="{StaticResource SupportingText}" Margin="0,5,0,0" />
                 </StackPanel>
-                <StackPanel Grid.Row="1">
-                    <TextBlock Text="기초" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11" Margin="12,0,0,8" />
-                    <Button Content="색상과 글자" Tag="FoundationSection" Click="NavigateToSection_Click" Style="{StaticResource SidebarItem}" />
-                    <Button Content="버튼과 입력" Tag="ControlsSection" Click="NavigateToSection_Click" Style="{StaticResource SidebarItem}" />
-                    <Button Content="상태와 알림" Tag="FeedbackSection" Click="NavigateToSection_Click" Style="{StaticResource SidebarItem}" />
-                    <Button Content="목록과 표" Tag="DataSection" Click="NavigateToSection_Click" Style="{StaticResource SidebarItem}" />
-                    <Button Content="작업 공간 구성" Tag="WorkspaceSection" Click="NavigateToSection_Click" Style="{StaticResource SidebarItem}" />
-                    <Button Content="대화상자" Tag="DialogSection" Click="NavigateToSection_Click" Style="{StaticResource SidebarItem}" />
+                <StackPanel Grid.Row="1" Margin="4,0,0,0">
+                    <TextBlock Text="디자인 원칙" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11" Margin="12,0,0,12" />
+                    <TextBlock Text="역할을 먼저" FontWeight="SemiBold" Margin="12,0,0,4" />
+                    <TextBlock Text="각 구성 요소는 하나의 목적과 우선순위를 가집니다." Style="{StaticResource SupportingText}" FontSize="12" TextWrapping="Wrap" Margin="12,0,12,18" />
+                    <TextBlock Text="상태를 함께" FontWeight="SemiBold" Margin="12,0,0,4" />
+                    <TextBlock Text="색, 문구, 모양을 함께 써서 상태를 전달합니다." Style="{StaticResource SupportingText}" FontSize="12" TextWrapping="Wrap" Margin="12,0,12,18" />
+                    <TextBlock Text="키보드 우선" FontWeight="SemiBold" Margin="12,0,0,4" />
+                    <TextBlock Text="포커스와 조작 상태가 마우스 없이도 드러나야 합니다." Style="{StaticResource SupportingText}" FontSize="12" TextWrapping="Wrap" Margin="12,0,12,0" />
                 </StackPanel>
                 <Border Grid.Row="2" Style="{StaticResource InsetSurface}" Padding="12" Margin="0,18,0,0">
                     <StackPanel>
@@ -55,12 +60,8 @@
                 </DockPanel>
             </Border>
 
-            <ScrollViewer x:Name="CatalogScrollViewer" Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="28,24">
-                <StackPanel x:Name="CatalogContent" MaxWidth="1040" HorizontalAlignment="Left">
-                    <TextBlock Text="공통 인터페이스" Style="{StaticResource PageTitle}" />
-                    <TextBlock Text="운영 도구와 데스크톱 작업 화면에서 재사용하는 시각 토큰과 구성 요소입니다." Style="{StaticResource SupportingText}" Margin="0,6,0,22" />
-
-                    <Border x:Name="FoundationSection" Style="{StaticResource SurfaceCard}" Padding="20" Margin="0,0,0,16">
+            <TabControl x:Name="CatalogTabs" Grid.Row="1" Margin="20,12,20,16" Background="Transparent" BorderThickness="0">
+<TabItem Header="기초"><ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="8,4"><StackPanel MaxWidth="1040" HorizontalAlignment="Left"><Border x:Name="FoundationSection" Style="{StaticResource SurfaceCard}" Padding="20" Margin="0,0,0,16">
                         <StackPanel>
                             <DockPanel LastChildFill="False">
                                 <StackPanel>
@@ -85,40 +86,98 @@
                                 <StackPanel Grid.Column="2"><TextBlock Text="설명과 보조 정보" FontSize="13" Foreground="{DynamicResource TextSecondaryBrush}"/><TextBlock Text="13 · Regular" Style="{StaticResource SupportingText}" FontSize="11" Margin="0,7,0,0"/></StackPanel>
                             </Grid>
                         </StackPanel>
+                    </Border></StackPanel></ScrollViewer></TabItem>
+<TabItem Header="텍스트">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="8,4">
+                    <StackPanel MaxWidth="1040" HorizontalAlignment="Left">
+                    <Border Style="{StaticResource SurfaceCard}" Padding="24" Margin="4,8,4,20">
+                    <StackPanel>
+                    <TextBlock Text="텍스트 시스템" Style="{StaticResource SectionTitle}"/>
+                    <TextBlock Text="역할에 따라 크기, 굵기, 대비를 정하고 읽는 순서를 보여줍니다." Style="{StaticResource SupportingText}" Margin="0,5,0,20"/>
+                    <TextBlock Text="페이지 제목 · 26 / SemiBold" FontSize="26" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBlock Text="섹션 제목 · 18 / SemiBold" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBlock Text="카드 제목 · 15 / SemiBold" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBlock Text="본문 · 14 / Regular — 상태와 다음 행동을 설명하는 문장" FontSize="14" Margin="0,0,0,4"/>
+                    <TextBlock Text="보조 설명 · 13 / Regular" Style="{StaticResource SupportingText}" Margin="0,0,0,4"/>
+                    <TextBlock Text="라벨 · 12 / SemiBold" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBlock Text="캡션 · 12 / Regular — 날짜, 단위, 메타데이터" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    <Border Height="1" Background="{DynamicResource StrokeBrush}" Margin="0,20"/>
+                    <TextBlock Text="문장 길이와 줄바꿈" Style="{StaticResource SectionTitle}"/>
+                    <TextBlock Text="긴 안내문은 제한된 폭에서 자연스럽게 줄바꿈하고, 중요한 수치와 단위를 가까이 배치합니다." MaxWidth="680" TextWrapping="Wrap" Margin="0,8,0,0"/>
+                    <TextBlock Text="토큰: FontPageTitle · FontSectionTitle · FontBody · FontCaption" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" Margin="0,18,0,0"/>
+                    </StackPanel>
                     </Border>
-
-                    <Border x:Name="ControlsSection" Style="{StaticResource SurfaceCard}" Padding="20" Margin="0,0,0,16">
+                    </StackPanel>
+                    </ScrollViewer>
+                    </TabItem>
+<TabItem Header="버튼"><ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="8,4"><StackPanel MaxWidth="1040" HorizontalAlignment="Left"><Border x:Name="ControlsSection" Style="{StaticResource SurfaceCard}" Padding="20" Margin="0,0,0,16">
                         <StackPanel>
-                            <TextBlock Text="버튼과 입력" Style="{StaticResource SectionTitle}" />
+                            <TextBlock Text="버튼 계층과 상태" Style="{StaticResource SectionTitle}" />
                             <TextBlock Text="호버, 누름, 키보드 포커스, 비활성 상태를 직접 확인하세요." Style="{StaticResource SupportingText}" Margin="0,4,0,14" />
                             <WrapPanel>
-                                <ui:OperationButton Content="기본" Variant="Standard" Margin="0,0,8,8" />
+                                <ui:OperationButton Content="기본" Variant="Standard" Click="DemoButton_Click" Margin="0,0,8,8" />
                                 <ui:OperationButton Content="주요 동작" Variant="Primary" Margin="0,0,8,8" />
                                 <ui:OperationButton Content="안전 확인" Variant="Success" Margin="0,0,8,8" />
                                 <ui:OperationButton Content="주의 동작" Variant="Warning" Margin="0,0,8,8" />
                                 <ui:OperationButton Content="정지" Variant="Danger" Margin="0,0,8,8" />
                                 <ui:OperationButton Content="사용할 수 없음" IsEnabled="False" Margin="0,0,8,8" />
+                                <ui:OperationButton Content="저장" IsBusy="True" Click="DemoButton_Click" BusyContent="저장 중" Margin="0,0,8,8" />
                             </WrapPanel>
-                            <Grid Margin="0,8,0,0">
-                                <Grid.ColumnDefinitions><ColumnDefinition Width="1.2*"/><ColumnDefinition Width="1.2*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-                                <StackPanel Margin="0,0,12,0"><TextBlock Text="텍스트 입력" Style="{StaticResource SupportingText}" Margin="0,0,0,6"/><TextBox Text="작업 이름을 입력하세요" /></StackPanel>
-                                <StackPanel Grid.Column="1" Margin="6,0"><TextBlock Text="항목 선택" Style="{StaticResource SupportingText}" Margin="0,0,0,6"/><ComboBox SelectedIndex="0"><ComboBoxItem Content="설비 01 · 연결됨"/><ComboBoxItem Content="설비 02 · 대기 중"/><ComboBoxItem Content="설비 03 · 연결 끊김"/></ComboBox></StackPanel>
-                                <StackPanel Grid.Column="2" Margin="12,0,0,0" VerticalAlignment="Bottom"><CheckBox Content="작업 기록 사용" IsChecked="True"/><CheckBox Content="선택 항목" IsChecked="False"/></StackPanel>
-                            </Grid>
-                        </StackPanel>
-                    </Border>
+<StackPanel Margin="0,8,0,0"><TextBlock Text="크기 단계" Style="{StaticResource SupportingText}" Margin="0,0,0,6"/><WrapPanel><ui:OperationButton Content="Compact 36" MinHeight="32" Height="36" Padding="12,4" Margin="0,0,8,8"/><ui:OperationButton Content="Standard 44" Margin="0,0,8,8"/><ui:OperationButton Content="Large 52" MinHeight="52" Height="52" Padding="18,12" Margin="0,0,8,8"/><ui:OperationButton Content="Apply" AutomationProperties.Name="Apply changes" Margin="0,0,8,8"/><ui:OperationButton x:Name="FocusPreviewButton" Content="Focus" AutomationProperties.Name="Keyboard focus preview" Margin="0,0,8,8"/></WrapPanel></StackPanel>
+<TextBlock x:Name="ButtonInteractionStatus" Text="일반 버튼을 눌러 작동을 확인하세요." Style="{StaticResource SupportingText}" Margin="0,2,0,8"/>
 
-                    <Border x:Name="FeedbackSection" Style="{StaticResource SurfaceCard}" Padding="20" Margin="0,0,0,16">
+
+                        </StackPanel>
+                    </Border></StackPanel></ScrollViewer></TabItem>
+<TabItem Header="입력">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="8,4">
+                    <StackPanel MaxWidth="1040" HorizontalAlignment="Left">
+                    <Border Style="{StaticResource SurfaceCard}" Padding="24" Margin="4,8,4,20">
+                    <StackPanel>
+                    <TextBlock Text="입력과 선택" Style="{StaticResource SectionTitle}"/>
+                    <TextBlock Text="라벨, 값, 도움말, 오류를 같은 위치에 유지해 수정할 곳을 찾게 합니다." Style="{StaticResource SupportingText}" Margin="0,5,0,18"/>
+                    <Grid>
+                    <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="0,0,12,0">
+                    <TextBlock Text="이름" Style="{StaticResource SupportingText}" Margin="0,0,0,6"/>
+                    <TextBox Text="예: 기본 입력" Width="290" HorizontalAlignment="Left"/>
+                    <TextBlock Text="옵션" Style="{StaticResource SupportingText}" Margin="0,14,0,6"/>
+                    <ComboBox SelectedIndex="0" Width="290" HorizontalAlignment="Left">
+                    <ComboBoxItem Content="선택하세요"/>
+                    <ComboBoxItem Content="옵션 A"/>
+                    <ComboBoxItem Content="옵션 B"/>
+                    </ComboBox>
+                    <CheckBox Content="이 설정 사용" IsChecked="True" Margin="0,8,0,0"/>
+                    <CheckBox Content="사용 불가" IsEnabled="False"/>
+                    <TextBlock Text="선택 방식" Style="{StaticResource SupportingText}" Margin="0,8,0,0"/>
+                    <RadioButton Content="하나 선택" GroupName="InputPreview" IsChecked="True"/>
+                    <RadioButton Content="다른 선택" GroupName="InputPreview"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="12,0,0,0">
+                    <TextBlock Text="필수 값 · 오류" Style="{StaticResource SupportingText}" Margin="0,0,0,6"/>
+                    <TextBox Text="값을 확인하세요" Style="{StaticResource ErrorTextBox}" Width="290" HorizontalAlignment="Left"/>
+                    <TextBlock Text="필수 값을 입력하세요. 필요한 값을 구체적으로 안내합니다." Foreground="{DynamicResource DangerBrush}" FontSize="12" TextWrapping="Wrap" Margin="0,5,0,0"/>
+                    </StackPanel>
+                    </Grid>
+                    <TextBlock Text="키보드: Tab 이동 / Space 체크 / 방향키 선택 / 포커스 / 비활성 / 오류" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" Margin="0,14,0,0"/>
+                    </StackPanel>
+                    </Border>
+                    </StackPanel>
+                    </ScrollViewer>
+                    </TabItem>
+<TabItem Header="알림"><ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="8,4"><StackPanel MaxWidth="1040" HorizontalAlignment="Left"><Border x:Name="FeedbackSection" Style="{StaticResource SurfaceCard}" Padding="20" Margin="0,0,0,16">
                         <StackPanel>
                             <TextBlock Text="상태와 알림" Style="{StaticResource SectionTitle}" />
                             <TextBlock Text="상태는 색상만으로 구분하지 않고 짧은 설명을 함께 제공합니다." Style="{StaticResource SupportingText}" Margin="0,4,0,12" />
-                            <ui:NotificationBanner Title="정상" Message="모든 작업이 정상적으로 실행 중입니다." Severity="Success" IsDismissible="False" Margin="0,0,0,8" />
+                            <ui:NotificationBanner Title="안내" Message="이 메시지는 사용자의 작업을 막지 않는 정보를 전달합니다." Severity="Information" IsDismissible="False" Margin="0,0,0,8"/><ui:NotificationBanner Title="정상" Message="모든 작업이 정상적으로 실행 중입니다." Severity="Success" IsDismissible="False" Margin="0,0,0,8" />
                             <ui:NotificationBanner Title="확인 필요" Message="일부 작업의 응답이 평소보다 느립니다." Severity="Warning" IsDismissible="False" Margin="0,0,0,8" />
                             <ui:NotificationBanner x:Name="ErrorNotification" Title="오류" Message="연결을 확인하고 다시 시도하세요." Severity="Error" DismissRequested="Notification_DismissRequested" />
                         </StackPanel>
-                    </Border>
-
-                    <Border x:Name="OperationsSection" Style="{StaticResource SurfaceCard}" Padding="20" Margin="0,0,0,16">
+                    </Border></StackPanel></ScrollViewer></TabItem>
+<TabItem Header="상태와 지표"><ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="8,4"><StackPanel MaxWidth="1040" HorizontalAlignment="Left"><Border x:Name="OperationsSection" Style="{StaticResource SurfaceCard}" Padding="20" Margin="0,0,0,16">
                         <StackPanel>
                             <DockPanel LastChildFill="False">
                                 <StackPanel>
@@ -144,9 +203,8 @@
                                 <ui:StatusBadge Content="장비 오류" State="Fault" Margin="0,0,8,8" />
                             </WrapPanel>
                         </StackPanel>
-                    </Border>
-
-                    <Border x:Name="DataSection" Style="{StaticResource SurfaceCard}" Padding="20" Margin="0,0,0,16">
+                    </Border></StackPanel></ScrollViewer></TabItem>
+<TabItem Header="목록과 표"><ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="8,4"><StackPanel MaxWidth="1040" HorizontalAlignment="Left"><Border x:Name="DataSection" Style="{StaticResource SurfaceCard}" Padding="20" Margin="0,0,0,16">
                         <StackPanel>
                             <DockPanel LastChildFill="False">
                                 <StackPanel><TextBlock Text="목록과 표" Style="{StaticResource SectionTitle}"/><TextBlock Text="행 동작과 선택 상태를 확인하는 공통 데이터 표시" Style="{StaticResource SupportingText}" Margin="0,4,0,0"/></StackPanel>
@@ -167,9 +225,8 @@
                                 </DataGrid>
                             </Grid>
                         </StackPanel>
-                    </Border>
-
-                    <Border x:Name="WorkspaceSection" Style="{StaticResource SurfaceCard}" Padding="20" Margin="0,0,0,16">
+                    </Border></StackPanel></ScrollViewer></TabItem>
+<TabItem Header="레이아웃"><ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="8,4"><StackPanel MaxWidth="1040" HorizontalAlignment="Left"><Border x:Name="WorkspaceSection" Style="{StaticResource SurfaceCard}" Padding="20" Margin="0,0,0,16">
                         <StackPanel>
                             <TextBlock Text="작업 공간 구성" Style="{StaticResource SectionTitle}" />
                             <TextBlock Text="탐색, 화면 제목, 본문, 상태 표시줄을 조합한 데스크톱 작업 화면" Style="{StaticResource SupportingText}" Margin="0,4,0,14" />
@@ -191,9 +248,8 @@
                                 </Grid>
                             </ui:WorkspaceShell>
                         </StackPanel>
-                    </Border>
-
-                    <Border x:Name="DialogSection" Style="{StaticResource SurfaceCard}" Padding="20" Margin="0,0,0,24">
+                    </Border></StackPanel></ScrollViewer></TabItem>
+<TabItem Header="대화상자"><ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="8,4"><StackPanel MaxWidth="1040" HorizontalAlignment="Left"><Border x:Name="DialogSection" Style="{StaticResource SurfaceCard}" Padding="20" Margin="0,0,0,24">
                         <StackPanel>
                             <TextBlock Text="대화상자" Style="{StaticResource SectionTitle}" />
                             <TextBlock Text="필수 정보를 간결하게 보여주고 동작의 결과를 명확히 하는 확인 패턴" Style="{StaticResource SupportingText}" Margin="0,4,0,14" />
@@ -210,9 +266,8 @@
                                 </ui:DialogHost.DialogContent>
                             </ui:DialogHost>
                         </StackPanel>
-                    </Border>
-                </StackPanel>
-            </ScrollViewer>
+                    </Border></StackPanel></ScrollViewer></TabItem>
+</TabControl>
 
             <Border Grid.Row="2" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource StrokeBrush}" BorderThickness="0,1,0,0" Padding="18,0">
                 <DockPanel><TextBlock Text="Operations UI · 공통 WPF 구성 요소" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="10" VerticalAlignment="Center"/><TextBlock DockPanel.Dock="Right" Text="카탈로그 미리보기" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="10" VerticalAlignment="Center"/></DockPanel>

@@ -39,6 +39,30 @@ public sealed class OperationButton : System.Windows.Controls.Button
         set => SetValue(VariantProperty, value);
     }
 
+    public static readonly DependencyProperty IsBusyProperty = DependencyProperty.Register(
+        nameof(IsBusy), typeof(bool), typeof(OperationButton), new FrameworkPropertyMetadata(false));
+
+    /// <summary>Shows progress and prevents repeat activation while an operation is in progress.</summary>
+    public bool IsBusy
+    {
+        get => (bool)GetValue(IsBusyProperty);
+        set => SetValue(IsBusyProperty, value);
+    }
+
+    public static readonly DependencyProperty BusyContentProperty = DependencyProperty.Register(
+        nameof(BusyContent), typeof(object), typeof(OperationButton), new FrameworkPropertyMetadata("처리 중…"));
+
+    public object? BusyContent
+    {
+        get => GetValue(BusyContentProperty);
+        set => SetValue(BusyContentProperty, value);
+    }
+
+    protected override void OnClick()
+    {
+        if (!IsBusy) base.OnClick();
+    }
+
     public static readonly DependencyProperty CornerRadiusProperty = DependencyProperty.Register(
         nameof(CornerRadius), typeof(CornerRadius), typeof(OperationButton),
         new FrameworkPropertyMetadata(new CornerRadius(6)));

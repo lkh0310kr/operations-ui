@@ -4,6 +4,7 @@
     <Style TargetType="TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
         <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontSize" Value="{DynamicResource FontBody}" />
         <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
     </Style>
 
@@ -13,8 +14,8 @@
         <Setter Property="BorderBrush" Value="{DynamicResource StrokeBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="14,9" />
-        <Setter Property="MinHeight" Value="40" />
-        <Setter Property="FontSize" Value="13" />
+        <Setter Property="MinHeight" Value="{DynamicResource TouchTargetHeight}" />
+        <Setter Property="FontSize" Value="{DynamicResource FontBody}" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -89,7 +90,7 @@
         <Setter Property="BorderBrush" Value="{DynamicResource StrokeBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="10,8" />
-        <Setter Property="MinHeight" Value="40" />
+        <Setter Property="MinHeight" Value="{DynamicResource ControlHeight}" />
         <Setter Property="CaretBrush" Value="{DynamicResource AccentBrush}" />
         <Setter Property="SelectionBrush" Value="{DynamicResource AccentBrush}" />
         <Style.Triggers>
@@ -103,6 +104,10 @@
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Foreground" Value="{DynamicResource TextDisabledBrush}" />
             </Trigger>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource DangerBrush}" />
+                <Setter Property="BorderThickness" Value="2" />
+            </Trigger>
         </Style.Triggers>
     </Style>
 
@@ -112,7 +117,7 @@
         <Setter Property="BorderBrush" Value="{DynamicResource StrokeBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="10,7" />
-        <Setter Property="MinHeight" Value="40" />
+        <Setter Property="MinHeight" Value="{DynamicResource ControlHeight}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
@@ -175,7 +180,7 @@
     <Style TargetType="CheckBox">
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
         <Setter Property="Padding" Value="4" />
-        <Setter Property="MinHeight" Value="36" />
+        <Setter Property="MinHeight" Value="{DynamicResource TouchTargetHeight}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="CheckBox">
@@ -282,7 +287,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="ItemSurface" Property="Background" Value="{DynamicResource SurfaceHoverBrush}" /></Trigger>
-                        <Trigger Property="IsSelected" Value="True"><Setter TargetName="ItemSurface" Property="Background" Value="#303D50" /><Setter TargetName="ItemSurface" Property="BorderBrush" Value="{DynamicResource AccentBrush}" /></Trigger>
+                        <Trigger Property="IsSelected" Value="True"><Setter TargetName="ItemSurface" Property="Background" Value="{DynamicResource SelectionBrush}" /><Setter TargetName="ItemSurface" Property="BorderBrush" Value="{DynamicResource AccentBrush}" /></Trigger>
                         <Trigger Property="IsKeyboardFocusWithin" Value="True"><Setter TargetName="ItemSurface" Property="BorderBrush" Value="{DynamicResource FocusBrush}" /></Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -299,7 +304,7 @@
         <Setter Property="RowBackground" Value="{DynamicResource SurfaceBrush}" />
         <Setter Property="AlternatingRowBackground" Value="{DynamicResource SurfaceRaisedBrush}" />
         <Setter Property="HeadersVisibility" Value="Column" />
-        <Setter Property="MinRowHeight" Value="40" />
+        <Setter Property="MinRowHeight" Value="44" />
         <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
     </Style>
     <Style TargetType="DataGridColumnHeader">
@@ -318,7 +323,7 @@
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="{DynamicResource SurfaceHoverBrush}" /></Trigger>
-            <Trigger Property="IsSelected" Value="True"><Setter Property="Background" Value="#303D50" /></Trigger>
+            <Trigger Property="IsSelected" Value="True"><Setter Property="Background" Value="{DynamicResource SelectionBrush}" /></Trigger>
         </Style.Triggers>
     </Style>
     <Style TargetType="DataGridCell">

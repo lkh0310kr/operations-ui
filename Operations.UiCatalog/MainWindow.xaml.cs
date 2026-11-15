@@ -1,5 +1,7 @@
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -8,6 +10,8 @@ namespace Operations.UiCatalog;
 
 public partial class MainWindow : Window
 {
+    private int _buttonActivationCount;
+
     public MainWindow()
     {
         InitializeComponent();
@@ -47,22 +51,29 @@ public partial class MainWindow : Window
         if (snapshotDirectoryArgument is not null)
         {
             var outputDirectory = Path.GetFullPath(snapshotDirectoryArgument["--snapshot-dir=".Length..]);
-            var sections = new (string FileName, string ElementName)[]
+            var sections = new (string FileName, int TabIndex)[]
             {
-                ("01-foundations.png", "FoundationSection"),
-                ("02-controls.png", "ControlsSection"),
-                ("03-feedback.png", "FeedbackSection"),
-                ("04-operations.png", "OperationsSection"),
-                ("05-data.png", "DataSection"),
-                ("06-workspace.png", "WorkspaceSection"),
-                ("07-dialogs.png", "DialogSection")
+                ("01-foundations.png", 0),
+                ("02-typography.png", 1),
+                ("03-buttons.png", 2),
+                ("04-inputs.png", 3),
+                ("05-alerts.png", 4),
+                ("06-status-metrics.png", 5),
+                ("07-data.png", 6),
+                ("08-layout.png", 7),
+                ("09-dialogs.png", 8)
             };
 
-            foreach (var (fileName, elementName) in sections)
+            foreach (var (fileName, tabIndex) in sections)
             {
-                if (FindName(elementName) is not FrameworkElement section) continue;
-                CatalogScrollViewer.ScrollToVerticalOffset(section.TranslatePoint(new Point(0, 0), CatalogScrollViewer).Y + CatalogScrollViewer.VerticalOffset - 12);
+                CatalogTabs.SelectedIndex = tabIndex;
                 await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
+                if (tabIndex == 2)
+                {
+                    FocusPreviewButton.Focus();
+                    Keyboard.Focus(FocusPreviewButton);
+                    await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
+                }
                 await Task.Delay(80);
                 await SaveSnapshotAsync(Path.Combine(outputDirectory, fileName));
             }
@@ -75,7 +86,9 @@ public partial class MainWindow : Window
     {
         await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
         var dpi = VisualTreeHelper.GetDpi(this);
-        var bitmap = new RenderTargetBitmap(Math.Max(1, (int)Math.Ceiling(ActualWidth * dpi.DpiScaleX)), Math.Max(1, (int)Math.Ceiling(ActualHeight * dpi.DpiScaleY)), dpi.PixelsPerInchX, dpi.PixelsPerInchY, PixelFormats.Pbgra32);
+        var content = (FrameworkElement)Content;
+        var contentSize = new Size(content.ActualWidth, content.ActualHeight);
+        var bitmap = new RenderTargetBitmap(Math.Max(1, (int)Math.Ceiling(contentSize.Width * dpi.DpiScaleX)), Math.Max(1, (int)Math.Ceiling(contentSize.Height * dpi.DpiScaleY)), dpi.PixelsPerInchX, dpi.PixelsPerInchY, PixelFormats.Pbgra32);
         bitmap.Render(this);
         Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
         var encoder = new PngBitmapEncoder();
@@ -86,13 +99,18 @@ public partial class MainWindow : Window
 
     private void NavigateToSection_Click(object sender, RoutedEventArgs e)
     {
-        if ((sender as FrameworkElement)?.Tag is string name && FindName(name) is FrameworkElement section)
-            CatalogScrollViewer.ScrollToVerticalOffset(section.TranslatePoint(new Point(0, 0), CatalogScrollViewer).Y + CatalogScrollViewer.VerticalOffset - 24);
+        if ((sender as FrameworkElement)?.Tag is string indexText && int.TryParse(indexText, out var index))
+            CatalogTabs.SelectedIndex = index;
     }
 
     private void Notification_DismissRequested(object sender, RoutedEventArgs e)
     {
         if (sender is FrameworkElement notification) notification.Visibility = Visibility.Collapsed;
+    }
+
+    private void DemoButton_Click(object sender, RoutedEventArgs e)
+    {
+        ButtonInteractionStatus.Text = $"Button activated: {++_buttonActivationCount}";
     }
 
     private void ClosePreviewDialog_Click(object sender, RoutedEventArgs e) => DialogPreviewHost.IsDialogOpen = false;

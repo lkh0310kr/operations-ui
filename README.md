@@ -35,4 +35,4 @@ dotnet run --project .\Operations.UiCatalog\Operations.UiCatalog.csproj -- --sna
 
 ## 디자인 원칙
 
-UI를 수정할 때는 [UI_GUIDELINES.md](UI_GUIDELINES.md)의 화면 구성·컴포넌트·스크린샷 검토 규칙을 따른다. 기본 확인 해상도는 1024×700, 1280×800, 1440×900이다.
+구성 요소와 상태 계획은 [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md), 화면 구성·카탈로그 검토 규칙은 [UI_GUIDELINES.md](UI_GUIDELINES.md)를 따른다. 기본 확인 해상도는 1024×700, 1280×800, 1440×900이다.

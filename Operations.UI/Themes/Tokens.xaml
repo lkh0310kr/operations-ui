@@ -18,6 +18,13 @@
     <Color x:Key="DangerColor">#E36B65</Color>
     <Color x:Key="InfoColor">#64A9E8</Color>
     <Color x:Key="FocusColor">#8DB4FF</Color>
+    <Color x:Key="SelectionColor">#303D50</Color>
+    <Color x:Key="ErrorSurfaceColor">#3C292C</Color>
+    <Color x:Key="WarningSurfaceColor">#3B3326</Color>
+    <Color x:Key="SuccessSurfaceColor">#20392F</Color>
+    <Color x:Key="DangerBorderColor">#784247</Color>
+    <Color x:Key="WarningBorderColor">#715B32</Color>
+    <Color x:Key="SuccessBorderColor">#35634D</Color>
 
     <SolidColorBrush x:Key="CanvasBrush" Color="{DynamicResource CanvasColor}" />
     <SolidColorBrush x:Key="SurfaceBrush" Color="{DynamicResource SurfaceColor}" />
@@ -35,6 +42,13 @@
     <SolidColorBrush x:Key="DangerBrush" Color="{DynamicResource DangerColor}" />
     <SolidColorBrush x:Key="InfoBrush" Color="{DynamicResource InfoColor}" />
     <SolidColorBrush x:Key="FocusBrush" Color="{DynamicResource FocusColor}" />
+    <SolidColorBrush x:Key="SelectionBrush" Color="{DynamicResource SelectionColor}" />
+    <SolidColorBrush x:Key="ErrorSurfaceBrush" Color="{DynamicResource ErrorSurfaceColor}" />
+    <SolidColorBrush x:Key="WarningSurfaceBrush" Color="{DynamicResource WarningSurfaceColor}" />
+    <SolidColorBrush x:Key="SuccessSurfaceBrush" Color="{DynamicResource SuccessSurfaceColor}" />
+    <SolidColorBrush x:Key="DangerBorderBrush" Color="{DynamicResource DangerBorderColor}" />
+    <SolidColorBrush x:Key="WarningBorderBrush" Color="{DynamicResource WarningBorderColor}" />
+    <SolidColorBrush x:Key="SuccessBorderBrush" Color="{DynamicResource SuccessBorderColor}" />
 
     <sys:Double x:Key="Space1">4</sys:Double>
     <sys:Double x:Key="Space2">8</sys:Double>
@@ -48,8 +62,17 @@
     <sys:Double x:Key="RadiusSmall">4</sys:Double>
     <sys:Double x:Key="RadiusMedium">8</sys:Double>
     <sys:Double x:Key="RadiusLarge">12</sys:Double>
-    <sys:Double x:Key="ControlHeight">40</sys:Double>
+    <sys:Double x:Key="ControlHeight">44</sys:Double>
     <sys:Double x:Key="ActionHeight">44</sys:Double>
+    <sys:Double x:Key="TouchTargetHeight">44</sys:Double>
+    <sys:Double x:Key="FontCaption">12</sys:Double>
+    <sys:Double x:Key="FontSupporting">13</sys:Double>
+    <sys:Double x:Key="FontBody">14</sys:Double>
+    <sys:Double x:Key="FontSectionTitle">18</sys:Double>
+    <sys:Double x:Key="FontPageTitle">26</sys:Double>
+    <sys:Double x:Key="FocusBorderThickness">2</sys:Double>
+    <sys:Double x:Key="RadiusControl">4</sys:Double>
+    <sys:Double x:Key="RadiusSurface">6</sys:Double>
 
     <!-- Compatibility aliases for the product app while it adopts semantic token names. -->
     <SolidColorBrush x:Key="Bg" Color="{DynamicResource CanvasColor}" />
