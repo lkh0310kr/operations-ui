@@ -7,19 +7,19 @@
 카탈로그 실행:
 
 ```powershell
-dotnet run --project .\vision-app-ui\Operations.UiCatalog\Operations.UiCatalog.csproj
+dotnet run --project .\operations-ui\Operations.UiCatalog\Operations.UiCatalog.csproj
 ```
 
 현재 화면을 PNG로 저장:
 
 ```powershell
-dotnet run --project .\vision-app-ui\Operations.UiCatalog\Operations.UiCatalog.csproj -- --snapshot=artifacts\ui-catalog\catalog.png
+dotnet run --project .\operations-ui\Operations.UiCatalog\Operations.UiCatalog.csproj -- --snapshot=artifacts\ui-catalog\catalog.png
 ```
 
 각 구성 요소 구간을 PNG로 저장:
 
 ```powershell
-dotnet run --project .\vision-app-ui\Operations.UiCatalog\Operations.UiCatalog.csproj -- --snapshot-dir=artifacts\ui-catalog
+dotnet run --project .\operations-ui\Operations.UiCatalog\Operations.UiCatalog.csproj -- --snapshot-dir=artifacts\ui-catalog
 ```
 
 `Themes/DesignSystem.xaml`은 사전을 조립하며 실제 토큰·스타일·작업공간 요소는 각각 `Tokens.xaml`, `Controls.xaml`, `Components.xaml`에 둔다. 공유 리소스 변경 후에는 카탈로그와 제품 앱을 모두 빌드하고 주요 상태 스냅샷을 확인한다.
@@ -31,3 +31,8 @@ dotnet run --project .\vision-app-ui\Operations.UiCatalog\Operations.UiCatalog.c
 - `NotificationBanner`: 정보·성공·주의·오류 알림. 닫기 동작은 `DismissRequested` 이벤트로 소비 앱에 전달한다.
 
 제품 앱은 `App.xaml`에서 `pack://application:,,,/Operations.UI;component/Themes/DesignSystem.xaml` 리소스를 병합해 테마와 기본 컨트롤 스타일을 적용한다.
+
+
+## 디자인 원칙
+
+UI를 수정할 때는 [UI_GUIDELINES.md](UI_GUIDELINES.md)의 화면 구성·컴포넌트·스크린샷 검토 규칙을 따른다. 기본 확인 해상도는 1024×700, 1280×800, 1440×900이다.

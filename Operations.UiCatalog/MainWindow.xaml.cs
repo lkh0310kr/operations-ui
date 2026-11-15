@@ -22,6 +22,17 @@ public partial class MainWindow : Window
     private async void Window_Loaded(object sender, RoutedEventArgs e)
     {
         var arguments = Environment.GetCommandLineArgs();
+        var sizeArgument = arguments.FirstOrDefault(argument => argument.StartsWith("--size=", StringComparison.OrdinalIgnoreCase));
+        if (sizeArgument is not null)
+        {
+            var dimensions = sizeArgument["--size=".Length..].Split('x', 'X');
+            if (dimensions.Length == 2 && double.TryParse(dimensions[0], out var width) && double.TryParse(dimensions[1], out var height))
+            {
+                Width = width;
+                Height = height;
+                await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
+            }
+        }
         var snapshotArgument = arguments.FirstOrDefault(argument => argument.StartsWith("--snapshot=", StringComparison.OrdinalIgnoreCase));
         var snapshotDirectoryArgument = arguments.FirstOrDefault(argument => argument.StartsWith("--snapshot-dir=", StringComparison.OrdinalIgnoreCase));
 
@@ -41,9 +52,10 @@ public partial class MainWindow : Window
                 ("01-foundations.png", "FoundationSection"),
                 ("02-controls.png", "ControlsSection"),
                 ("03-feedback.png", "FeedbackSection"),
-                ("04-data.png", "DataSection"),
-                ("05-workspace.png", "WorkspaceSection"),
-                ("06-dialogs.png", "DialogSection")
+                ("04-operations.png", "OperationsSection"),
+                ("05-data.png", "DataSection"),
+                ("06-workspace.png", "WorkspaceSection"),
+                ("07-dialogs.png", "DialogSection")
             };
 
             foreach (var (fileName, elementName) in sections)

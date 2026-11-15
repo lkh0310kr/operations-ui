@@ -5,7 +5,7 @@
         <Setter Property="Background" Value="{DynamicResource SurfaceBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource StrokeBrush}" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="CornerRadius" Value="8" />
     </Style>
     <Style x:Key="Card" TargetType="Border" BasedOn="{StaticResource SurfaceCard}" />
 
@@ -30,11 +30,127 @@
     </Style>
 
     <Style x:Key="StatusBadge" TargetType="Border">
-        <Setter Property="Background" Value="#22392F" />
-        <Setter Property="BorderBrush" Value="#35634D" />
+        <Setter Property="Background" Value="#1D2E28" />
+        <Setter Property="BorderBrush" Value="#315342" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="10,5" />
+    </Style>
+
+    <Style TargetType="controls:OperationButton">
+        <Setter Property="MinHeight" Value="{DynamicResource ActionHeight}" />
+        <Setter Property="Padding" Value="16,9" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SurfaceRaisedBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource StrokeBrush}" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="CornerRadius" Value="3" />
-        <Setter Property="Padding" Value="8,4" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:OperationButton">
+                    <Border x:Name="Chrome" Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          RecognizesAccessKey="True" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Variant" Value="Primary">
+                            <Setter Property="Background" Value="{DynamicResource AccentBrush}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+                            <Setter Property="Foreground" Value="#FFFFFF" />
+                        </Trigger>
+                        <Trigger Property="Variant" Value="Success">
+                            <Setter Property="Background" Value="#20392F" />
+                            <Setter Property="BorderBrush" Value="#35634D" />
+                            <Setter Property="Foreground" Value="{DynamicResource SuccessBrush}" />
+                        </Trigger>
+                        <Trigger Property="Variant" Value="Warning">
+                            <Setter Property="Background" Value="#3B3326" />
+                            <Setter Property="BorderBrush" Value="#715B32" />
+                            <Setter Property="Foreground" Value="{DynamicResource WarningBrush}" />
+                        </Trigger>
+                        <Trigger Property="Variant" Value="Danger">
+                            <Setter Property="Background" Value="{DynamicResource DangerBrush}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource DangerBrush}" />
+                            <Setter Property="Foreground" Value="#FFFFFF" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Chrome" Property="Opacity" Value="0.88" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Chrome" Property="Opacity" Value="0.72" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="Chrome" Property="BorderBrush" Value="{DynamicResource FocusBrush}" />
+                            <Setter TargetName="Chrome" Property="BorderThickness" Value="2" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Chrome" Property="Opacity" Value="0.42" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="controls:StatusBadge">
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Padding" Value="10,6" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:StatusBadge">
+                    <Border x:Name="BadgeSurface" Background="{DynamicResource SurfaceRaisedBrush}"
+                            CornerRadius="12" Padding="{TemplateBinding Padding}">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Ellipse x:Name="StateDot" Width="7" Height="7" Fill="{DynamicResource TextSecondaryBrush}" />
+                            <ContentPresenter Margin="8,0,0,0" VerticalAlignment="Center"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}" />
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="State" Value="{x:Static controls:EquipmentState.Ready}">
+                            <Setter TargetName="StateDot" Property="Fill" Value="{DynamicResource SuccessBrush}" />
+                        </Trigger>
+                        <Trigger Property="State" Value="{x:Static controls:EquipmentState.Running}">
+                            <Setter TargetName="StateDot" Property="Fill" Value="{DynamicResource AccentBrush}" />
+                        </Trigger>
+                        <Trigger Property="State" Value="{x:Static controls:EquipmentState.Warning}">
+                            <Setter TargetName="StateDot" Property="Fill" Value="{DynamicResource WarningBrush}" />
+                        </Trigger>
+                        <Trigger Property="State" Value="{x:Static controls:EquipmentState.Fault}">
+                            <Setter TargetName="StateDot" Property="Fill" Value="{DynamicResource DangerBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="controls:MetricTile">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:MetricTile">
+                    <Border Background="{DynamicResource SurfaceRaisedBrush}" CornerRadius="6" Padding="16">
+                        <Grid>
+                            <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                            <TextBlock Text="{TemplateBinding Label}" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,7,0,0" VerticalAlignment="Bottom">
+                                <TextBlock Text="{TemplateBinding Value}" Foreground="{TemplateBinding Foreground}" FontSize="28" FontWeight="SemiBold" />
+                                <TextBlock Text="{TemplateBinding Unit}" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="13" Margin="7,0,0,3" VerticalAlignment="Bottom" />
+                            </StackPanel>
+                            <TextBlock Grid.Row="2" Text="{TemplateBinding Context}" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       FontSize="12" Margin="0,5,0,0" TextTrimming="CharacterEllipsis" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="WorkspaceSidebar" TargetType="Border">

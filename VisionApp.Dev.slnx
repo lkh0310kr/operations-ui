@@ -1,5 +1,4 @@
 <Solution>
-  <Project Path="../vision-app/VisionApp.csproj" />
   <Project Path="Operations.UI/Operations.UI.csproj" />
   <Project Path="Operations.UiCatalog/Operations.UiCatalog.csproj" />
 </Solution>
