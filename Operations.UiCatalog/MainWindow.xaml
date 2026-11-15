@@ -201,7 +201,7 @@
                                 <ui:DataStatePanel State="Empty" Title="조건에 맞는 항목이 없습니다" Message="검색 조건을 바꾸거나 필터를 초기화하세요." Height="200" Margin="4,0" />
                                 <ui:DataStatePanel x:Name="RetryStatePanel" State="Error" Title="목록을 불러오지 못했습니다" Message="연결 상태를 확인한 뒤 다시 시도하세요." Height="200" Margin="8,0,0,0">
                                     <ui:DataStatePanel.ActionContent>
-                                        <Button Content="다시 시도" Click="RetryData_Click" MinHeight="36" Padding="12,5" />
+                                        <Button x:Name="RetryDataButton" Content="다시 시도" Click="RetryData_Click" MinHeight="36" Padding="12,5" />
                                     </ui:DataStatePanel.ActionContent>
                                 </ui:DataStatePanel>
                             </UniformGrid>

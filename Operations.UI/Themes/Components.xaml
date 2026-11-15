@@ -397,13 +397,14 @@
                                        TextAlignment="Center" TextWrapping="Wrap" Margin="0,8,0,0" />
                             <TextBlock Text="{TemplateBinding Message}" Foreground="{DynamicResource TextSecondaryBrush}"
                                        TextAlignment="Center" TextWrapping="Wrap" Margin="0,4,0,0" />
-                            <ContentPresenter Content="{TemplateBinding ActionContent}" HorizontalAlignment="Center" Margin="0,12,0,0" />
+                            <ContentPresenter x:Name="ActionPresenter" Content="{TemplateBinding ActionContent}" HorizontalAlignment="Center" Margin="0,12,0,0" />
                         </StackPanel>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="State" Value="{x:Static controls:DataStateKind.Loading}">
                             <Setter TargetName="LoadingIndicator" Property="Visibility" Value="Visible" />
                             <Setter TargetName="StateGlyph" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="ActionPresenter" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                         <Trigger Property="State" Value="{x:Static controls:DataStateKind.Error}">
                             <Setter TargetName="StateGlyph" Property="Text" Value="!" />

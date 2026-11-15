@@ -188,6 +188,7 @@ public partial class MainWindow : Window
 
     private async void RetryData_Click(object sender, RoutedEventArgs e)
     {
+        RetryDataButton.IsEnabled = false;
         RetryStatePanel.State = Operations.UI.Controls.DataStateKind.Loading;
         RetryStatePanel.Title = "목록을 다시 확인하는 중";
         RetryStatePanel.Message = "연결을 확인하고 있습니다.";
@@ -195,6 +196,7 @@ public partial class MainWindow : Window
         RetryStatePanel.State = Operations.UI.Controls.DataStateKind.Error;
         RetryStatePanel.Title = "목록을 불러오지 못했습니다";
         RetryStatePanel.Message = "연결 상태를 확인한 뒤 다시 시도하세요.";
+        RetryDataButton.IsEnabled = true;
     }
 
     private sealed record CatalogRow(string Name, string Area, string Status, string Updated);
