@@ -360,7 +360,10 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="ItemSurface" Property="Background" Value="{DynamicResource SurfaceHoverBrush}" /></Trigger>
                         <Trigger Property="IsSelected" Value="True"><Setter TargetName="ItemSurface" Property="Background" Value="{DynamicResource SelectionBrush}" /><Setter TargetName="ItemSurface" Property="BorderBrush" Value="{DynamicResource AccentBrush}" /></Trigger>
-                        <Trigger Property="IsKeyboardFocusWithin" Value="True"><Setter TargetName="ItemSurface" Property="BorderBrush" Value="{DynamicResource FocusBrush}" /></Trigger>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter TargetName="ItemSurface" Property="BorderBrush" Value="{DynamicResource FocusBrush}" />
+                            <Setter TargetName="ItemSurface" Property="BorderThickness" Value="{DynamicResource FocusBorderThickness}" />
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -371,6 +374,7 @@
         <Setter Property="Background" Value="{DynamicResource SurfaceBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource StrokeBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="GridLinesVisibility" Value="Horizontal" />
         <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource StrokeBrush}" />
         <Setter Property="RowBackground" Value="{DynamicResource SurfaceBrush}" />
@@ -378,6 +382,12 @@
         <Setter Property="HeadersVisibility" Value="Column" />
         <Setter Property="MinRowHeight" Value="44" />
         <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+        <Style.Triggers>
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource FocusBrush}" />
+                <Setter Property="BorderThickness" Value="{DynamicResource FocusBorderThickness}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
     <Style TargetType="DataGridColumnHeader">
         <Setter Property="Background" Value="{DynamicResource SurfaceRaisedBrush}" />
@@ -389,6 +399,10 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="{DynamicResource SurfaceHoverBrush}" /></Trigger>
             <Trigger Property="IsPressed" Value="True"><Setter Property="Background" Value="{DynamicResource StrokeBrush}" /></Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource FocusBrush}" />
+                <Setter Property="BorderThickness" Value="{DynamicResource FocusBorderThickness}" />
+            </Trigger>
         </Style.Triggers>
     </Style>
     <Style TargetType="DataGridRow">
@@ -396,6 +410,10 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="{DynamicResource SurfaceHoverBrush}" /></Trigger>
             <Trigger Property="IsSelected" Value="True"><Setter Property="Background" Value="{DynamicResource SelectionBrush}" /></Trigger>
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource FocusBrush}" />
+                <Setter Property="BorderThickness" Value="{DynamicResource FocusBorderThickness}" />
+            </Trigger>
         </Style.Triggers>
     </Style>
     <Style TargetType="DataGridCell">
@@ -405,7 +423,11 @@
         <Setter Property="Padding" Value="8,6" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="{DynamicResource SurfaceHoverBrush}" /></Trigger>
-            <Trigger Property="IsSelected" Value="True"><Setter Property="Background" Value="#3A4A62" /></Trigger>
+            <Trigger Property="IsSelected" Value="True"><Setter Property="Background" Value="{DynamicResource SelectionBrush}" /></Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource FocusBrush}" />
+                <Setter Property="BorderThickness" Value="{DynamicResource FocusBorderThickness}" />
+            </Trigger>
         </Style.Triggers>
     </Style>
 </ResourceDictionary>

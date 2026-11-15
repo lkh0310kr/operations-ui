@@ -80,6 +80,12 @@ public partial class MainWindow : Window
                     Keyboard.Focus(FocusPreviewCombo);
                     await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
                 }
+                else if (tabIndex == 6)
+                {
+                    SampleGrid.Focus();
+                    Keyboard.Focus(SampleGrid);
+                    await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
+                }
                 await Task.Delay(80);
                 await SaveSnapshotAsync(Path.Combine(outputDirectory, fileName));
                 if (tabIndex == 3)

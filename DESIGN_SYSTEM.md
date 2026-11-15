@@ -89,7 +89,7 @@ TextBox, ComboBox, CheckBox, RadioButton은 각각의 포커스, 비활성, 선�
 
 ### 지표, 목록, 표
 
-`MetricTile`은 `Label`, `Value`, `Unit`, `Context`, `State`, `StateMessage`를 받는다. `State`는 `Value`, `Loading`, `Empty`, `Error` 중 하나다. 값의 반올림과 단위 변환은 데이터 계층에서 끝내고 타일에는 표시 문자열을 전달한다. 지표는 값, 단위, 기준 또는 변화 방향을 함께 보여준다. 표와 목록은 선택, 정렬, 빈 결과, 로딩, 오류 상태를 분리하고 숫자 정렬 및 키보드 탐색을 확인한다.
+`MetricTile`은 `Label`, `Value`, `Unit`, `Context`, `State`, `StateMessage`를 받는다. `State`는 `Value`, `Loading`, `Empty`, `Error` 중 하나다. 값의 반올림과 단위 변환은 데이터 계층에서 끝내고 타일에는 표시 문자열을 전달한다. 지표는 값, 단위, 기준 또는 변화 방향을 함께 보여준다. 목록·표의 선택은 `SelectionBrush`를 사용하며 목록 항목, 표 헤더, 행, 셀의 키보드 포커스를 표시한다. 빈 결과·로딩·오류 패턴과 정렬 동작은 아직 제품 공통 API로 추출되지 않았으므로 소비 화면에서 확인한다.
 
 ### 레이아웃과 대화상자
 

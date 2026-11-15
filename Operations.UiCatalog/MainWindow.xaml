@@ -182,7 +182,7 @@
                                 <ListBox SelectedIndex="1" Height="190" Margin="0,0,14,0">
                                     <ListBoxItem Content="조립 구역 · 설비 01"/><ListBoxItem Content="검수 구역 · 설비 02"/><ListBoxItem Content="포장 구역 · 설비 03"/>
                                 </ListBox>
-                                <DataGrid x:Name="SampleGrid" Grid.Column="1" Height="190" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single">
+                                <DataGrid x:Name="SampleGrid" Grid.Column="1" Height="190" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" SelectedIndex="1">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="작업" Binding="{Binding Name}" Width="1.2*"/>
                                         <DataGridTextColumn Header="구역" Binding="{Binding Area}" Width="1*"/>
