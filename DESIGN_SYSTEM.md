@@ -24,6 +24,7 @@
 | 주요 동작 글자 | `AccentForegroundColor` | 주요 동작 배경 위 텍스트 |
 | 상태 | `SuccessColor`, `WarningColor`, `DangerColor`, `InfoColor` | 의미가 있는 상태에만 사용 |
 | 상태 표면 | `SuccessSurfaceColor`, `WarningSurfaceColor`, `ErrorSurfaceColor` | 상태 알림 배경 |
+| 오류 hover 표면 | `ErrorHoverSurfaceColor` | 위험 동작 버튼 hover 배경 |
 | 키보드 포커스 | `FocusColor` | 조작 요소의 외곽선 |
 
 색상 토큰은 `Operations.UI/Themes/Tokens.xaml`(다크)과 `Tokens.Light.xaml`(라이트)에 의미 이름으로 관리한다. 컴포넌트는 동일한 `*Brush` 토큰만 참조해 테마 전환 뒤에도 스타일을 유지한다. 상태 색은 상태명과 아이콘 또는 형태를 함께 표현한다. 위험 동작을 색만으로 암시하지 말고 동작 이름을 명확히 쓴다.
@@ -87,6 +88,8 @@ designSystem.Source = new Uri(
 기본, hover, pressed, keyboard focus, disabled, busy 상태를 확인한다. Busy 상태는 진행 문구와 반복 실행 차단을 제공한다. 아이콘 전용 버튼은 기본 스타일을 제공하며, 프로젝트 전반의 아이콘 자산과 로딩 성공·실패 후속 패턴은 확장 항목이다.
 
 `IconActionButton` 스타일은 44px 조작 영역을 제공한다. 아이콘만 보이는 버튼에는 `AutomationProperties.Name`과 `ToolTip`을 함께 지정한다.
+
+일반 WPF `Button`을 구성할 때는 `PrimaryButton` 또는 `DangerButton` 스타일을 사용한다. 위험 버튼의 hover 색과 글자 대비는 양쪽 테마의 의미 토큰에서 가져온다.
 
 ### 텍스트
 

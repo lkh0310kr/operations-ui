@@ -23,6 +23,7 @@
     <Color x:Key="SelectionColor">#DCE9FA</Color>
     <Color x:Key="DialogScrimColor">#A6000000</Color>
     <Color x:Key="ErrorSurfaceColor">#FCE9E7</Color>
+    <Color x:Key="ErrorHoverSurfaceColor">#F5D5D1</Color>
     <Color x:Key="WarningSurfaceColor">#FFF3D6</Color>
     <Color x:Key="SuccessSurfaceColor">#E0F2E9</Color>
     <Color x:Key="DangerBorderColor">#B42318</Color>
@@ -50,6 +51,7 @@
     <SolidColorBrush x:Key="SelectionBrush" Color="{DynamicResource SelectionColor}" />
     <SolidColorBrush x:Key="DialogScrimBrush" Color="{DynamicResource DialogScrimColor}" />
     <SolidColorBrush x:Key="ErrorSurfaceBrush" Color="{DynamicResource ErrorSurfaceColor}" />
+    <SolidColorBrush x:Key="ErrorHoverSurfaceBrush" Color="{DynamicResource ErrorHoverSurfaceColor}" />
     <SolidColorBrush x:Key="WarningSurfaceBrush" Color="{DynamicResource WarningSurfaceColor}" />
     <SolidColorBrush x:Key="SuccessSurfaceBrush" Color="{DynamicResource SuccessSurfaceColor}" />
     <SolidColorBrush x:Key="DangerBorderBrush" Color="{DynamicResource DangerBorderColor}" />

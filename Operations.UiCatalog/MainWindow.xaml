@@ -121,6 +121,7 @@
                                 <ui:OperationButton Content="정지" Variant="Danger" Margin="0,0,8,8" />
                                 <ui:OperationButton Content="사용할 수 없음" IsEnabled="False" Margin="0,0,8,8" />
                                 <ui:OperationButton Content="저장" IsBusy="True" Click="DemoButton_Click" BusyContent="저장 중" Margin="0,0,8,8" />
+                                <Button Content="연결 해제" Style="{StaticResource DangerButton}" Click="DemoButton_Click" Margin="0,0,8,8" />
                                 <Button Content="⋮" Style="{StaticResource IconActionButton}" ToolTip="추가 동작"
                                         AutomationProperties.Name="추가 동작" Margin="0,0,8,8" />
                             </WrapPanel>
