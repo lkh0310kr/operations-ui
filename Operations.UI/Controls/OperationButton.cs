@@ -1,5 +1,4 @@
 using System.Windows;
-using Wpf.Ui.Controls;
 
 namespace Operations.UI.Controls;
 
@@ -12,8 +11,8 @@ public enum OperationButtonVariant
     Danger
 }
 
-/// <summary>A WPF UI button with Operations UI sizing and a small semantic variant API.</summary>
-public sealed class OperationButton : Wpf.Ui.Controls.Button
+/// <summary>A standard WPF button with Operations UI sizing and semantic variants.</summary>
+public sealed class OperationButton : System.Windows.Controls.Button
 {
     public OperationButton()
     {
@@ -32,7 +31,7 @@ public sealed class OperationButton : Wpf.Ui.Controls.Button
 
     public static readonly DependencyProperty VariantProperty = DependencyProperty.Register(
         nameof(Variant), typeof(OperationButtonVariant), typeof(OperationButton),
-        new FrameworkPropertyMetadata(OperationButtonVariant.Standard, OnVariantChanged));
+        new FrameworkPropertyMetadata(OperationButtonVariant.Standard));
 
     public OperationButtonVariant Variant
     {
@@ -40,17 +39,13 @@ public sealed class OperationButton : Wpf.Ui.Controls.Button
         set => SetValue(VariantProperty, value);
     }
 
-    private static void OnVariantChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        if (d is not OperationButton button) return;
+    public static readonly DependencyProperty CornerRadiusProperty = DependencyProperty.Register(
+        nameof(CornerRadius), typeof(CornerRadius), typeof(OperationButton),
+        new FrameworkPropertyMetadata(new CornerRadius(6)));
 
-        button.Appearance = (OperationButtonVariant)e.NewValue switch
-        {
-            OperationButtonVariant.Primary => ControlAppearance.Primary,
-            OperationButtonVariant.Success => ControlAppearance.Success,
-            OperationButtonVariant.Warning => ControlAppearance.Caution,
-            OperationButtonVariant.Danger => ControlAppearance.Danger,
-            _ => ControlAppearance.Secondary
-        };
+    public CornerRadius CornerRadius
+    {
+        get => (CornerRadius)GetValue(CornerRadiusProperty);
+        set => SetValue(CornerRadiusProperty, value);
     }
 }

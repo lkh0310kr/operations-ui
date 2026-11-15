@@ -70,12 +70,12 @@
                                 <Border DockPanel.Dock="Right" Style="{StaticResource StatusBadge}" VerticalAlignment="Center"><TextBlock Text="어두운 테마" Foreground="{DynamicResource SuccessBrush}" FontSize="12" /></Border>
                             </DockPanel>
                             <UniformGrid Columns="6" Margin="-4,18,-4,0">
-                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource CanvasBrush}" BorderBrush="{DynamicResource StrokeBrush}" BorderThickness="1" CornerRadius="3"/><TextBlock Text="바탕" FontSize="12" Margin="0,7,0,0"/><TextBlock Text="#101214" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11"/></StackPanel>
-                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource StrokeBrush}" BorderThickness="1" CornerRadius="3"/><TextBlock Text="표면" FontSize="12" Margin="0,7,0,0"/><TextBlock Text="#181B1E" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11"/></StackPanel>
-                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource SurfaceRaisedBrush}" BorderBrush="{DynamicResource StrokeBrush}" BorderThickness="1" CornerRadius="3"/><TextBlock Text="올린 표면" FontSize="12" Margin="0,7,0,0"/><TextBlock Text="#222629" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11"/></StackPanel>
+                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource CanvasBrush}" BorderBrush="{DynamicResource StrokeBrush}" BorderThickness="1" CornerRadius="3"/><TextBlock Text="바탕" FontSize="12" Margin="0,7,0,0"/><TextBlock Text="#20272B" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11"/></StackPanel>
+                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource StrokeBrush}" BorderThickness="1" CornerRadius="3"/><TextBlock Text="표면" FontSize="12" Margin="0,7,0,0"/><TextBlock Text="#2A3338" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11"/></StackPanel>
+                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource SurfaceRaisedBrush}" BorderBrush="{DynamicResource StrokeBrush}" BorderThickness="1" CornerRadius="3"/><TextBlock Text="올린 표면" FontSize="12" Margin="0,7,0,0"/><TextBlock Text="#343E43" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11"/></StackPanel>
                                 <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource AccentBrush}" CornerRadius="3"/><TextBlock Text="주요 동작" FontSize="12" Margin="0,7,0,0"/><TextBlock Text="#4C8DFF" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11"/></StackPanel>
                                 <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource SuccessBrush}" CornerRadius="3"/><TextBlock Text="성공" FontSize="12" Margin="0,7,0,0"/><TextBlock Text="#42B883" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11"/></StackPanel>
-                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource DangerBrush}" CornerRadius="3"/><TextBlock Text="위험" FontSize="12" Margin="0,7,0,0"/><TextBlock Text="#EF6268" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11"/></StackPanel>
+                                <StackPanel Margin="4"><Border Height="46" Background="{DynamicResource DangerBrush}" CornerRadius="3"/><TextBlock Text="위험" FontSize="12" Margin="0,7,0,0"/><TextBlock Text="#E36B65" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11"/></StackPanel>
                             </UniformGrid>
                             <Border Height="1" Background="{DynamicResource StrokeBrush}" Margin="0,18,0,14" />
                             <Grid>
@@ -130,11 +130,12 @@
                             </DockPanel>
                             <Grid Margin="0,18,0,0">
                                 <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions>
-                                <ui:MetricTile Label="검사 속도" Value="182" Unit="ppm" Context="목표 180 · 정상" Margin="0,0,8,0" />
+                                <ui:MetricTile Label="검사 속도" Value="182" Unit="ppm" Context="목표 180 · 최근 1분" Margin="0,0,8,0" />
                                 <ui:MetricTile Grid.Column="1" Label="합격률" Value="99.4" Unit="%" Context="최근 1,000개" Margin="4,0" />
-                                <ui:MetricTile Grid.Column="2" Label="평균 추론" Value="3.8" Unit="ms" Context="기준 5.0 ms 이하" Margin="4,0" />
-                                <ui:MetricTile Grid.Column="3" Label="검사 장치" Value="02" Unit="" Context="라인 02 · 카메라 연결됨" Margin="8,0,0,0" />
+                                <ui:MetricTile Grid.Column="2" Label="평균 추론" Value="3.8" Unit="ms" Context="최근 성공 검사" Margin="4,0" />
+                                <ui:MetricTile Grid.Column="3" Label="검사 장치" Value="02" Unit="" Context="라인 02 · 프레임 대기 중" Margin="8,0,0,0" />
                             </Grid>
+                            <TextBlock Text="상태 표현 예시" Style="{StaticResource SupportingText}" FontSize="12" Margin="0,14,0,0" />
                             <WrapPanel Margin="0,12,0,0">
                                 <ui:StatusBadge Content="연결 끊김" State="Offline" Margin="0,0,8,8" />
                                 <ui:StatusBadge Content="준비 완료" State="Ready" Margin="0,0,8,8" />

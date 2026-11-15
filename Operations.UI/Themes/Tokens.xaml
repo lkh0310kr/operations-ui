@@ -1,21 +1,21 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <!-- Dark-first, low-chrome palette: separate surfaces by value before adding borders. -->
-    <Color x:Key="CanvasColor">#101214</Color>
-    <Color x:Key="SurfaceColor">#181B1E</Color>
-    <Color x:Key="SurfaceRaisedColor">#222629</Color>
-    <Color x:Key="SurfaceHoverColor">#2B3135</Color>
-    <Color x:Key="StrokeColor">#343B40</Color>
-    <Color x:Key="TextPrimaryColor">#F4F6F7</Color>
-    <Color x:Key="TextSecondaryColor">#B1BBC1</Color>
-    <Color x:Key="TextDisabledColor">#78838A</Color>
+    <!-- Dark-first industrial palette aligned with the consuming application's work surface. -->
+    <Color x:Key="CanvasColor">#20272B</Color>
+    <Color x:Key="SurfaceColor">#2A3338</Color>
+    <Color x:Key="SurfaceRaisedColor">#343E43</Color>
+    <Color x:Key="SurfaceHoverColor">#3D494E</Color>
+    <Color x:Key="StrokeColor">#465258</Color>
+    <Color x:Key="TextPrimaryColor">#F1F3F4</Color>
+    <Color x:Key="TextSecondaryColor">#AEB9BE</Color>
+    <Color x:Key="TextDisabledColor">#78858A</Color>
     <Color x:Key="AccentColor">#4C8DFF</Color>
-    <Color x:Key="AccentHoverColor">#70A3FF</Color>
+    <Color x:Key="AccentHoverColor">#78A1FF</Color>
     <Color x:Key="AccentPressedColor">#3674E5</Color>
     <Color x:Key="SuccessColor">#42B883</Color>
-    <Color x:Key="WarningColor">#E9AD45</Color>
-    <Color x:Key="DangerColor">#EF6268</Color>
+    <Color x:Key="WarningColor">#E5A84B</Color>
+    <Color x:Key="DangerColor">#E36B65</Color>
     <Color x:Key="InfoColor">#64A9E8</Color>
     <Color x:Key="FocusColor">#8DB4FF</Color>
 

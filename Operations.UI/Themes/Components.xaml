@@ -1,5 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:controls="clr-namespace:Operations.UI.Controls">
     <Style x:Key="SurfaceCard" TargetType="Border">
         <Setter Property="Background" Value="{DynamicResource SurfaceBrush}" />
@@ -42,6 +43,9 @@
         <Setter Property="Padding" Value="16,9" />
         <Setter Property="CornerRadius" Value="6" />
         <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
         <Setter Property="Background" Value="{DynamicResource SurfaceRaisedBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource StrokeBrush}" />
@@ -49,33 +53,67 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:OperationButton">
+                    <ControlTemplate.Resources>
+                        <DataTemplate DataType="{x:Type sys:String}">
+                            <TextBlock Text="{Binding}">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Variant, RelativeSource={RelativeSource AncestorType={x:Type controls:OperationButton}}}"
+                                                         Value="{x:Static controls:OperationButtonVariant.Primary}">
+                                                <Setter Property="Foreground" Value="#101416" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Variant, RelativeSource={RelativeSource AncestorType={x:Type controls:OperationButton}}}"
+                                                         Value="{x:Static controls:OperationButtonVariant.Success}">
+                                                <Setter Property="Foreground" Value="{DynamicResource SuccessBrush}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Variant, RelativeSource={RelativeSource AncestorType={x:Type controls:OperationButton}}}"
+                                                         Value="{x:Static controls:OperationButtonVariant.Warning}">
+                                                <Setter Property="Foreground" Value="{DynamicResource WarningBrush}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Variant, RelativeSource={RelativeSource AncestorType={x:Type controls:OperationButton}}}"
+                                                         Value="{x:Static controls:OperationButtonVariant.Danger}">
+                                                <Setter Property="Foreground" Value="#101416" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ControlTemplate.Resources>
                     <Border x:Name="Chrome" Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding CornerRadius}" Padding="{TemplateBinding Padding}">
-                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        <ContentPresenter x:Name="ButtonLabel" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          TextElement.Foreground="{TemplateBinding Foreground}"
                                           RecognizesAccessKey="True" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Variant" Value="Primary">
                             <Setter Property="Background" Value="{DynamicResource AccentBrush}" />
                             <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
-                            <Setter Property="Foreground" Value="#FFFFFF" />
+                            <Setter Property="Foreground" Value="#101416" />
+                            <Setter TargetName="ButtonLabel" Property="TextElement.Foreground" Value="#101416" />
                         </Trigger>
                         <Trigger Property="Variant" Value="Success">
                             <Setter Property="Background" Value="#20392F" />
                             <Setter Property="BorderBrush" Value="#35634D" />
                             <Setter Property="Foreground" Value="{DynamicResource SuccessBrush}" />
+                            <Setter TargetName="ButtonLabel" Property="TextElement.Foreground" Value="{DynamicResource SuccessBrush}" />
                         </Trigger>
                         <Trigger Property="Variant" Value="Warning">
                             <Setter Property="Background" Value="#3B3326" />
                             <Setter Property="BorderBrush" Value="#715B32" />
                             <Setter Property="Foreground" Value="{DynamicResource WarningBrush}" />
+                            <Setter TargetName="ButtonLabel" Property="TextElement.Foreground" Value="{DynamicResource WarningBrush}" />
                         </Trigger>
                         <Trigger Property="Variant" Value="Danger">
                             <Setter Property="Background" Value="{DynamicResource DangerBrush}" />
                             <Setter Property="BorderBrush" Value="{DynamicResource DangerBrush}" />
-                            <Setter Property="Foreground" Value="#FFFFFF" />
+                            <Setter Property="Foreground" Value="#101416" />
+                            <Setter TargetName="ButtonLabel" Property="TextElement.Foreground" Value="#101416" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Chrome" Property="Opacity" Value="0.88" />
