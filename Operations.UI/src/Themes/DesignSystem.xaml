@@ -8,5 +8,6 @@
         <ResourceDictionary Source="Foundation/Semantic.xaml" />
         <ResourceDictionary Source="Controls.xaml" />
         <ResourceDictionary Source="Components.xaml" />
+        <ResourceDictionary Source="Component/OperationalWorkspace.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

@@ -40,6 +40,20 @@ public partial class MainWindow : Window
                 await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
             }
         }
+        var mesVerification = arguments.FirstOrDefault(argument => argument.StartsWith("--verify-mes=", StringComparison.OrdinalIgnoreCase));
+        if (mesVerification is not null)
+        {
+            var mes = new MesWindow { Owner = this };
+            mes.Show();
+            await Dispatcher.InvokeAsync(mes.UpdateLayout, DispatcherPriority.Render);
+            var report = mes.VerifySampleBehavior();
+            var path = Path.GetFullPath(mesVerification["--verify-mes=".Length..]);
+            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+            File.WriteAllLines(path, report);
+            mes.Close();
+            Application.Current.Shutdown();
+            return;
+        }
         var foundationVerification = arguments.FirstOrDefault(argument => argument.StartsWith("--verify-foundation=", StringComparison.OrdinalIgnoreCase));
         if (foundationVerification is not null)
         {

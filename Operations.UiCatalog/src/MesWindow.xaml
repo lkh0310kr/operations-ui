@@ -8,10 +8,11 @@
  <Grid Margin="24">
   <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
   <StackPanel><TextBlock Text="MES / 생산 운영" Style="{StaticResource SupportingText}"/><TextBlock Text="작업지시" Style="{StaticResource PageTitle}" Margin="0,8,0,0"/><TextBlock Text="샘플 데이터 · 실제 생산 시스템에 연결되지 않음" Style="{StaticResource SupportingText}" Margin="0,4,0,16"/></StackPanel>
-  <Grid Grid.Row="1" Margin="0,0,0,16"><Grid.ColumnDefinitions><ColumnDefinition Width="280"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+  <Grid Grid.Row="1" Margin="0,0,0,16"><Grid.ColumnDefinitions><ColumnDefinition Width="280"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="150"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
    <TextBox x:Name="SearchBox" AutomationProperties.Name="작업지시 검색" ToolTip="작업 번호 또는 품목 검색" TextChanged="SearchChanged"/>
    <TextBlock Grid.Column="1" Text="작업 번호 또는 품목 검색" Style="{StaticResource SupportingText}" VerticalAlignment="Center" Margin="12,0"/>
-   <ui:OperationButton Grid.Column="2" Content="새로 고침" HorizontalAlignment="Right" Size="Compact" Click="RefreshClick"/>
+   <ComboBox x:Name="StateFilter" Grid.Column="2" AutomationProperties.Name="작업 상태 필터" SelectedIndex="0" SelectionChanged="FilterChanged"><ComboBoxItem Content="전체 상태"/><ComboBoxItem Content="진행 중"/><ComboBoxItem Content="대기"/></ComboBox>
+   <ui:OperationButton Grid.Column="3" Content="새로 고침" HorizontalAlignment="Right" Size="Compact" Click="RefreshClick"/>
   </Grid>
   <Grid Grid.Row="2"><Grid.ColumnDefinitions><ColumnDefinition Width="*" MinWidth="480"/><ColumnDefinition Width="16"/><ColumnDefinition Width="300"/></Grid.ColumnDefinitions>
    <Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
@@ -20,9 +21,9 @@
      <DataGrid.Columns><DataGridTextColumn Header="작업 번호" Binding="{Binding Id}" Width="1.2*"/><DataGridTextColumn Header="품목" Binding="{Binding Product}" Width="1.4*"/><DataGridTextColumn Header="상태" Binding="{Binding State}" Width="*"/><DataGridTextColumn Header="생산 / 계획" Binding="{Binding Quantity}" SortMemberPath="Produced" Width="*"/><DataGridTextColumn Header="예정" Binding="{Binding Due}" Width="*"/></DataGrid.Columns>
     </DataGrid>
    </Grid>
-   <Border Grid.Column="2" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource StrokeBrush}" BorderThickness="1" Padding="16">
-    <StackPanel><TextBlock Text="선택한 작업" Style="{StaticResource SectionTitle}"/><TextBlock x:Name="DetailId" FontSize="20" FontWeight="SemiBold" Margin="0,16,0,4"/><TextBlock x:Name="DetailProduct" TextWrapping="Wrap"/><Separator Margin="0,16"/><TextBlock Text="작업 상태" Style="{StaticResource SupportingText}"/><TextBlock x:Name="DetailState" Margin="0,4,0,12"/><TextBlock Text="생산 수량 / 계획 수량" Style="{StaticResource SupportingText}"/><TextBlock x:Name="DetailQuantity" Margin="0,4,0,12"/><TextBlock Text="예정일" Style="{StaticResource SupportingText}"/><TextBlock x:Name="DetailDue" Margin="0,4,0,12"/><Separator Margin="0,4,0,12"/><TextBlock Text="관련 이력" FontWeight="SemiBold"/><TextBlock Text="샘플 작업지시가 등록되었습니다." TextWrapping="Wrap" Margin="0,8,0,0"/><TextBlock Text="이 화면에서는 실제 작업을 변경할 수 없습니다." Style="{StaticResource SupportingText}" TextWrapping="Wrap" Margin="0,16,0,0"/></StackPanel>
-   </Border>
+   <ui:Inspector Grid.Column="2" Header="선택한 작업" AutomationProperties.Name="선택한 작업 상세">
+    <StackPanel><TextBlock x:Name="DetailId" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,4"/><TextBlock x:Name="DetailProduct" TextWrapping="Wrap"/><Separator Margin="0,16"/><TextBlock Text="작업 상태" Style="{StaticResource SupportingText}"/><ui:StatusIndicator x:Name="DetailState" Margin="0,4,0,12"/><TextBlock Text="생산 수량 / 계획 수량" Style="{StaticResource SupportingText}"/><TextBlock x:Name="DetailQuantity" Margin="0,4,0,12"/><TextBlock Text="예정일" Style="{StaticResource SupportingText}"/><TextBlock x:Name="DetailDue" Margin="0,4,0,12"/><Separator Margin="0,4,0,12"/><TextBlock Text="관련 이력" FontWeight="SemiBold"/><TextBlock Text="샘플 작업지시가 등록되었습니다." TextWrapping="Wrap" Margin="0,8,0,0"/><TextBlock Text="이 화면에서는 실제 작업을 변경할 수 없습니다." Style="{StaticResource SupportingText}" TextWrapping="Wrap" Margin="0,16,0,0"/></StackPanel>
+   </ui:Inspector>
   </Grid>
  </Grid>
 </Window>

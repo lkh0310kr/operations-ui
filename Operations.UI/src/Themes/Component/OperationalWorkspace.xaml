@@ -1,0 +1,38 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:controls="clr-namespace:Operations.UI.Controls">
+ <Style TargetType="controls:StatusIndicator">
+  <Setter Property="Foreground" Value="{DynamicResource Ops.Brush.Text.Secondary}"/>
+  <Setter Property="Template">
+   <Setter.Value><ControlTemplate TargetType="controls:StatusIndicator">
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+     <Ellipse Width="6" Height="6" Fill="{TemplateBinding Foreground}" Margin="0,0,8,0"/>
+     <ContentPresenter ContentSource="Content" TextElement.Foreground="{TemplateBinding Foreground}"/>
+    </StackPanel>
+   </ControlTemplate></Setter.Value>
+  </Setter>
+  <Style.Triggers>
+   <Trigger Property="Tone" Value="Positive"><Setter Property="Foreground" Value="{DynamicResource Ops.Brush.Status.Positive.Foreground}"/></Trigger>
+   <Trigger Property="Tone" Value="Warning"><Setter Property="Foreground" Value="{DynamicResource Ops.Brush.Status.Warning.Foreground}"/></Trigger>
+   <Trigger Property="Tone" Value="Danger"><Setter Property="Foreground" Value="{DynamicResource Ops.Brush.Status.Danger.Foreground}"/></Trigger>
+  </Style.Triggers>
+ </Style>
+ <Style TargetType="controls:Inspector">
+  <Setter Property="Background" Value="{DynamicResource Ops.Brush.Surface.Panel}"/>
+  <Setter Property="BorderBrush" Value="{DynamicResource Ops.Brush.Border.Subtle}"/>
+  <Setter Property="BorderThickness" Value="1"/>
+  <Setter Property="Padding" Value="16"/>
+  <Setter Property="Template">
+   <Setter.Value><ControlTemplate TargetType="controls:Inspector">
+    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{DynamicResource Ops.Radius.Panel}">
+     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="{TemplateBinding Padding}" Focusable="False">
+      <StackPanel>
+       <ContentPresenter ContentSource="Header" TextElement.FontWeight="SemiBold" TextElement.FontSize="{DynamicResource FontSectionTitle}"/>
+       <ContentPresenter ContentSource="Content" Margin="0,16,0,0"/>
+      </StackPanel>
+     </ScrollViewer>
+    </Border>
+   </ControlTemplate></Setter.Value>
+  </Setter>
+ </Style>
+</ResourceDictionary>
