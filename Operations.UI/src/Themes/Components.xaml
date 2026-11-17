@@ -92,6 +92,9 @@
                                                          Value="{x:Static controls:OperationButtonVariant.Danger}">
                                                 <Setter Property="Foreground" Value="{DynamicResource DangerBrush}" />
                                             </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type controls:OperationButton}}}" Value="False">
+                                                <Setter Property="Foreground" Value="{DynamicResource TextDisabledBrush}" />
+                                            </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </TextBlock.Style>
