@@ -68,6 +68,30 @@ public partial class MainWindow
                     : tabTarget is FrameworkElement element && element.Name.Length > 0 ? element.Name : tabTarget.GetType().Name;
                 results.Add($"PASS: Tab moved focus from OperationSwitch to {tabTargetName}.");
 
+                InputScrollViewer.ScrollToTop();
+                await Dispatcher.InvokeAsync(UpdateLayout);
+                EditablePreview.ApplyTemplate();
+                var editor = EditablePreview.Template.FindName("PART_EditableTextBox", EditablePreview) as System.Windows.Controls.TextBox
+                    ?? throw new InvalidOperationException("Editable ComboBox editor is missing.");
+                editor.Text = "";
+                editor.Focus();
+                Keyboard.Focus(editor);
+                await SendKeyAsync(Key.A);
+                if (string.IsNullOrEmpty(editor.Text) || EditablePreview.Text != editor.Text)
+                    throw new InvalidOperationException("Keyboard input did not update editable ComboBox text.");
+                results.Add("PASS: Keyboard input updated editable ComboBox text.");
+                await SendKeyAsync(Key.F4);
+                if (!EditablePreview.IsDropDownOpen) throw new InvalidOperationException("F4 did not open ComboBox popup.");
+                await SendKeyAsync(Key.Down);
+                await SendKeyAsync(Key.Enter);
+                if (EditablePreview.SelectedIndex < 0 || EditablePreview.IsDropDownOpen)
+                    throw new InvalidOperationException("Keyboard selection did not commit and close the popup.");
+                await SendKeyAsync(Key.F4);
+                if (!EditablePreview.IsDropDownOpen) throw new InvalidOperationException("F4 did not reopen ComboBox popup.");
+                await SendKeyAsync(Key.Escape);
+                if (EditablePreview.IsDropDownOpen) throw new InvalidOperationException("Escape did not close ComboBox popup.");
+                results.Add("PASS: F4, Down, Enter and Escape operated the editable ComboBox popup.");
+
                 SelectCatalogSection(2);
                 await Dispatcher.InvokeAsync(UpdateLayout);
                 KeyboardDemoButton.Focus();
@@ -82,6 +106,7 @@ public partial class MainWindow
                 var point = KeyboardDemoButton.PointToScreen(new Point(KeyboardDemoButton.ActualWidth / 2, KeyboardDemoButton.ActualHeight / 2));
                 if (!SetCursorPos((int)point.X, (int)point.Y)) throw new InvalidOperationException("SetCursorPos failed.");
                 await Task.Delay(150);
+                results.Add($"POINTER={point} DIRECTLY_OVER={Mouse.DirectlyOver?.GetType().Name} CAPTURED={Mouse.Captured?.GetType().Name} COMBO_OPEN={EditablePreview.IsDropDownOpen} FOREGROUND={GetForegroundWindow()}");
                 var beforeClick = _buttonActivationCount;
                 SendInputs(new[]
                 {

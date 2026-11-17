@@ -29,7 +29,7 @@
     <Style TargetType="Button">
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
         <Setter Property="Background" Value="{DynamicResource SurfaceRaisedBrush}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource StrokeBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Ops.Brush.Border.Control}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="14,9" />
         <Setter Property="MinHeight" Value="{DynamicResource TouchTargetHeight}" />
@@ -154,7 +154,7 @@
         <Setter Property="FontSize" Value="{DynamicResource FontBody}" />
         <Setter Property="Background" Value="{DynamicResource SurfaceRaisedBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource StrokeBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Ops.Brush.Border.Control}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="10,7" />
         <Setter Property="MinHeight" Value="{DynamicResource ControlHeight}" />
@@ -162,7 +162,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
                     <Grid>
-                        <ToggleButton x:Name="DropDownButton" Focusable="False" ClickMode="Press"
+                        <ToggleButton x:Name="DropDownButton" Focusable="False" ClickMode="Press" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                       Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}"
                                       BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                                       IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
@@ -173,7 +173,7 @@
                                             CornerRadius="4" Padding="{Binding Padding, RelativeSource={RelativeSource AncestorType=ComboBox}}">
                                         <Grid>
                                             <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="26"/></Grid.ColumnDefinitions>
-                                            <ContentPresenter Content="{Binding SelectionBoxItem, RelativeSource={RelativeSource AncestorType=ComboBox}}"
+                                            <ContentPresenter x:Name="SelectionContent" Content="{Binding SelectionBoxItem, RelativeSource={RelativeSource AncestorType=ComboBox}}"
                                                               ContentTemplate="{Binding SelectionBoxItemTemplate, RelativeSource={RelativeSource AncestorType=ComboBox}}"
                                                               ContentTemplateSelector="{Binding ItemTemplateSelector, RelativeSource={RelativeSource AncestorType=ComboBox}}"
                                                               VerticalAlignment="Center" TextElement.Foreground="{TemplateBinding Foreground}" />
@@ -184,34 +184,40 @@
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="DropSurface" Property="Background" Value="{DynamicResource SurfaceHoverBrush}"/><Setter TargetName="DropSurface" Property="BorderBrush" Value="{DynamicResource TextSecondaryBrush}"/></Trigger>
                                         <Trigger Property="IsPressed" Value="True"><Setter TargetName="DropSurface" Property="Background" Value="{DynamicResource StrokeBrush}"/></Trigger>
+                                        <DataTrigger Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="True"><Setter TargetName="SelectionContent" Property="Visibility" Value="Collapsed"/></DataTrigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </ToggleButton.Template>
                         </ToggleButton>
+                        <TextBox x:Name="PART_EditableTextBox" Visibility="Collapsed" Margin="10,2,36,2" MinHeight="0"
+                                 Background="Transparent" BorderThickness="0" Padding="0" VerticalContentAlignment="Center"
+                                 Foreground="{TemplateBinding Foreground}" IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                        <Border x:Name="FocusRing" BorderBrush="{DynamicResource FocusBrush}" BorderThickness="2" CornerRadius="4" Margin="2" Visibility="Collapsed" IsHitTestVisible="False"/>
+                        <Border x:Name="ValidationRing" BorderBrush="{DynamicResource DangerBrush}" BorderThickness="2" CornerRadius="4" Visibility="Collapsed" IsHitTestVisible="False"/>
                         <Popup x:Name="PART_Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}"
-                               AllowsTransparency="True" Focusable="False" PopupAnimation="Fade">
+                               AllowsTransparency="True" Focusable="False" PopupAnimation="None">
                             <Border Background="{DynamicResource SurfaceRaisedBrush}" BorderBrush="{DynamicResource StrokeBrush}"
-                                    BorderThickness="1" MaxHeight="300" MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}">
+                                    BorderThickness="1" MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}">
                                 <ScrollViewer CanContentScroll="True" SnapsToDevicePixels="True">
-                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
                                 </ScrollViewer>
                             </Border>
                         </Popup>
                     </Grid>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsEditable" Value="True"><Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/></Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="DropDownButton" Property="Foreground" Value="{DynamicResource TextDisabledBrush}"/>
                             <Setter TargetName="DropDownButton" Property="Background" Value="{DynamicResource SurfaceBrush}"/>
                             <Setter TargetName="DropDownButton" Property="BorderBrush" Value="{DynamicResource StrokeBrush}"/>
                         </Trigger>
                         <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                            <Setter TargetName="DropDownButton" Property="BorderBrush" Value="{DynamicResource FocusBrush}"/>
-                            <Setter TargetName="DropDownButton" Property="BorderThickness" Value="{DynamicResource FocusBorderThickness}"/>
+                            <Setter TargetName="FocusRing" Property="Visibility" Value="Visible"/>
                         </Trigger>
                         <DataTrigger Binding="{Binding IsInvalid, RelativeSource={RelativeSource AncestorType={x:Type controls:FormField}}}" Value="True">
-                            <Setter TargetName="DropDownButton" Property="BorderBrush" Value="{DynamicResource DangerBrush}"/>
-                            <Setter TargetName="DropDownButton" Property="BorderThickness" Value="{DynamicResource ValidationBorderThickness}"/>
+                            <Setter TargetName="ValidationRing" Property="Visibility" Value="Visible"/>
                         </DataTrigger>
+                        <Trigger Property="Validation.HasError" Value="True"><Setter TargetName="ValidationRing" Property="Visibility" Value="Visible"/></Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

@@ -51,6 +51,12 @@ public partial class MainWindow : Window
             var error = ValidationExample.Template.FindName("ErrorMessage", ValidationExample) as TextBlock;
             if (error?.Visibility != Visibility.Visible || string.IsNullOrEmpty(error.Text))
                 throw new InvalidOperationException("Validation message without help text is not visible.");
+            InvalidCombo.Focus();
+            Keyboard.Focus(InvalidCombo);
+            await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
+            if (InvalidCombo.Template.FindName("ValidationRing", InvalidCombo) is not Border { Visibility: Visibility.Visible } ||
+                InvalidCombo.Template.FindName("FocusRing", InvalidCombo) is not Border { Visibility: Visibility.Visible })
+                throw new InvalidOperationException("ComboBox validation and keyboard focus are not both visible.");
             SelectCatalogSection(2);
             await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
             BeginCancelable_Click(CancelableStart, new RoutedEventArgs());
@@ -59,9 +65,37 @@ public partial class MainWindow : Window
             await Task.Delay(100);
             if (CancelableStart.IsBusy || CancelDemoButton.IsEnabled || CancelableStatus.Text != "샘플 작업이 취소되었습니다.")
                 throw new InvalidOperationException("Cancelable operation did not stop.");
+            SelectCatalogSection(3);
+            await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
+            EditablePreview.ApplyTemplate();
+            var editor = EditablePreview.Template.FindName("PART_EditableTextBox", EditablePreview) as TextBox;
+            if (editor is null || editor.Visibility != Visibility.Visible) throw new InvalidOperationException("Editable ComboBox has no usable editor part.");
+            editor.Text = "sample input";
+            if (EditablePreview.Text != "sample input") throw new InvalidOperationException("Editable text did not reach ComboBox.Text.");
+            EditablePreview.IsDropDownOpen = true;
+            await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
+            if (EditablePreview.Template.FindName("PART_Popup", EditablePreview) is not System.Windows.Controls.Primitives.Popup { IsOpen: true })
+                throw new InvalidOperationException("ComboBox popup did not open.");
+            ApplyTheme(true);
+            await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
+            if (EditablePreview.Template.FindName("PART_Popup", EditablePreview) is not System.Windows.Controls.Primitives.Popup { IsOpen: true, Child: Border popupBorder } ||
+                popupBorder.Background is not SolidColorBrush popupBrush || popupBrush.Color != Color.FromRgb(0xEC, 0xEF, 0xF3))
+                throw new InvalidOperationException("ComboBox popup did not receive Light theme resources.");
+            EditablePreview.IsDropDownOpen = false;
             var path = Path.GetFullPath(catalogVerification["--verify-catalog=".Length..]);
             Directory.CreateDirectory(Path.GetDirectoryName(path)!);
-            File.WriteAllLines(path, ["Two top-level categories", "Validation without help text is visible", "Busy operation can be cancelled separately"]);
+            File.WriteAllLines(path, ["Two top-level categories", "Validation without help text is visible", "ComboBox focus and validation are simultaneously visible", "Busy operation can be cancelled separately", "Editable ComboBox part updates text", "Open ComboBox popup remains open and resolves Light theme"]);
+            Application.Current.Shutdown();
+            return;
+        }
+        var comboSnapshot = arguments.FirstOrDefault(argument => argument.StartsWith("--combo-snapshot=", StringComparison.OrdinalIgnoreCase));
+        if (comboSnapshot is not null)
+        {
+            SelectCatalogSection(3);
+            await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
+            InvalidCombo.Focus();
+            Keyboard.Focus(InvalidCombo);
+            await SaveSnapshotAsync(Path.GetFullPath(comboSnapshot["--combo-snapshot=".Length..]));
             Application.Current.Shutdown();
             return;
         }
@@ -94,7 +128,7 @@ public partial class MainWindow : Window
             manager.SetPreview(false);
             await Dispatcher.InvokeAsync(erp.UpdateLayout, DispatcherPriority.Render);
             if (((SolidColorBrush)erp.Background).Color != Color.FromRgb(0xF4, 0xF5, 0xF7))
-                throw new InvalidOperationException("Removing contrast preview did not restore Light theme.");
+                throw new InvalidOperationException($"Removing contrast preview did not restore Light theme: {((SolidColorBrush)erp.Background).Color}, canvas token {erp.FindResource("CanvasColor")}.");
             report.Add("Removing preview restores Light theme");
             manager.SetPreview(null);
             var path = Path.GetFullPath(contrastVerification["--verify-contrast=".Length..]);
@@ -356,8 +390,21 @@ public partial class MainWindow : Window
             .FirstOrDefault(dictionary => dictionary.Source?.OriginalString.Contains("/src/Themes/DesignSystem", StringComparison.OrdinalIgnoreCase) == true);
         if (designSystem is null) return;
 
-        var themeFile = useLightTheme ? "DesignSystem.Light.xaml" : "DesignSystem.xaml";
-        designSystem.Source = new Uri($"pack://application:,,,/Operations.UI;component/src/Themes/{themeFile}", UriKind.Absolute);
+        var tokens = designSystem.MergedDictionaries.FirstOrDefault(dictionary =>
+            dictionary.Source?.OriginalString.EndsWith("Tokens.xaml", StringComparison.OrdinalIgnoreCase) == true ||
+            dictionary.Source?.OriginalString.EndsWith("Tokens.Light.xaml", StringComparison.OrdinalIgnoreCase) == true);
+        if (tokens is null) return;
+        var themeFile = useLightTheme ? "Tokens.Light.xaml" : "Tokens.xaml";
+        tokens.Source = new Uri($"pack://application:,,,/Operations.UI;component/src/Themes/{themeFile}", UriKind.Absolute);
+        // Semantic brushes are shared Freezables: reload their dictionary so nested color references
+        // are resolved against the new token set without replacing control templates.
+        var semantic = designSystem.MergedDictionaries.FirstOrDefault(dictionary =>
+            dictionary.Source?.OriginalString.EndsWith("Foundation/Semantic.xaml", StringComparison.OrdinalIgnoreCase) == true);
+        if (semantic is not null)
+            semantic.Source = new Uri("pack://application:,,,/Operations.UI;component/src/Themes/Foundation/Semantic.xaml", UriKind.Absolute);
+        var wpfTheme = designSystem.MergedDictionaries.OfType<Wpf.Ui.Markup.ThemesDictionary>().FirstOrDefault();
+        if (wpfTheme is not null)
+            wpfTheme.Theme = useLightTheme ? Wpf.Ui.Appearance.ApplicationTheme.Light : Wpf.Ui.Appearance.ApplicationTheme.Dark;
         _isLightTheme = useLightTheme;
         ThemeToggle.Content = useLightTheme ? "다크 테마" : "라이트 테마";
         AutomationProperties.SetName(ThemeToggle, useLightTheme ? "다크 테마로 전환" : "라이트 테마로 전환");
