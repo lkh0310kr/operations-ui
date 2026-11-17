@@ -249,15 +249,15 @@
                         <StackPanel>
                             <TextBlock Text="대화상자" Style="{StaticResource SectionTitle}" />
                             <TextBlock Text="필수 정보를 간결하게 보여주고 동작의 결과를 명확히 하는 확인 패턴" Style="{StaticResource SupportingText}" Margin="0,4,0,14" />
-                            <ui:DialogHost x:Name="DialogPreviewHost" Height="232" IsDialogOpen="True">
+                            <ui:DialogHost x:Name="DialogPreviewHost" Height="232" InitialFocus="{Binding ElementName=DialogCancelButton}" AutomationProperties.Name="샘플 결과 확인">
                                 <ui:DialogHost.Content>
-                                    <Border Background="{DynamicResource CanvasBrush}" Padding="18" CornerRadius="4"><TextBlock Text="현재 창 위에 대화상자 오버레이를 표시합니다." Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" /></Border>
+                                    <Border Background="{DynamicResource CanvasBrush}" Padding="18" CornerRadius="4"><Button x:Name="OpenDialogButton" Content="샘플 대화상자 열기" Click="OpenPreviewDialog_Click" HorizontalAlignment="Center" VerticalAlignment="Center" /></Border>
                                 </ui:DialogHost.Content>
                                 <ui:DialogHost.DialogContent>
                                     <StackPanel>
-                                        <TextBlock Text="작업을 종료할까요?" FontSize="{DynamicResource FontSectionTitle}" FontWeight="SemiBold" />
-                                        <TextBlock Text="저장하지 않은 변경 사항을 확인한 뒤 종료하세요." Style="{StaticResource SupportingText}" TextWrapping="Wrap" Margin="0,8,0,18" />
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"><Button Content="계속 작업" Click="ClosePreviewDialog_Click" Margin="0,0,8,0"/><Button Content="종료" Click="ClosePreviewDialog_Click" Style="{StaticResource PrimaryButton}"/></StackPanel>
+                                        <TextBlock Text="샘플 결과를 확인했나요?" FontSize="{DynamicResource FontSectionTitle}" FontWeight="SemiBold" />
+                                        <TextBlock Text="이 예제는 실제 작업이나 저장된 데이터를 변경하지 않습니다." Style="{StaticResource SupportingText}" TextWrapping="Wrap" Margin="0,8,0,18" />
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"><Button x:Name="DialogCancelButton" Content="계속 보기" Click="ClosePreviewDialog_Click" Margin="0,0,8,0"/><Button Content="닫기" Click="ClosePreviewDialog_Click" Style="{StaticResource PrimaryButton}"/></StackPanel>
                                     </StackPanel>
                                 </ui:DialogHost.DialogContent>
                             </ui:DialogHost>

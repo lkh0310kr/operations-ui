@@ -41,6 +41,16 @@ public partial class MainWindow : Window
                 await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
             }
         }
+        var dialogVerification = arguments.FirstOrDefault(argument => argument.StartsWith("--verify-dialog=", StringComparison.OrdinalIgnoreCase));
+        if (dialogVerification is not null)
+        {
+            var report = await VerifyDialogAsync();
+            var path = Path.GetFullPath(dialogVerification["--verify-dialog=".Length..]);
+            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+            File.WriteAllLines(path, report);
+            Application.Current.Shutdown();
+            return;
+        }
         var catalogVerification = arguments.FirstOrDefault(argument => argument.StartsWith("--verify-catalog=", StringComparison.OrdinalIgnoreCase));
         if (catalogVerification is not null)
         {
@@ -316,6 +326,11 @@ public partial class MainWindow : Window
                     Keyboard.Focus(SampleGrid);
                     await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
                 }
+                else if (tabIndex == 8)
+                {
+                    DialogPreviewHost.IsDialogOpen = true;
+                    await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
+                }
                 await Task.Delay(80);
                 await SaveSnapshotAsync(Path.Combine(outputDirectory, fileName));
                 if (tabIndex == 3)
@@ -468,6 +483,7 @@ public partial class MainWindow : Window
         TextLinkStatus.Text = "도움말 링크가 활성화되었습니다.";
     }
 
+    private void OpenPreviewDialog_Click(object sender, RoutedEventArgs e) => DialogPreviewHost.IsDialogOpen = true;
     private void ClosePreviewDialog_Click(object sender, RoutedEventArgs e) => DialogPreviewHost.IsDialogOpen = false;
 
     private async void RetryData_Click(object sender, RoutedEventArgs e)

@@ -462,22 +462,24 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:DialogHost">
                     <Grid Background="{TemplateBinding Background}">
-                        <ContentPresenter ContentSource="Content" />
+                        <ContentPresenter x:Name="BackgroundContent" ContentSource="Content" />
                         <Grid x:Name="DialogOverlay" Visibility="Collapsed" Panel.ZIndex="1000" Background="{DynamicResource DialogScrimBrush}">
                             <Button x:Name="PART_Backdrop" Background="Transparent" BorderThickness="0" Padding="0"
                                     Focusable="False" FocusVisualStyle="{x:Null}">
                                 <Button.Template><ControlTemplate TargetType="Button"><Border Background="Transparent" /></ControlTemplate></Button.Template>
                             </Button>
-                            <Border Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource StrokeBrush}"
-                                    BorderThickness="1" CornerRadius="{DynamicResource RadiusSurface}" Padding="{TemplateBinding DialogPadding}"
+                            <Border x:Name="DialogSurface" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource StrokeBrush}"
+                                    BorderThickness="1" CornerRadius="{DynamicResource Ops.Radius.Dialog}" Padding="{TemplateBinding DialogPadding}"
                                     MaxWidth="{TemplateBinding DialogMaxWidth}" MaxHeight="{TemplateBinding DialogMaxHeight}"
                                     HorizontalAlignment="Center" VerticalAlignment="Center" KeyboardNavigation.TabNavigation="Cycle">
-                                <ContentPresenter x:Name="PART_DialogContent" Content="{Binding DialogContent, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Focusable="False">
+                                    <ContentPresenter x:Name="PART_DialogContent" Content="{Binding DialogContent, RelativeSource={RelativeSource TemplatedParent}}" />
+                                </ScrollViewer>
                             </Border>
                         </Grid>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsDialogOpen" Value="True"><Setter TargetName="DialogOverlay" Property="Visibility" Value="Visible" /></Trigger>
+                        <Trigger Property="IsDialogOpen" Value="True"><Setter TargetName="DialogOverlay" Property="Visibility" Value="Visible" /><Setter TargetName="BackgroundContent" Property="IsEnabled" Value="False" /></Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

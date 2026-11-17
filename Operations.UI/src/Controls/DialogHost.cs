@@ -11,10 +11,23 @@ public sealed class DialogHost : ContentControl
 {
     private Button? _backdropButton;
     private IInputElement? _previousFocus;
+    private int _focusGeneration;
 
     static DialogHost()
     {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(DialogHost), new FrameworkPropertyMetadata(typeof(DialogHost)));
+    }
+
+    public DialogHost() => Loaded += OnLoaded;
+
+    /// <summary>An optional control within DialogContent to focus when opened.</summary>
+    public static readonly DependencyProperty InitialFocusProperty = DependencyProperty.Register(
+        nameof(InitialFocus), typeof(IInputElement), typeof(DialogHost), new PropertyMetadata(null));
+
+    public IInputElement? InitialFocus
+    {
+        get => (IInputElement?)GetValue(InitialFocusProperty);
+        set => SetValue(InitialFocusProperty, value);
     }
 
     public static readonly DependencyProperty DialogContentProperty = DependencyProperty.Register(
@@ -97,6 +110,12 @@ public sealed class DialogHost : ContentControl
         _backdropButton = GetTemplateChild("PART_Backdrop") as Button;
         if (_backdropButton is not null) _backdropButton.Click += OnBackdropClick;
         PreviewKeyDown += OnPreviewKeyDown;
+        if (IsLoaded && IsDialogOpen) QueueInitialFocus();
+    }
+
+    private void OnLoaded(object sender, RoutedEventArgs e)
+    {
+        if (IsDialogOpen) QueueInitialFocus();
     }
 
     private void OnBackdropClick(object sender, RoutedEventArgs e)
@@ -120,19 +139,41 @@ public sealed class DialogHost : ContentControl
         if (e.NewValue is true)
         {
             host._previousFocus = Keyboard.FocusedElement;
-            host.Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() =>
-            {
-                var dialogContent = host.GetTemplateChild("PART_DialogContent");
-                var focusTarget = dialogContent is null ? null : FindFirstFocusable(dialogContent);
-                Keyboard.Focus(focusTarget ?? host);
-            }));
+            host.QueueInitialFocus();
             return;
         }
 
+        var generation = ++host._focusGeneration;
         var previousFocus = host._previousFocus;
         host._previousFocus = null;
-        if (previousFocus is not null)
-            host.Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() => Keyboard.Focus(previousFocus)));
+        if (previousFocus is UIElement previousElement)
+            host.Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() =>
+            {
+                if (generation == host._focusGeneration && !host.IsDialogOpen && previousElement.IsVisible && previousElement.IsEnabled && previousElement.Focusable)
+                    Keyboard.Focus(previousElement);
+            }));
+    }
+
+    private void QueueInitialFocus()
+    {
+        var generation = ++_focusGeneration;
+        Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(() =>
+        {
+            if (generation != _focusGeneration || !IsDialogOpen || !IsLoaded) return;
+            var dialogContent = GetTemplateChild("PART_DialogContent");
+            if (dialogContent is null) return;
+            var requested = InitialFocus as UIElement;
+            var focusTarget = requested is { IsEnabled: true, IsVisible: true, Focusable: true } && IsWithin(requested, dialogContent)
+                ? requested : FindFirstFocusable(dialogContent);
+            if (focusTarget is not null) Keyboard.Focus(focusTarget);
+        }));
+    }
+
+    private static bool IsWithin(DependencyObject child, DependencyObject ancestor)
+    {
+        for (DependencyObject? node = child; node is not null; node = VisualTreeHelper.GetParent(node))
+            if (ReferenceEquals(node, ancestor)) return true;
+        return false;
     }
 
     private static IInputElement? FindFirstFocusable(DependencyObject root)
