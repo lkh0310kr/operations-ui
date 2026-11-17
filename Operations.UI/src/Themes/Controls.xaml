@@ -40,22 +40,25 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
+                  <Grid>
                     <Border x:Name="Surface" Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="4" Padding="{TemplateBinding Padding}">
-                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        <ContentPresenter x:Name="ButtonContent" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="Center" RecognizesAccessKey="True" />
                     </Border>
+                    <Border x:Name="FocusRing" BorderBrush="{DynamicResource FocusBrush}" BorderThickness="2" CornerRadius="4" Visibility="Collapsed" IsHitTestVisible="False"/>
+                  </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsKeyboardFocused" Value="True">
-                            <Setter TargetName="Surface" Property="BorderBrush" Value="{DynamicResource FocusBrush}" />
-                            <Setter TargetName="Surface" Property="BorderThickness" Value="{DynamicResource FocusBorderThickness}" />
+                            <Setter TargetName="FocusRing" Property="Visibility" Value="Visible" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground" Value="{DynamicResource TextDisabledBrush}" />
                             <Setter TargetName="Surface" Property="Background" Value="{DynamicResource SurfaceBrush}" />
                             <Setter TargetName="Surface" Property="BorderBrush" Value="{DynamicResource StrokeBrush}" />
+                            <Setter TargetName="ButtonContent" Property="Opacity" Value="0.55" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

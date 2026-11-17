@@ -101,6 +101,7 @@
                             </TextBlock>
                         </DataTemplate>
                     </ControlTemplate.Resources>
+                    <Grid>
                     <Border x:Name="Chrome" Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding CornerRadius}" Padding="{TemplateBinding Padding}">
@@ -118,6 +119,8 @@
                             </StackPanel>
                         </Grid>
                     </Border>
+                    <Border x:Name="FocusRing" BorderBrush="{DynamicResource FocusBrush}" BorderThickness="2" CornerRadius="{TemplateBinding CornerRadius}" Visibility="Collapsed" IsHitTestVisible="False"/>
+                    </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Variant" Value="Primary">
                             <Setter Property="Background" Value="{DynamicResource Ops.Brush.Action.Primary.Background}" />
@@ -150,8 +153,7 @@
                             <Setter TargetName="Chrome" Property="Opacity" Value="0.72" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True">
-                            <Setter TargetName="Chrome" Property="BorderBrush" Value="{DynamicResource FocusBrush}" />
-                            <Setter TargetName="Chrome" Property="BorderThickness" Value="{DynamicResource FocusBorderThickness}" />
+                            <Setter TargetName="FocusRing" Property="Visibility" Value="Visible" />
                         </Trigger>
                         <Trigger Property="IsBusy" Value="True">
                             <Setter TargetName="ButtonLabel" Property="Visibility" Value="Collapsed" />
@@ -226,13 +228,6 @@
                                 <Condition Binding="{Binding IsInvalid, RelativeSource={RelativeSource TemplatedParent}}" Value="False" />
                             </MultiDataTrigger.Conditions>
                             <Setter TargetName="HelpMessage" Property="Visibility" Value="Collapsed" />
-                        </MultiDataTrigger>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding HelpText, RelativeSource={RelativeSource TemplatedParent}}" Value="" />
-                                <Condition Binding="{Binding IsInvalid, RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
-                            </MultiDataTrigger.Conditions>
-                            <Setter TargetName="ErrorMessage" Property="Visibility" Value="Collapsed" />
                         </MultiDataTrigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="PART_Label" Property="Foreground" Value="{DynamicResource TextDisabledBrush}" />

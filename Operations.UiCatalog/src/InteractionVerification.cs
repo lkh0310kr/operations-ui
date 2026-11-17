@@ -43,7 +43,7 @@ public partial class MainWindow
                 if (GetForegroundWindow() != window)
                     throw new InvalidOperationException("Catalog window could not become the foreground window.");
 
-                CatalogTabs.SelectedIndex = 3;
+                SelectCatalogSection(3);
                 await Dispatcher.InvokeAsync(UpdateLayout);
                 InputScrollViewer.ScrollToEnd();
                 await Dispatcher.InvokeAsync(UpdateLayout);
@@ -68,7 +68,7 @@ public partial class MainWindow
                     : tabTarget is FrameworkElement element && element.Name.Length > 0 ? element.Name : tabTarget.GetType().Name;
                 results.Add($"PASS: Tab moved focus from OperationSwitch to {tabTargetName}.");
 
-                CatalogTabs.SelectedIndex = 2;
+                SelectCatalogSection(2);
                 await Dispatcher.InvokeAsync(UpdateLayout);
                 KeyboardDemoButton.Focus();
                 Keyboard.Focus(KeyboardDemoButton);

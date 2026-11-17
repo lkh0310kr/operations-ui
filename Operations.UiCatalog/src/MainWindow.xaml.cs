@@ -13,6 +13,7 @@ public partial class MainWindow : Window
 {
     private int _buttonActivationCount;
     private bool _isLightTheme;
+    private CancellationTokenSource? _demoCancellation;
 
     public MainWindow()
     {
@@ -39,6 +40,30 @@ public partial class MainWindow : Window
                 Height = height;
                 await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
             }
+        }
+        var catalogVerification = arguments.FirstOrDefault(argument => argument.StartsWith("--verify-catalog=", StringComparison.OrdinalIgnoreCase));
+        if (catalogVerification is not null)
+        {
+            if (RootTabs.Items.Count != 2 || ((TabItem)RootTabs.Items[0]).Header.ToString() != "Foundation" || ((TabItem)RootTabs.Items[1]).Header.ToString() != "Component")
+                throw new InvalidOperationException("Catalog must have two top-level categories.");
+            SelectCatalogSection(3);
+            await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
+            var error = ValidationExample.Template.FindName("ErrorMessage", ValidationExample) as TextBlock;
+            if (error?.Visibility != Visibility.Visible || string.IsNullOrEmpty(error.Text))
+                throw new InvalidOperationException("Validation message without help text is not visible.");
+            SelectCatalogSection(2);
+            await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
+            BeginCancelable_Click(CancelableStart, new RoutedEventArgs());
+            if (!CancelableStart.IsBusy || !CancelDemoButton.IsEnabled) throw new InvalidOperationException("Cancelable operation did not start.");
+            CancelDemo_Click(CancelDemoButton, new RoutedEventArgs());
+            await Task.Delay(100);
+            if (CancelableStart.IsBusy || CancelDemoButton.IsEnabled || CancelableStatus.Text != "샘플 작업이 취소되었습니다.")
+                throw new InvalidOperationException("Cancelable operation did not stop.");
+            var path = Path.GetFullPath(catalogVerification["--verify-catalog=".Length..]);
+            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+            File.WriteAllLines(path, ["Two top-level categories", "Validation without help text is visible", "Busy operation can be cancelled separately"]);
+            Application.Current.Shutdown();
+            return;
         }
         var contrastVerification = arguments.FirstOrDefault(argument => argument.StartsWith("--verify-contrast=", StringComparison.OrdinalIgnoreCase));
         if (contrastVerification is not null)
@@ -237,7 +262,7 @@ public partial class MainWindow : Window
 
             foreach (var (fileName, tabIndex) in sections)
             {
-                CatalogTabs.SelectedIndex = tabIndex;
+                SelectCatalogSection(tabIndex);
                 await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
                 if (tabIndex == 2)
                 {
@@ -299,6 +324,30 @@ public partial class MainWindow : Window
     private void OpenHmi_Click(object sender, RoutedEventArgs e) => new HmiWindow { Owner = this }.Show();
     private void OpenErp_Click(object sender, RoutedEventArgs e) => new ErpWindow { Owner = this }.Show();
 
+    private async void BeginCancelable_Click(object sender, RoutedEventArgs e)
+    {
+        if (_demoCancellation is not null) return;
+        using var cancellation = new CancellationTokenSource();
+        _demoCancellation = cancellation;
+        CancelableStart.IsBusy = true;
+        CancelDemoButton.IsEnabled = true;
+        CancelableStatus.Text = "샘플 작업 진행 중 · 취소할 수 있습니다.";
+        try
+        {
+            await Task.Delay(TimeSpan.FromSeconds(5), cancellation.Token);
+            CancelableStatus.Text = "샘플 작업 완료";
+        }
+        catch (OperationCanceledException) { CancelableStatus.Text = "샘플 작업이 취소되었습니다."; }
+        finally
+        {
+            _demoCancellation = null;
+            CancelableStart.IsBusy = false;
+            CancelDemoButton.IsEnabled = false;
+        }
+    }
+
+    private void CancelDemo_Click(object sender, RoutedEventArgs e) => _demoCancellation?.Cancel();
+
     private void ThemeToggle_Click(object sender, RoutedEventArgs e) => ApplyTheme(!_isLightTheme);
 
     private void ApplyTheme(bool useLightTheme)
@@ -347,7 +396,14 @@ public partial class MainWindow : Window
     private void NavigateToSection_Click(object sender, RoutedEventArgs e)
     {
         if ((sender as FrameworkElement)?.Tag is string indexText && int.TryParse(indexText, out var index))
-            CatalogTabs.SelectedIndex = index;
+            SelectCatalogSection(index);
+    }
+
+    private void SelectCatalogSection(int index)
+    {
+        RootTabs.SelectedIndex = index < 2 ? 0 : 1;
+        if (index < 2) FoundationTabs.SelectedIndex = index;
+        else ComponentTabs.SelectedIndex = index - 2;
     }
 
     private void Notification_DismissRequested(object sender, RoutedEventArgs e)
