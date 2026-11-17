@@ -51,6 +51,7 @@
                         <TextBlock Text="/" Foreground="{DynamicResource TextSecondaryBrush}" Margin="12,0" />
                         <TextBlock Text="기본 테마" Foreground="{DynamicResource TextSecondaryBrush}" />
                     </StackPanel>
+                    <Button DockPanel.Dock="Right" Content="MES 샘플" Click="OpenMes_Click" VerticalAlignment="Center" Margin="8,0,0,0" />
                     <Button x:Name="ThemeToggle" DockPanel.Dock="Right" Content="라이트 테마" Click="ThemeToggle_Click"
                             AutomationProperties.Name="라이트 테마로 전환" VerticalAlignment="Center" MinHeight="36" Padding="12,6" />
                 </DockPanel>

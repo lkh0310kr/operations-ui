@@ -40,6 +40,24 @@ public partial class MainWindow : Window
                 await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
             }
         }
+        var mesSnapshot = arguments.FirstOrDefault(argument => argument.StartsWith("--mes-snapshot=", StringComparison.OrdinalIgnoreCase));
+        if (mesSnapshot is not null)
+        {
+            var mes = new MesWindow { Owner = this };
+            mes.Show();
+            await Dispatcher.InvokeAsync(mes.UpdateLayout, DispatcherPriority.Render);
+            await Task.Delay(200);
+            var dpi = VisualTreeHelper.GetDpi(mes);
+            var bitmap = new RenderTargetBitmap((int)Math.Ceiling(mes.ActualWidth * dpi.DpiScaleX), (int)Math.Ceiling(mes.ActualHeight * dpi.DpiScaleY), dpi.PixelsPerInchX, dpi.PixelsPerInchY, PixelFormats.Pbgra32);
+            bitmap.Render(mes);
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bitmap));
+            var path = Path.GetFullPath(mesSnapshot["--mes-snapshot=".Length..]);
+            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+            using (var stream = File.Create(path)) encoder.Save(stream);
+            Application.Current.Shutdown();
+            return;
+        }
         var interactionArgument = arguments.FirstOrDefault(argument => argument.StartsWith("--verify-interactions=", StringComparison.OrdinalIgnoreCase));
         if (interactionArgument is not null)
         {
@@ -124,6 +142,8 @@ public partial class MainWindow : Window
             Application.Current.Shutdown();
         }
     }
+
+    private void OpenMes_Click(object sender, RoutedEventArgs e) => new MesWindow { Owner = this }.Show();
 
     private void ThemeToggle_Click(object sender, RoutedEventArgs e) => ApplyTheme(!_isLightTheme);
 
