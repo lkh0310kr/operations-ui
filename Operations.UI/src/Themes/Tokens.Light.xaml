@@ -36,6 +36,10 @@
     <Color x:Key="PrimaryHoverColor">#303F50</Color>
     <Color x:Key="PrimaryPressedColor">#46596D</Color>
 
+    <SolidColorBrush x:Key="SelectionTextBrush" Color="#18202A" />
+    <SolidColorBrush x:Key="SelectionInactiveBrush" Color="#E4E9EF" />
+    <SolidColorBrush x:Key="SelectionInactiveTextBrush" Color="#18202A" />
+
     <SolidColorBrush x:Key="CanvasBrush" Color="{DynamicResource CanvasColor}" />
     <SolidColorBrush x:Key="SurfaceBrush" Color="{DynamicResource SurfaceColor}" />
     <SolidColorBrush x:Key="SurfaceRaisedBrush" Color="{DynamicResource SurfaceRaisedColor}" />

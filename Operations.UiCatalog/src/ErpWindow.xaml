@@ -11,8 +11,8 @@
     <TextBlock Text="품목 목록" Style="{StaticResource SectionTitle}" Margin="0,0,0,12"/>
     <DataGrid x:Name="InventoryGrid" Grid.Row="1" ItemsSource="{Binding Items}" SelectedItem="{Binding Selected}" IsEnabled="{Binding CanEdit}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" EnableRowVirtualization="True" EnableColumnVirtualization="True">
      <DataGrid.Columns>
-      <DataGridTextColumn Header="품목 코드" Binding="{Binding Code}" Width="1.1*"/>
-      <DataGridTextColumn Header="품목명" Binding="{Binding Name}" Width="1.5*"/>
+      <DataGridTextColumn Header="품목 코드" Binding="{Binding Code}" Width="1.1*" ElementStyle="{StaticResource Ops.DataGrid.CellText}"/>
+      <DataGridTextColumn Header="품목명" Binding="{Binding Name}" Width="1.5*" ElementStyle="{StaticResource Ops.DataGrid.CellText}"/>
       <DataGridTextColumn Header="재고 · EA" Binding="{Binding Quantity, StringFormat=N0}" Width="*" ElementStyle="{StaticResource Ops.DataGrid.NumericCell}" HeaderStyle="{StaticResource Ops.DataGrid.NumericHeader}"/>
       <DataGridTextColumn Header="단가 · KRW" Binding="{Binding UnitPrice, StringFormat=N0}" Width="*" ElementStyle="{StaticResource Ops.DataGrid.NumericCell}" HeaderStyle="{StaticResource Ops.DataGrid.NumericHeader}"/>
       <DataGridTextColumn Header="재고 금액 · KRW" Binding="{Binding Amount, StringFormat=N0}" Width="1.2*" ElementStyle="{StaticResource Ops.DataGrid.NumericCell}" HeaderStyle="{StaticResource Ops.DataGrid.NumericHeader}"/>

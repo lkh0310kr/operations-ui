@@ -40,6 +40,45 @@ public partial class MainWindow : Window
                 await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
             }
         }
+        var contrastVerification = arguments.FirstOrDefault(argument => argument.StartsWith("--verify-contrast=", StringComparison.OrdinalIgnoreCase));
+        if (contrastVerification is not null)
+        {
+            var manager = ((App)Application.Current).Contrast;
+            var erp = new ErpWindow { Owner = this };
+            var hmi = new HmiWindow { Owner = this };
+            erp.Show(); hmi.Show();
+            var report = new List<string>();
+            manager.SetPreview(true);
+            foreach (var light in new[] { false, true })
+            {
+                ApplyTheme(light);
+                await Dispatcher.InvokeAsync(() => { erp.UpdateLayout(); hmi.UpdateLayout(); }, DispatcherPriority.Render);
+                var grid = (DataGrid)erp.FindName("InventoryGrid");
+                var canvas = (SolidColorBrush)hmi.Background;
+                var panel = (SolidColorBrush)grid.Background;
+                var selection = (SolidColorBrush)erp.FindResource("SelectionBrush");
+                var selectedText = (SolidColorBrush)erp.FindResource("SelectionTextBrush");
+                var focus = (SolidColorBrush)erp.FindResource("FocusBrush");
+                if (canvas.Color != SystemColors.WindowColor || panel.Color != SystemColors.WindowColor ||
+                    selection.Color != SystemColors.HighlightColor || selectedText.Color != SystemColors.HighlightTextColor || focus.Color != SystemColors.HighlightColor)
+                    throw new InvalidOperationException("System-color resources were not applied to the representative windows.");
+                if (grid.MinRowHeight != 40 || ((Operations.UI.Controls.OperationButton)hmi.FindName("RequestButton")).MinHeight < 48)
+                    throw new InvalidOperationException("Contrast preview changed density.");
+                report.Add($"{(light ? "Light" : "Dark")}: system window, selection, selection text and focus colors; ERP standard and HMI touch sizes");
+            }
+            manager.SetPreview(false);
+            await Dispatcher.InvokeAsync(erp.UpdateLayout, DispatcherPriority.Render);
+            if (((SolidColorBrush)erp.Background).Color != Color.FromRgb(0xF4, 0xF5, 0xF7))
+                throw new InvalidOperationException("Removing contrast preview did not restore Light theme.");
+            report.Add("Removing preview restores Light theme");
+            manager.SetPreview(null);
+            var path = Path.GetFullPath(contrastVerification["--verify-contrast=".Length..]);
+            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+            File.WriteAllLines(path, report);
+            erp.Close(); hmi.Close();
+            Application.Current.Shutdown();
+            return;
+        }
         var erpVerification = arguments.FirstOrDefault(argument => argument.StartsWith("--verify-erp=", StringComparison.OrdinalIgnoreCase));
         if (erpVerification is not null)
         {
