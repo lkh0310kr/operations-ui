@@ -1,0 +1,9 @@
+﻿# Foundation increment
+
+The library keeps the existing public keys as compatibility resources while introducing `Ops.*` semantic roles in `Themes/Foundation/Semantic.xaml`. Theme dictionaries provide color values; semantic brushes resolve those values dynamically. The catalog loads a density dictionary after the design-system dictionary, so its size values override the default for either theme. Consumers must preserve this order. These compatibility resources are transitional, not a completed primitive/semantic migration.
+
+The dark and light surface, text, focus and status foreground colors follow the initial brief. Primary action colors use neutral contrasting surfaces; control borders are separate from structural borders. Initial sRGB contrast calculations for primary and secondary text against Panel are 15.24:1 and 7.89:1 dark, 16.42:1 and 6.42:1 light. Input border against Canvas is 4.51:1 dark and 3.30:1 light. These are selected token pairs, not a full state or accessibility audit.
+
+On Windows, `dotnet build VisionApp.Dev.slnx --no-restore` passed with zero warnings and errors. `dotnet run --project Operations.UiCatalog --no-build -- --verify-foundation=artifacts/foundation-check.txt` created a real WPF MES window, switched both themes and all three densities, and checked the live DataGrid row minimum, search input minimum and input font size: Compact 32/32/14, Standard 40/36/14, Touch 52/48/16 DIP. It does not exercise every component, popup, user input or high contrast. The prior MES capture predates the latest font fix.
+
+Remaining work includes a complete primitive scale and semantic migration, Windows high contrast, stable focus visuals, status contracts, a reusable inspector, the other representative screens, full catalog navigation, and interaction, DPI and performance validation. OperationButton legacy semantic variants remain for compatibility; their replacement and usage guidance are not yet complete.

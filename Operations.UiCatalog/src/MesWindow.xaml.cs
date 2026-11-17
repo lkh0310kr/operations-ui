@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -13,7 +13,7 @@ public partial class MesWindow : Window
         InitializeComponent();
         var items = Enumerable.Range(1, 10000).Select(i => new Order(
             $"WO-{i:000000}", i % 2 == 0 ? "구동 모듈 A" : "제어 유닛 B",
-            i % 3 == 0 ? "대기" : "진행 중", $"{i % 800:N0} / 800 EA", "2026-11-17")).ToArray();
+            i % 3 == 0 ? "대기" : "진행 중", i % 800, "2026-11-17")).ToArray();
         _orders = CollectionViewSource.GetDefaultView(items);
         _orders.Filter = Filter;
         OrdersGrid.ItemsSource = _orders;
@@ -32,5 +32,8 @@ public partial class MesWindow : Window
         DetailQuantity.Text = order?.Quantity ?? "—";
         DetailDue.Text = order?.Due ?? "—";
     }
-    private sealed record Order(string Id, string Product, string State, string Quantity, string Due);
+    private sealed record Order(string Id, string Product, string State, int Produced, string Due)
+    {
+        public string Quantity => $"{Produced:N0} / 800 EA";
+    }
 }

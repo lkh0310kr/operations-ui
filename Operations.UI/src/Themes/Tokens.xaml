@@ -2,25 +2,25 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <!-- Dark-first industrial palette aligned with the consuming application's work surface. -->
-    <Color x:Key="CanvasColor">#20272B</Color>
-    <Color x:Key="SurfaceColor">#2A3338</Color>
-    <Color x:Key="SurfaceRaisedColor">#343E43</Color>
-    <Color x:Key="SurfaceHoverColor">#3D494E</Color>
+    <Color x:Key="CanvasColor">#101316</Color>
+    <Color x:Key="SurfaceColor">#171B20</Color>
+    <Color x:Key="SurfaceRaisedColor">#1E242B</Color>
+    <Color x:Key="SurfaceHoverColor">#29323B</Color>
     <Color x:Key="ScrollThumbColor">#4C5A68</Color>
-    <Color x:Key="StrokeColor">#465258</Color>
-    <Color x:Key="TextPrimaryColor">#F1F3F4</Color>
-    <Color x:Key="TextSecondaryColor">#AEB9BE</Color>
+    <Color x:Key="StrokeColor">#303842</Color>
+    <Color x:Key="TextPrimaryColor">#EDF1F5</Color>
+    <Color x:Key="TextSecondaryColor">#A7B0BC</Color>
     <Color x:Key="TextDisabledColor">#A0ABB0</Color>
-    <Color x:Key="AccentColor">#4C8DFF</Color>
+    <Color x:Key="AccentColor">#8CB4FF</Color>
     <Color x:Key="AccentForegroundColor">#101416</Color>
     <Color x:Key="AccentHoverColor">#78A1FF</Color>
     <Color x:Key="AccentPressedColor">#3674E5</Color>
-    <Color x:Key="SuccessColor">#42B883</Color>
-    <Color x:Key="WarningColor">#E5A84B</Color>
-    <Color x:Key="DangerColor">#EF7771</Color>
+    <Color x:Key="SuccessColor">#74D7AC</Color>
+    <Color x:Key="WarningColor">#F2BC62</Color>
+    <Color x:Key="DangerColor">#FF8B8B</Color>
     <Color x:Key="InfoColor">#64A9E8</Color>
-    <Color x:Key="FocusColor">#8DB4FF</Color>
-    <Color x:Key="SelectionColor">#303D50</Color>
+    <Color x:Key="FocusColor">#8CB4FF</Color>
+    <Color x:Key="SelectionColor">#283B54</Color>
     <Color x:Key="DialogScrimColor">#A6000000</Color>
     <Color x:Key="ErrorSurfaceColor">#3C292C</Color>
     <Color x:Key="ErrorHoverSurfaceColor">#4A282B</Color>
@@ -29,6 +29,12 @@
     <Color x:Key="DangerBorderColor">#784247</Color>
     <Color x:Key="WarningBorderColor">#715B32</Color>
     <Color x:Key="SuccessBorderColor">#35634D</Color>
+
+    <Color x:Key="ControlBorderColor">#727E8D</Color>
+    <Color x:Key="PrimaryActionColor">#EDF1F5</Color>
+    <Color x:Key="PrimaryTextColor">#101316</Color>
+    <Color x:Key="PrimaryHoverColor">#D6DEE7</Color>
+    <Color x:Key="PrimaryPressedColor">#BCC8D4</Color>
 
     <SolidColorBrush x:Key="CanvasBrush" Color="{DynamicResource CanvasColor}" />
     <SolidColorBrush x:Key="SurfaceBrush" Color="{DynamicResource SurfaceColor}" />
@@ -83,8 +89,8 @@
     <sys:Double x:Key="FontCardTitle">15</sys:Double>
     <sys:Double x:Key="FontMetricValue">28</sys:Double>
     <sys:Double x:Key="FontActionGlyph">17</sys:Double>
-    <sys:Double x:Key="FontSectionTitle">18</sys:Double>
-    <sys:Double x:Key="FontPageTitle">26</sys:Double>
+    <sys:Double x:Key="FontSectionTitle">16</sys:Double>
+    <sys:Double x:Key="FontPageTitle">24</sys:Double>
     <FontFamily x:Key="FontFamilyBody">Segoe UI</FontFamily>
     <FontFamily x:Key="FontFamilyCode">Consolas</FontFamily>
     <Thickness x:Key="FocusBorderThickness">2</Thickness>

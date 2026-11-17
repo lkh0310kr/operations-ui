@@ -40,6 +40,33 @@ public partial class MainWindow : Window
                 await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
             }
         }
+        var foundationVerification = arguments.FirstOrDefault(argument => argument.StartsWith("--verify-foundation=", StringComparison.OrdinalIgnoreCase));
+        if (foundationVerification is not null)
+        {
+            var report = new List<string>();
+            var mes = new MesWindow { Owner = this };
+            mes.Show();
+            foreach (var light in new[] { false, true })
+            {
+                ApplyTheme(light);
+                foreach (var (index, expectedRow, expectedControl) in new[] { (0, 32d, 32d), (1, 40d, 36d), (2, 52d, 48d) })
+                {
+                    DensityChoice.SelectedIndex = index;
+                    await Dispatcher.InvokeAsync(mes.UpdateLayout, DispatcherPriority.Render);
+                    var grid = (DataGrid)mes.FindName("OrdersGrid");
+                    var search = (TextBox)mes.FindName("SearchBox");
+                    if (grid.MinRowHeight != expectedRow || search.MinHeight != expectedControl || search.FontSize != (index == 2 ? 16 : 14))
+                        throw new InvalidOperationException($"Density resources not applied: row={grid.MinRowHeight}, control={search.MinHeight}");
+                    report.Add($"{(light ? "Light" : "Dark")} {((ComboBoxItem)DensityChoice.SelectedItem).Content}: row={grid.MinRowHeight}, control={search.MinHeight}, font={search.FontSize}");
+                }
+            }
+            var path = Path.GetFullPath(foundationVerification["--verify-foundation=".Length..]);
+            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+            File.WriteAllLines(path, report);
+            mes.Close();
+            Application.Current.Shutdown();
+            return;
+        }
         var mesSnapshot = arguments.FirstOrDefault(argument => argument.StartsWith("--mes-snapshot=", StringComparison.OrdinalIgnoreCase));
         if (mesSnapshot is not null)
         {
@@ -141,6 +168,15 @@ public partial class MainWindow : Window
 
             Application.Current.Shutdown();
         }
+    }
+
+    private void DensityChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (sender is not ComboBox { SelectedItem: ComboBoxItem item } || item.Content is not string density) return;
+        var dictionaries = Application.Current.Resources.MergedDictionaries;
+        var dictionary = dictionaries.FirstOrDefault(d => d.Source?.OriginalString.Contains("/Foundation/Density.", StringComparison.OrdinalIgnoreCase) == true);
+        if (dictionary is not null)
+            dictionary.Source = new Uri($"pack://application:,,,/Operations.UI;component/src/Themes/Foundation/Density.{density}.xaml", UriKind.Absolute);
     }
 
     private void OpenMes_Click(object sender, RoutedEventArgs e) => new MesWindow { Owner = this }.Show();

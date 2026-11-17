@@ -73,17 +73,17 @@
     </Style>
 
     <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-        <Setter Property="Background" Value="{DynamicResource AccentBrush}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
-        <Setter Property="Foreground" Value="{DynamicResource AccentForegroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Ops.Brush.Action.Primary.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Ops.Brush.Action.Primary.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource Ops.Brush.Action.Primary.Foreground}" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource AccentHoverBrush}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource AccentHoverBrush}" />
+                <Setter Property="Background" Value="{DynamicResource Ops.Brush.Action.Primary.Hover}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Ops.Brush.Action.Primary.Hover}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{DynamicResource AccentPressedBrush}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource AccentPressedBrush}" />
+                <Setter Property="Background" Value="{DynamicResource Ops.Brush.Action.Primary.Pressed}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Ops.Brush.Action.Primary.Pressed}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -112,9 +112,10 @@
     <Style x:Key="StopButton" TargetType="Button" BasedOn="{StaticResource DangerButton}" />
 
     <Style TargetType="TextBox">
+        <Setter Property="FontSize" Value="{DynamicResource FontBody}" />
         <Setter Property="Background" Value="{DynamicResource CanvasBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource StrokeBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Ops.Brush.Border.Control}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="10,8" />
         <Setter Property="MinHeight" Value="{DynamicResource ControlHeight}" />
@@ -143,6 +144,7 @@
     </Style>
 
     <Style TargetType="ComboBox">
+        <Setter Property="FontSize" Value="{DynamicResource FontBody}" />
         <Setter Property="Background" Value="{DynamicResource SurfaceRaisedBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource StrokeBrush}" />
@@ -394,7 +396,7 @@
         <Setter Property="RowBackground" Value="{DynamicResource SurfaceBrush}" />
         <Setter Property="AlternatingRowBackground" Value="{DynamicResource SurfaceRaisedBrush}" />
         <Setter Property="HeadersVisibility" Value="Column" />
-        <Setter Property="MinRowHeight" Value="44" />
+        <Setter Property="MinRowHeight" Value="{DynamicResource Ops.Size.DataGrid.RowMinHeight}" />
         <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
         <Style.Triggers>
             <Trigger Property="IsKeyboardFocusWithin" Value="True">

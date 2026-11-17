@@ -78,7 +78,7 @@
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding Variant, RelativeSource={RelativeSource AncestorType={x:Type controls:OperationButton}}}"
                                                          Value="{x:Static controls:OperationButtonVariant.Primary}">
-                                                <Setter Property="Foreground" Value="{DynamicResource AccentForegroundBrush}" />
+                                                <Setter Property="Foreground" Value="{DynamicResource Ops.Brush.Action.Primary.Foreground}" />
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding Variant, RelativeSource={RelativeSource AncestorType={x:Type controls:OperationButton}}}"
                                                          Value="{x:Static controls:OperationButtonVariant.Success}">
@@ -117,10 +117,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Variant" Value="Primary">
-                            <Setter Property="Background" Value="{DynamicResource AccentBrush}" />
-                            <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
-                            <Setter Property="Foreground" Value="{DynamicResource AccentForegroundBrush}" />
-                            <Setter TargetName="ButtonLabel" Property="TextElement.Foreground" Value="{DynamicResource AccentForegroundBrush}" />
+                            <Setter Property="Background" Value="{DynamicResource Ops.Brush.Action.Primary.Background}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource Ops.Brush.Action.Primary.Background}" />
+                            <Setter Property="Foreground" Value="{DynamicResource Ops.Brush.Action.Primary.Foreground}" />
+                            <Setter TargetName="ButtonLabel" Property="TextElement.Foreground" Value="{DynamicResource Ops.Brush.Action.Primary.Foreground}" />
                         </Trigger>
                         <Trigger Property="Variant" Value="Success">
                             <Setter Property="Background" Value="{DynamicResource SuccessSurfaceBrush}" />

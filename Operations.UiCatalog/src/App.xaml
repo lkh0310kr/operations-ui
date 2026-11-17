@@ -6,6 +6,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Operations.UI;component/src/Themes/DesignSystem.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Operations.UI;component/src/Themes/Foundation/Density.Standard.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

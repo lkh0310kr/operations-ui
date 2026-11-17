@@ -1,0 +1,28 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+ <!-- Semantic roles refer to theme colors; density overrides are later app-level dictionaries. -->
+ <SolidColorBrush x:Key="Ops.Brush.Surface.Canvas" Color="{DynamicResource CanvasColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Surface.Panel" Color="{DynamicResource SurfaceColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Surface.Raised" Color="{DynamicResource SurfaceRaisedColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Text.Primary" Color="{DynamicResource TextPrimaryColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Text.Secondary" Color="{DynamicResource TextSecondaryColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Border.Subtle" Color="{DynamicResource StrokeColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Border.Control" Color="{DynamicResource ControlBorderColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Interaction.Focus" Color="{DynamicResource FocusColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Interaction.Selection" Color="{DynamicResource SelectionColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Action.Primary.Background" Color="{DynamicResource PrimaryActionColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Action.Primary.Foreground" Color="{DynamicResource PrimaryTextColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Action.Primary.Hover" Color="{DynamicResource PrimaryHoverColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Action.Primary.Pressed" Color="{DynamicResource PrimaryPressedColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Status.Positive.Foreground" Color="{DynamicResource SuccessColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Status.Positive.Background" Color="{DynamicResource SuccessSurfaceColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Status.Positive.Border" Color="{DynamicResource SuccessBorderColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Status.Warning.Foreground" Color="{DynamicResource WarningColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Status.Warning.Background" Color="{DynamicResource WarningSurfaceColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Status.Warning.Border" Color="{DynamicResource WarningBorderColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Status.Danger.Foreground" Color="{DynamicResource DangerColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Status.Danger.Background" Color="{DynamicResource ErrorSurfaceColor}"/>
+ <SolidColorBrush x:Key="Ops.Brush.Status.Danger.Border" Color="{DynamicResource DangerBorderColor}"/>
+ <CornerRadius x:Key="Ops.Radius.Control">4</CornerRadius><CornerRadius x:Key="Ops.Radius.Panel">6</CornerRadius><CornerRadius x:Key="Ops.Radius.Dialog">8</CornerRadius>
+ <sys:Double x:Key="Ops.Size.Control.MinHeight">36</sys:Double><sys:Double x:Key="Ops.Size.DataGrid.RowMinHeight">40</sys:Double>
+</ResourceDictionary>
