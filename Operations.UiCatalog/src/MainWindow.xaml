@@ -52,6 +52,7 @@
                         <TextBlock Text="기본 테마" Foreground="{DynamicResource TextSecondaryBrush}" />
                     </StackPanel>
                     <ComboBox x:Name="DensityChoice" DockPanel.Dock="Right" Width="120" Margin="8,0,0,0" SelectedIndex="1" SelectionChanged="DensityChanged" AutomationProperties.Name="Density"><ComboBoxItem Content="Compact"/><ComboBoxItem Content="Standard"/><ComboBoxItem Content="Touch"/></ComboBox>
+                    <Button DockPanel.Dock="Right" Content="ERP 샘플" Click="OpenErp_Click" VerticalAlignment="Center" Margin="8,0,0,0" />
                     <Button DockPanel.Dock="Right" Content="HMI 샘플" Click="OpenHmi_Click" VerticalAlignment="Center" Margin="8,0,0,0" />
                     <Button DockPanel.Dock="Right" Content="MES 샘플" Click="OpenMes_Click" VerticalAlignment="Center" Margin="8,0,0,0" />
                     <Button x:Name="ThemeToggle" DockPanel.Dock="Right" Content="라이트 테마" Click="ThemeToggle_Click"

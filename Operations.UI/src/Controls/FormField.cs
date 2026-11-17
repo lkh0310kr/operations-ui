@@ -47,7 +47,7 @@ public sealed class FormField : ContentControl
     }
 
     public static readonly DependencyProperty IsRequiredProperty = DependencyProperty.Register(
-        nameof(IsRequired), typeof(bool), typeof(FormField), new PropertyMetadata(false));
+        nameof(IsRequired), typeof(bool), typeof(FormField), new PropertyMetadata(false, OnFieldMetadataChanged));
 
     public bool IsRequired
     {

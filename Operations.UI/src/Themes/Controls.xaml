@@ -122,6 +122,9 @@
         <Setter Property="CaretBrush" Value="{DynamicResource AccentBrush}" />
         <Setter Property="SelectionBrush" Value="{DynamicResource AccentBrush}" />
         <Style.Triggers>
+            <Trigger Property="IsReadOnly" Value="True">
+                <Setter Property="Background" Value="{DynamicResource SurfaceRaisedBrush}" />
+            </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="BorderBrush" Value="{DynamicResource TextSecondaryBrush}" />
             </Trigger>
@@ -420,6 +423,14 @@
                 <Setter Property="BorderThickness" Value="{DynamicResource FocusBorderThickness}" />
             </Trigger>
         </Style.Triggers>
+    </Style>
+    <Style x:Key="Ops.DataGrid.NumericHeader" TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+        <Setter Property="HorizontalContentAlignment" Value="Right" />
+    </Style>
+    <Style x:Key="Ops.DataGrid.NumericCell" TargetType="TextBlock">
+        <Setter Property="TextAlignment" Value="Right" />
+        <Setter Property="Margin" Value="0,0,8,0" />
+        <Setter Property="Typography.NumeralAlignment" Value="Tabular" />
     </Style>
     <Style TargetType="DataGridRow">
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />

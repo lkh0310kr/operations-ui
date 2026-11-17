@@ -40,6 +40,38 @@ public partial class MainWindow : Window
                 await Dispatcher.InvokeAsync(UpdateLayout, DispatcherPriority.Render);
             }
         }
+        var erpVerification = arguments.FirstOrDefault(argument => argument.StartsWith("--verify-erp=", StringComparison.OrdinalIgnoreCase));
+        if (erpVerification is not null)
+        {
+            var erp = new ErpWindow { Owner = this };
+            erp.Show();
+            await Dispatcher.InvokeAsync(erp.UpdateLayout, DispatcherPriority.Render);
+            var report = await erp.VerifySampleBehaviorAsync();
+            var path = Path.GetFullPath(erpVerification["--verify-erp=".Length..]);
+            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+            File.WriteAllLines(path, report);
+            erp.Close();
+            Application.Current.Shutdown();
+            return;
+        }
+        var erpSnapshot = arguments.FirstOrDefault(argument => argument.StartsWith("--erp-snapshot=", StringComparison.OrdinalIgnoreCase));
+        if (erpSnapshot is not null)
+        {
+            var erp = new ErpWindow { Owner = this };
+            erp.Show();
+            await Dispatcher.InvokeAsync(erp.UpdateLayout, DispatcherPriority.Render);
+            await Task.Delay(200);
+            var dpi = VisualTreeHelper.GetDpi(erp);
+            var bitmap = new RenderTargetBitmap((int)Math.Ceiling(erp.ActualWidth * dpi.DpiScaleX), (int)Math.Ceiling(erp.ActualHeight * dpi.DpiScaleY), dpi.PixelsPerInchX, dpi.PixelsPerInchY, PixelFormats.Pbgra32);
+            bitmap.Render(erp);
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bitmap));
+            var path = Path.GetFullPath(erpSnapshot["--erp-snapshot=".Length..]);
+            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+            using (var stream = File.Create(path)) encoder.Save(stream);
+            Application.Current.Shutdown();
+            return;
+        }
         var hmiVerification = arguments.FirstOrDefault(argument => argument.StartsWith("--verify-hmi=", StringComparison.OrdinalIgnoreCase));
         if (hmiVerification is not null)
         {
@@ -226,6 +258,7 @@ public partial class MainWindow : Window
 
     private void OpenMes_Click(object sender, RoutedEventArgs e) => new MesWindow { Owner = this }.Show();
     private void OpenHmi_Click(object sender, RoutedEventArgs e) => new HmiWindow { Owner = this }.Show();
+    private void OpenErp_Click(object sender, RoutedEventArgs e) => new ErpWindow { Owner = this }.Show();
 
     private void ThemeToggle_Click(object sender, RoutedEventArgs e) => ApplyTheme(!_isLightTheme);
 
