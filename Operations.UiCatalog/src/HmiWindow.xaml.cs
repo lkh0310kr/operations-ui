@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Automation.Peers;
 using System.Windows.Input;
 using Operations.UI.Controls;
 
@@ -20,10 +21,23 @@ public partial class HmiWindow : Window
             throw new InvalidOperationException("HMI sample resources or data are invalid.");
         if (model.Samples[5].Value is not null || model.Samples[5].Quality != SampleQuality.Bad)
             throw new InvalidOperationException("Missing trend sample was lost.");
-        model.AcknowledgeCommand.Execute(null);
-        if (!model.IsAcknowledged || !model.IsAlarmActive)
+        var valueName = UIElementAutomationPeer.CreatePeerForElement(SpeedValue)?.GetName() ?? "";
+        if (SpeedValue.ValueText is not null || !valueName.Contains("—") || !valueName.Contains("품질") || !valueName.Contains("최신성"))
+            throw new InvalidOperationException("Missing value, quality and freshness are not separately exposed.");
+        var alarmPeer = UIElementAutomationPeer.CreatePeerForElement(SampleAlarm);
+        var alarmName = alarmPeer?.GetName() ?? "";
+        if (!alarmName.Contains("활성") || !alarmName.Contains("미확인"))
+            throw new InvalidOperationException("Alarm active and acknowledgement descriptions are not exposed.");
+        if (SampleAlarm.Template.FindName("AlarmTitle", SampleAlarm) is not System.Windows.Controls.TextBlock title || title.Text != SampleAlarm.Title)
+            throw new InvalidOperationException("Alarm title is not visible in the presentation template.");
+        if (SampleAlarm.Template.FindName("AcknowledgeButton", SampleAlarm) is not OperationButton button || button.Command != model.AcknowledgeCommand)
+            throw new InvalidOperationException("Alarm acknowledgement command is not wired to the supplied command.");
+        button.Command.Execute(button.CommandParameter);
+        if (!model.IsAcknowledged || !model.IsAlarmActive || SampleAlarm.AcknowledgementText != model.Acknowledgement || SampleAlarm.ActiveText != model.AlarmActiveDescription)
             throw new InvalidOperationException("Acknowledgement must not clear the active alarm.");
-        return ["Touch minimum height and disabled command verified", "Missing trend sample retained", "Acknowledgement and alarm active state remain independent"];
+        if (alarmPeer?.GetName().Contains("확인됨") != true)
+            throw new InvalidOperationException("Updated alarm acknowledgement is not available through the automation peer.");
+        return ["Touch minimum height and disabled command verified", "Missing trend sample retained", "Missing value, quality and freshness exposed through automation peer", "Alarm active and acknowledgement descriptions are separate", "Acknowledgement and alarm active state remain independent"];
     }
 }
 

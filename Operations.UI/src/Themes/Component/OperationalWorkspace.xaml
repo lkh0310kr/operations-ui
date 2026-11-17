@@ -5,10 +5,10 @@
   <Setter Property="Foreground" Value="{DynamicResource Ops.Brush.Text.Secondary}"/>
   <Setter Property="Template">
    <Setter.Value><ControlTemplate TargetType="controls:StatusIndicator">
-    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+    <Grid VerticalAlignment="Center"><Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
      <Ellipse Width="6" Height="6" Fill="{TemplateBinding Foreground}" Margin="0,0,8,0"/>
-     <ContentPresenter ContentSource="Content" TextElement.Foreground="{TemplateBinding Foreground}"/>
-    </StackPanel>
+     <ContentPresenter Grid.Column="1" ContentSource="Content" TextElement.Foreground="{TemplateBinding Foreground}"/>
+    </Grid>
    </ControlTemplate></Setter.Value>
   </Setter>
   <Style.Triggers>
@@ -34,5 +34,38 @@
     </Border>
    </ControlTemplate></Setter.Value>
   </Setter>
+ </Style>
+ <Style TargetType="controls:ValueDisplay">
+  <Setter Property="Focusable" Value="False"/>
+  <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="controls:ValueDisplay">
+   <StackPanel>
+    <TextBlock Text="{TemplateBinding Label}" Foreground="{DynamicResource Ops.Brush.Text.Secondary}" TextWrapping="Wrap"/>
+    <WrapPanel VerticalAlignment="Bottom">
+     <TextBlock Text="{Binding ValueText, RelativeSource={RelativeSource TemplatedParent}, TargetNullValue=—}" FontSize="{DynamicResource FontMetricValue}" FontWeight="Medium" Typography.NumeralAlignment="Tabular"/>
+     <TextBlock Text="{TemplateBinding Unit}" VerticalAlignment="Bottom" Margin="8,0,0,4"/>
+    </WrapPanel>
+    <TextBlock Text="{TemplateBinding RangeText}" Foreground="{DynamicResource Ops.Brush.Text.Secondary}" TextWrapping="Wrap"/>
+    <TextBlock Text="{TemplateBinding QualityText}" Foreground="{DynamicResource Ops.Brush.Text.Secondary}" TextWrapping="Wrap" Margin="0,4,0,0"/>
+    <TextBlock Text="{TemplateBinding FreshnessText}" Foreground="{DynamicResource Ops.Brush.Text.Secondary}" TextWrapping="Wrap"/>
+    <TextBlock Text="{TemplateBinding TimestampText}" Foreground="{DynamicResource Ops.Brush.Text.Secondary}" TextWrapping="Wrap"/>
+   </StackPanel>
+  </ControlTemplate></Setter.Value></Setter>
+ </Style>
+ <Style TargetType="controls:AlarmList">
+  <Setter Property="Focusable" Value="False"/>
+  <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="controls:AlarmList"><ItemsPresenter/></ControlTemplate></Setter.Value></Setter>
+ </Style>
+ <Style TargetType="controls:AlarmEntry">
+  <Setter Property="Focusable" Value="False"/>
+  <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="controls:AlarmEntry">
+   <StackPanel>
+    <controls:StatusIndicator Tone="{TemplateBinding Tone}"><TextBlock x:Name="AlarmTitle" Text="{Binding Title, RelativeSource={RelativeSource AncestorType={x:Type controls:AlarmEntry}}}" TextWrapping="Wrap"/></controls:StatusIndicator>
+    <Grid Margin="14,4,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><TextBlock Text="{TemplateBinding IdentifierText}" Foreground="{DynamicResource Ops.Brush.Text.Secondary}" TextWrapping="Wrap"/><TextBlock Grid.Column="1" Text="{TemplateBinding SeverityText}" TextWrapping="Wrap" Margin="8,0,0,0"/></Grid>
+    <Grid Margin="14,8,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><TextBlock Text="{TemplateBinding ActiveText}" TextWrapping="Wrap"/><TextBlock Grid.Column="1" Text="{TemplateBinding AcknowledgementText}" TextWrapping="Wrap" Margin="8,0,0,0"/></Grid>
+    <controls:OperationButton x:Name="AcknowledgeButton" Content="{TemplateBinding AcknowledgeLabel}" Command="{TemplateBinding AcknowledgeCommand}" CommandParameter="{TemplateBinding AcknowledgeCommandParameter}" HorizontalAlignment="Left" Margin="14,12,0,0"/>
+    <TextBlock Text="{TemplateBinding AcknowledgeHelp}" Foreground="{DynamicResource Ops.Brush.Text.Secondary}" TextWrapping="Wrap" Margin="14,8,0,0"/>
+   </StackPanel>
+   <ControlTemplate.Triggers><Trigger Property="AcknowledgeCommand" Value="{x:Null}"><Setter TargetName="AcknowledgeButton" Property="Visibility" Value="Collapsed"/></Trigger></ControlTemplate.Triggers>
+  </ControlTemplate></Setter.Value></Setter>
  </Style>
 </ResourceDictionary>

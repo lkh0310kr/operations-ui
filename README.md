@@ -36,7 +36,8 @@ dotnet run --project .\Operations.UiCatalog\Operations.UiCatalog.csproj -- --siz
 
 - `OperationButton`, `OperationSwitch`: 동작 우선순위·크기·처리 중 상태, 선택형 on/off.
 - `FormField`: 입력 라벨·도움말·필수·오류 상태.
-- `NotificationBanner`, `StatusBadge`: 의미가 있는 알림과 상태 표시.
+- `NotificationBanner`, `StatusIndicator`: 알림과 독립적인 상태 표시. `StatusBadge`는 기존 소비자를 위한 호환 API다.
+- `ValueDisplay`, `AlarmEntry`, `AlarmList`: 값·품질·최신성과 알람의 활성·확인 상태를 분리해 표현한다.
 - `MetricTile`, `DataStatePanel`: 지표 값과 데이터 영역의 로딩·빈 결과·오류 상태.
 - `WorkspaceShell`, `DialogHost`: 재사용 작업공간과 모달 대화상자 패턴.
 

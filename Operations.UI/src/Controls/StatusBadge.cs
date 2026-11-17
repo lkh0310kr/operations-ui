@@ -12,7 +12,7 @@ public enum EquipmentState
     Fault
 }
 
-/// <summary>Shows an equipment state with both a label and a semantic color.</summary>
+/// <summary>Legacy compatibility control. New operational screens should use separate status indicators for each independent fact.</summary>
 public sealed class StatusBadge : ContentControl
 {
     static StatusBadge()

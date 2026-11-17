@@ -23,8 +23,8 @@
      </Grid>
     </Border>
     <Grid Grid.Row="1" Margin="0,20,0,16"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-     <StackPanel><TextBlock Text="혼합 온도" Style="{StaticResource SupportingText}"/><StackPanel Orientation="Horizontal"><TextBlock Text="73.4" FontSize="{DynamicResource FontMetricValue}" FontWeight="Medium"/><TextBlock Text="°C" VerticalAlignment="Bottom" Margin="8,0,0,4"/></StackPanel><TextBlock Text="정상 범위 65.0–80.0 °C" Style="{StaticResource SupportingText}"/><TextBlock Text="품질: 양호 · 마지막 수신 10:24:00" Style="{StaticResource SupportingText}" Margin="0,4,0,0"/></StackPanel>
-     <StackPanel Grid.Column="1"><TextBlock Text="교반 속도" Style="{StaticResource SupportingText}"/><StackPanel Orientation="Horizontal"><TextBlock Text="—" FontSize="{DynamicResource FontMetricValue}" FontWeight="Medium"/><TextBlock Text="rpm" VerticalAlignment="Bottom" Margin="8,0,0,4"/></StackPanel><TextBlock Text="정상 범위 800–1,200 rpm" Style="{StaticResource SupportingText}"/><TextBlock Text="품질: 신뢰할 수 없음 · 값 없음" Style="{StaticResource SupportingText}" Margin="0,4,0,0"/></StackPanel>
+     <ui:ValueDisplay x:Name="TemperatureValue" Label="혼합 온도" ValueText="73.4" Unit="°C" RangeText="정상 범위 65.0–80.0 °C" QualityText="품질: 양호" FreshnessText="최신성: 오래됨" TimestampText="마지막 수신 10:24:00"/>
+     <ui:ValueDisplay x:Name="SpeedValue" Grid.Column="1" Label="교반 속도" Unit="rpm" RangeText="정상 범위 800–1,200 rpm" QualityText="품질: 신뢰할 수 없음" FreshnessText="최신성: 알 수 없음" TimestampText="수신 값 없음"/>
     </Grid>
     <Grid Grid.Row="2" MinHeight="150"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
      <TextBlock Text="혼합 온도 추세 · °C" Style="{StaticResource SectionTitle}" Margin="0,0,0,12"/>
@@ -37,8 +37,8 @@
     <TextBlock Grid.Row="3" Text="추세는 샘플이며, 품질이 불확실하거나 값이 없는 구간은 연결하지 않습니다." Style="{StaticResource SupportingText}" TextWrapping="Wrap" Margin="0,12,0,0"/>
    </Grid>
    <ui:Inspector Grid.Column="2" Header="알람 및 명령" AutomationProperties.Name="알람 및 명령 상세">
-    <StackPanel><TextBlock Text="활성 알람 · 1" FontWeight="SemiBold"/><ui:StatusIndicator Content="온도 편차 확인 필요" Tone="Warning" Margin="0,12,0,0"/><TextBlock Text="AL-0042 · 10:20:00" Style="{StaticResource SupportingText}" Margin="14,4,0,0"/><TextBlock Text="{Binding AlarmActiveDescription}" Margin="14,8,0,0"/><TextBlock Text="{Binding Acknowledgement}" Margin="14,4,0,0"/><ui:OperationButton Content="샘플 알람 확인" Command="{Binding AcknowledgeCommand}" Margin="14,12,0,0" HorizontalAlignment="Left"/>
-     <TextBlock Text="확인은 원인 해소를 뜻하지 않습니다. 이 예제는 실제 알람을 변경하지 않습니다." Style="{StaticResource SupportingText}" TextWrapping="Wrap" Margin="14,8,0,0"/>
+    <StackPanel><TextBlock Text="활성 알람 · 1" FontWeight="SemiBold"/>
+     <ui:AlarmList AutomationProperties.Name="샘플 활성 알람 목록" Margin="0,12,0,0"><ui:AlarmEntry x:Name="SampleAlarm" Title="온도 편차 확인 필요" Tone="Warning" IdentifierText="AL-0042 · 10:20:00" SeverityText="심각도: 주의" ActiveText="{Binding AlarmActiveDescription}" AcknowledgementText="{Binding Acknowledgement}" AcknowledgeLabel="샘플 알람 확인" AcknowledgeCommand="{Binding AcknowledgeCommand}" AcknowledgeHelp="확인은 원인 해소가 아닙니다. 실제 알람은 변경되지 않습니다."/></ui:AlarmList>
      <Separator Margin="0,20"/><TextBlock Text="명령 요청" FontWeight="SemiBold"/><TextBlock Text="마지막 요청: 없음" Margin="0,12,0,0"/><TextBlock Text="장치 응답: 없음" Margin="0,4,0,0"/><ui:OperationButton x:Name="RequestButton" Content="운전 요청" IsEnabled="False" Margin="0,12,0,0" HorizontalAlignment="Left"/><TextBlock Text="연결이 없어 요청할 수 없습니다. 샘플 화면은 장치 명령을 보내지 않습니다." Style="{StaticResource SupportingText}" TextWrapping="Wrap" Margin="0,8,0,0"/>
     </StackPanel>
    </ui:Inspector>
