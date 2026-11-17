@@ -27,7 +27,7 @@
 | 오류 hover 표면 | `ErrorHoverSurfaceColor` | 위험 동작 버튼 hover 배경 |
 | 키보드 포커스 | `FocusColor` | 조작 요소의 외곽선 |
 
-색상 토큰은 `Operations.UI/Themes/Tokens.xaml`(다크)과 `Tokens.Light.xaml`(라이트)에 의미 이름으로 관리한다. 컴포넌트는 동일한 `*Brush` 토큰만 참조해 테마 전환 뒤에도 스타일을 유지한다. 상태 색은 상태명과 아이콘 또는 형태를 함께 표현한다. 위험 동작을 색만으로 암시하지 말고 동작 이름을 명확히 쓴다.
+색상 토큰은 `Operations.UI/src/Themes/Tokens.xaml`(다크)과 `Tokens.Light.xaml`(라이트)에 의미 이름으로 관리한다. 컴포넌트는 동일한 `*Brush` 토큰만 참조해 테마 전환 뒤에도 스타일을 유지한다. 상태 색은 상태명과 아이콘 또는 형태를 함께 표현한다. 위험 동작을 색만으로 암시하지 말고 동작 이름을 명확히 쓴다.
 
 ### 테마
 
@@ -35,7 +35,7 @@
 
 ```xml
 <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="pack://application:,,,/Operations.UI;component/Themes/DesignSystem.xaml" />
+    <ResourceDictionary Source="pack://application:,,,/Operations.UI;component/src/Themes/DesignSystem.xaml" />
 </ResourceDictionary.MergedDictionaries>
 ```
 
@@ -43,9 +43,9 @@
 
 ```csharp
 var designSystem = Application.Current.Resources.MergedDictionaries
-    .First(dictionary => dictionary.Source?.OriginalString.Contains("/Themes/DesignSystem", StringComparison.OrdinalIgnoreCase) == true);
+    .First(dictionary => dictionary.Source?.OriginalString.Contains("/src/Themes/DesignSystem", StringComparison.OrdinalIgnoreCase) == true);
 designSystem.Source = new Uri(
-    $"pack://application:,,,/Operations.UI;component/Themes/{(useLightTheme ? "DesignSystem.Light.xaml" : "DesignSystem.xaml")}",
+    $"pack://application:,,,/Operations.UI;component/src/Themes/{(useLightTheme ? "DesignSystem.Light.xaml" : "DesignSystem.xaml")}",
     UriKind.Absolute);
 ```
 

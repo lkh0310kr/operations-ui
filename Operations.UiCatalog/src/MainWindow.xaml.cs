@@ -130,11 +130,11 @@ public partial class MainWindow : Window
     private void ApplyTheme(bool useLightTheme)
     {
         var designSystem = Application.Current.Resources.MergedDictionaries
-            .FirstOrDefault(dictionary => dictionary.Source?.OriginalString.Contains("/Themes/DesignSystem", StringComparison.OrdinalIgnoreCase) == true);
+            .FirstOrDefault(dictionary => dictionary.Source?.OriginalString.Contains("/src/Themes/DesignSystem", StringComparison.OrdinalIgnoreCase) == true);
         if (designSystem is null) return;
 
         var themeFile = useLightTheme ? "DesignSystem.Light.xaml" : "DesignSystem.xaml";
-        designSystem.Source = new Uri($"pack://application:,,,/Operations.UI;component/Themes/{themeFile}", UriKind.Absolute);
+        designSystem.Source = new Uri($"pack://application:,,,/Operations.UI;component/src/Themes/{themeFile}", UriKind.Absolute);
         _isLightTheme = useLightTheme;
         ThemeToggle.Content = useLightTheme ? "다크 테마" : "라이트 테마";
         AutomationProperties.SetName(ThemeToggle, useLightTheme ? "다크 테마로 전환" : "라이트 테마로 전환");

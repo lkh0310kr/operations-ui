@@ -9,6 +9,9 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
+    <ApplicationDefinition Include="src\App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Operations.UI\Operations.UI.csproj" />
     <PackageReference Include="WPF-UI" Version="4.3.0" />
   </ItemGroup>
